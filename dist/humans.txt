@@ -1,0 +1,11 @@
+/* Team invovled */
+	Web designer: Shaun
+	From: England, United Kingdom
+
+/* Special thanks */
+
+/* Site details */
+	Last update:2026/07/01
+	Language: English
+	Doctype:HTML5
+	IDE: Visual Studio Code, GitHub, AstroJS
