@@ -6,6 +6,7 @@ _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+.astro/
 
 # Basic Jekyll gitignores (synchronize to Jekyll.gitignore)
 node_modules/
