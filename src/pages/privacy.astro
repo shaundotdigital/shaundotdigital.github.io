@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Privacy" description="How this site uses analytics and how to opt out.">
+	<main class="min-h-dvh bg-white font-sans text-neutral-800">
+		<div class="mx-auto max-w-2xl space-y-6 px-8 py-16">
+			<p><a href="/" class="text-sm underline underline-offset-4">&larr; Home</a></p>
+			<h1 class="text-3xl tracking-tight">Privacy</h1>
+
+			<h2 class="text-xl">Analytics</h2>
+			<p>
+				This site uses Google Analytics 4 to collect statistics about visits: which pages are viewed,
+				roughly where visitors are and what kind of device they use. I use this only to understand how
+				the site is used and to improve it.
+			</p>
+			<ul class="list-disc space-y-2 pl-6">
+				<li>Google Analytics sets cookies in your browser (named <code>_ga</code> and <code>_ga_*</code>) to tell visits apart. They last up to two years.</li>
+				<li>Advertising features, Google signals and ad personalisation are switched off.</li>
+				<li>Google processes the data on my behalf. I do not use it to identify you.</li>
+				<li>Analytics does not load for visitors in the EU, EEA or Switzerland, or if your browser sends a Global Privacy Control or Do Not Track signal.</li>
+			</ul>
+
+			<h2 class="text-xl">No cookie banner</h2>
+			<p>
+				UK law allows analytics used purely for statistics to run without asking for consent first,
+				as long as you are told about it and can easily opt out. That is the approach this site takes.
+			</p>
+
+			<h2 class="text-xl">Opting out</h2>
+			<p>
+				Use the &ldquo;Opt out of analytics&rdquo; link in the footer of any page. Your choice is saved in
+				your browser and applies from the next page you load. You can opt back in the same way.
+			</p>
+
+			<h2 class="text-xl">Contact</h2>
+			<p>
+				<!-- TODO: add a contact email or link to the contact page -->
+				Questions about this? Get in touch using the details on the contact page.
+			</p>
+		</div>
+	</main>
+</Layout>
