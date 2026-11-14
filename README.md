@@ -1,48 +1,31 @@
-# Astro Starter Kit: Basics
+# shaundotdigital.github.io
 
-```sh
-npm create astro@latest -- --template basics
-```
+Personal site and portfolio for Shaun, built with [Astro](https://astro.build) and Tailwind CSS, hosted on GitHub Pages at [byshaun.xyz](https://byshaun.xyz).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Commands
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Command           | Action                                      |
+| :---------------- | :------------------------------------------ |
+| `npm install`     | Install dependencies                        |
+| `npm run dev`     | Start the dev server at `localhost:4321`    |
+| `npm run build`   | Build the site to `./dist/`                 |
+| `npm run preview` | Preview the build locally                   |
+| `npm run check`   | Type-check the project with `astro check`   |
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## Branches
 
-## 🚀 Project Structure
+- `dev` - day-to-day work
+- `live` - production. Pushing here triggers the deploy workflow
+- `boilerplate` - reusable starting point
 
-Inside of your Astro project, you'll see the following folders and files:
+## Structure
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+public/          Static files copied as-is (CNAME, favicon, humans.txt)
+src/components/  Page sections
+src/layouts/     Layout.astro - shared <head>, meta tags and global CSS
+src/pages/       Routes
+src/styles/      global.css - Tailwind import and theme colours
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+`dist/` and `.astro/` are generated and not committed.
