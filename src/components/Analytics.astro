@@ -1,0 +1,88 @@
+---
+// Google Analytics 4, set up to run without a consent banner.
+//
+// - UK visitors: relies on the "statistical purposes" exception in PECR (in force Feb 2026).
+//   That exception needs clear information and an easy opt-out, which the footer provides.
+// - EU/EEA and Swiss visitors: consent is still required there, so the tag is not loaded at all.
+// - Never loads for anyone who has opted out, or who sends a Global Privacy Control or
+//   Do Not Track signal.
+// - Advertising features are switched off, and the tag only runs on the built site, not in dev.
+export const GA_ID = "G-YCLEQYNLKH";
+export const OPT_OUT_KEY = "analytics-opt-out";
+
+const enabled = import.meta.env.PROD;
+---
+
+{enabled && (
+  <script is:inline define:vars={{ GA_ID, OPT_OUT_KEY }}>
+    (function () {
+      var optedOut = false;
+      try {
+        optedOut = localStorage.getItem(OPT_OUT_KEY) === "1";
+      } catch (e) {}
+
+      var tz = "";
+      try {
+        tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+      } catch (e) {}
+
+      // Time zone is a rough, privacy-friendly stand-in for location.
+      // Any European zone outside the UK and Crown Dependencies is treated as consent-required.
+      var ukZones = ["Europe/London", "Europe/Belfast", "Europe/Jersey", "Europe/Guernsey", "Europe/Isle_of_Man"];
+      var otherConsentZones = [
+        "Atlantic/Canary", "Atlantic/Madeira", "Atlantic/Azores", "Atlantic/Reykjavik",
+        "Africa/Ceuta", "Asia/Nicosia", "Asia/Famagusta", "Arctic/Longyearbyen",
+      ];
+      var consentRequired =
+        (tz.indexOf("Europe/") === 0 && ukZones.indexOf(tz) === -1) || otherConsentZones.indexOf(tz) !== -1;
+
+      var privacySignal = navigator.globalPrivacyControl === true || navigator.doNotTrack === "1";
+
+      if (optedOut || consentRequired || privacySignal) {
+        window["ga-disable-" + GA_ID] = true;
+        return;
+      }
+
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () {
+        window.dataLayer.push(arguments);
+      };
+
+      // Advertising signals are always off.
+      window.gtag("consent", "default", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "granted",
+      });
+      // Backstop for EU/EEA and Swiss visitors the time zone check missed: no analytics cookies.
+      window.gtag(
+        "consent",
+        "default",
+        {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied",
+        },
+        {
+          region: [
+            "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV",
+            "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO", "CH",
+          ],
+        }
+      );
+
+      window.gtag("js", new Date());
+      window.gtag("config", GA_ID, {
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+      });
+
+      var s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+      document.head.appendChild(s);
+    })();
+  </script>
+)}

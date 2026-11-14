@@ -1,0 +1,68 @@
+---
+import { OPT_OUT_KEY } from "./Analytics.astro";
+---
+
+<footer class="bg-ink font-sans text-neutral-400">
+  <div class="container-default flex flex-col gap-4 border-t border-white/10 text-sm md:flex-row md:items-start md:justify-between">
+    <p>&copy; {new Date().getFullYear()} Shaun Digital</p>
+
+    <div class="max-w-xl">
+      <p>
+        This site uses Google Analytics to count visits and see which pages get read, so I can improve it.
+        No advertising features are used, and it is switched off for visitors in the EU.{" "}
+        <a href="/privacy" class="underline underline-offset-4 hover:text-white">Privacy</a>
+      </p>
+      <p class="mt-2">
+        <button
+          type="button"
+          data-analytics-toggle
+          data-key={OPT_OUT_KEY}
+          class="cursor-pointer underline underline-offset-4 hover:text-white"
+        >
+          Opt out of analytics
+        </button>
+        <span data-analytics-status role="status" class="ml-2"></span>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-analytics-toggle]");
+  const status = document.querySelector<HTMLElement>("[data-analytics-status]");
+
+  if (button) {
+    const key = button.dataset.key ?? "analytics-opt-out";
+
+    const isOptedOut = () => {
+      try {
+        return localStorage.getItem(key) === "1";
+      } catch {
+        return false;
+      }
+    };
+
+    const render = () => {
+      button.textContent = isOptedOut() ? "Opt back in to analytics" : "Opt out of analytics";
+    };
+
+    button.addEventListener("click", () => {
+      const optOut = !isOptedOut();
+      try {
+        if (optOut) localStorage.setItem(key, "1");
+        else localStorage.removeItem(key);
+      } catch {
+        if (status) status.textContent = "Your browser blocked saving this choice.";
+        return;
+      }
+      render();
+      if (status) {
+        status.textContent = optOut
+          ? "Done. Analytics is off for you from the next page load."
+          : "Done. Analytics is back on from the next page load.";
+      }
+    });
+
+    render();
+  }
+</script>
