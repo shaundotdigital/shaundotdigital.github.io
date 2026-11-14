@@ -1,0 +1,42 @@
+---
+// Placeholder content for the most recent role.
+const role = {
+  company: "Brakes / Sysco",
+  title: "Digital Optimisation Executive",
+  summary:
+    "Placeholder summary. A few lines on what you own in this role, what you improved and the result it had for the business.",
+  tags: [
+    "A/B testing",
+    "Analytics",
+    "CRO",
+    "UX",
+    "Content optimisation",
+    "Campaigns",
+    "SEO",
+    "Stakeholder management",
+  ],
+};
+---
+
+<section id="recent" class="bg-ink text-white">
+  <div class="container-default py-16">
+    <h2 class="max-w-md text-2xl tracking-tight md:text-3xl">
+      <span class="text-neutral-400">I currently</span> work at {role.company},{" "}
+      <span class="text-neutral-400">improving the</span> online customer experience.
+    </h2>
+
+    <!-- Logo placeholder -->
+    <div class="mt-10 flex h-10 w-36 items-center justify-center rounded border border-dashed border-neutral-500 text-xs text-neutral-400">
+      Logo
+    </div>
+
+    <h3 class="mt-6 text-lg">{role.title}</h3>
+    <p class="mt-2 max-w-md text-sm leading-relaxed text-neutral-400">{role.summary}</p>
+
+    <ul class="mt-6 flex max-w-md flex-wrap gap-2">
+      {role.tags.map((tag) => (
+        <li class="rounded-full bg-white/10 px-3 py-1 text-xs tracking-wide text-neutral-300 uppercase">{tag}</li>
+      ))}
+    </ul>
+  </div>
+</section>

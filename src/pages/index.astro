@@ -1,8 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Holding from '../components/Holding.astro';
+import SiteNav from '../components/SiteNav.astro';
+import Hero from '../components/home/Hero.astro';
+import Domains from '../components/home/Domains.astro';
+import FeaturedRole from '../components/home/FeaturedRole.astro';
+import Experience from '../components/home/Experience.astro';
+
+// Wireframe homepage: greyscale only, placeholder copy and images.
+// The old holding page is still in components/Holding.astro if you need to swap it back.
 ---
 
 <Layout>
-	<Holding />
+	<div class="relative font-sans">
+		<SiteNav />
+		<main>
+			<Hero />
+			<Domains />
+			<FeaturedRole />
+			<Experience />
+		</main>
+	</div>
 </Layout>

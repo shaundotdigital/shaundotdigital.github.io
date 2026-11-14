@@ -1,0 +1,99 @@
+---
+// Placeholder timeline. Newest first. `roles` lists earlier titles at the same company,
+// `links` and `tags` are optional.
+interface Entry {
+  dates: string;
+  title: string;
+  company: string;
+  href?: string;
+  roles?: string[];
+  summary: string;
+  links?: { label: string; href: string }[];
+  tags?: string[];
+}
+
+const entries: Entry[] = [
+  {
+    dates: "2023 - Present",
+    title: "Digital Optimisation Executive",
+    company: "Brakes / Sysco",
+    href: "#",
+    summary:
+      "Placeholder summary. What the role covers, who you work with and the kind of problems you solve day to day.",
+    tags: ["A/B testing", "Analytics", "Amplience", "Salesforce", "SAP"],
+  },
+  {
+    dates: "20XX - 2023",
+    title: "Job title",
+    company: "Company",
+    href: "#",
+    roles: ["Earlier title", "First title"],
+    summary:
+      "Placeholder summary. Use this entry for a longer stint with more than one title, listing the earlier ones under the main heading.",
+    tags: ["Skill", "Skill", "Skill", "Skill", "Skill", "Skill"],
+  },
+  {
+    dates: "20XX - 20XX",
+    title: "Job title",
+    company: "Company",
+    href: "#",
+    summary:
+      "Placeholder summary. Use this entry for a shorter role or project, with links out to related work or coverage.",
+    links: [
+      { label: "Link one", href: "#" },
+      { label: "Link two", href: "#" },
+    ],
+    tags: ["Skill", "Skill", "Skill"],
+  },
+];
+---
+
+<section id="experience" class="bg-neutral-900 text-white">
+  <div class="mx-auto max-w-4xl px-8 py-16">
+    <h2 class="sr-only">Experience</h2>
+
+    <ol class="space-y-16">
+      {entries.map((entry) => (
+        <li class="grid gap-2 md:grid-cols-[11rem_1fr] md:gap-6">
+          <p class="pt-1 text-xs tracking-wide text-neutral-500 uppercase">{entry.dates}</p>
+
+          <div>
+            <h3 class="text-lg">
+              {entry.href ? (
+                <a href={entry.href} class="hover:underline">
+                  {entry.title} &middot; {entry.company} <span aria-hidden="true">&#8599;</span>
+                </a>
+              ) : (
+                <>{entry.title} &middot; {entry.company}</>
+              )}
+            </h3>
+
+            {entry.roles && (
+              <ul class="text-neutral-500">
+                {entry.roles.map((role) => <li>{role}</li>)}
+              </ul>
+            )}
+
+            <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-400">{entry.summary}</p>
+
+            {entry.links && (
+              <ul class="mt-4 flex flex-wrap gap-4 text-sm">
+                {entry.links.map((link) => (
+                  <li><a href={link.href} class="underline underline-offset-4 hover:text-neutral-300">{link.label}</a></li>
+                ))}
+              </ul>
+            )}
+
+            {entry.tags && (
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {entry.tags.map((tag) => (
+                  <li class="rounded-full bg-white/10 px-3 py-1 text-xs text-neutral-300">{tag}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

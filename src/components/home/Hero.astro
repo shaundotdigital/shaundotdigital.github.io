@@ -1,0 +1,32 @@
+---
+// Placeholder copy. Roles show as a single line split by dividers.
+const roles = ["Digital Optimisation", "UX and CRO", "Content", "Web and Print"];
+---
+
+<section id="top" class="flex min-h-dvh flex-col items-center justify-center bg-ink px-6 pt-24 pb-16 text-center text-white">
+  <!-- Avatar placeholder: replace with an <Image /> when the photo is final -->
+  <div class="flex size-24 items-center justify-center rounded-full border border-dashed border-neutral-500 bg-neutral-800 text-xs text-neutral-400">
+    Photo
+  </div>
+
+  <h1 class="mt-8 max-w-2xl text-3xl tracking-tight md:text-4xl">
+    <span class="text-neutral-400">I&rsquo;m Shaun,</span> I build for the web and print{" "}
+    <span class="text-neutral-400">with engaging user experiences.</span>
+  </h1>
+
+  <ul class="mt-6 flex flex-wrap justify-center gap-y-1 text-sm text-neutral-300">
+    {roles.map((role, i) => (
+      <li class:list={["px-3", i > 0 && "border-l border-neutral-600"]}>{role}</li>
+    ))}
+  </ul>
+
+  <a
+    href="#domains"
+    aria-label="Scroll to content"
+    class="mt-16 flex size-10 items-center justify-center rounded-full bg-white/10 text-neutral-300 hover:bg-white/20"
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m6 9 6 6 6-6"></path>
+    </svg>
+  </a>
+</section>
