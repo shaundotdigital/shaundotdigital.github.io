@@ -1,12 +1,41 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const siteName = "Shaun Digital";
+const {
+	title = siteName,
+	description = "Shaun builds for the web and print, creating engaging user experiences while keeping brands consistent.",
+} = Astro.props;
+
+const pageTitle = title === siteName ? siteName : `${title} | ${siteName}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{pageTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta name="twitter:card" content="summary" />
+
+		<!-- TODO: replace public/favicon.svg (still the Astro logo) with your own mark, then uncomment -->
 		<!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-		<meta name="generator" content={Astro.generator} />
 		<link type="text/plain" rel="author" href="/humans.txt" />
-		<title>Shaun Digital</title>
+		<meta name="generator" content={Astro.generator} />
 	</head>
 	<body>
 		<slot />

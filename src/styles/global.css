@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand: #f44a02;
+  --color-ink: #101010;
+}
 
 @layer components {
   .container-default {
