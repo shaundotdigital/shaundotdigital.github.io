@@ -5,27 +5,27 @@ import Icon from "../Icon.astro";
 const roles = ["Digital Optimisation", "UX and CRO", "Content", "Web and Print"];
 ---
 
-<section id="top" class="flex min-h-dvh flex-col items-center justify-center bg-ink px-6 pt-24 pb-16 text-center text-white">
+<section id="top" class="flex min-h-dvh flex-col items-center justify-center bg-paper px-6 pt-24 pb-16 text-center text-ink">
   <!-- Avatar placeholder: replace with an <Image /> when the photo is final -->
-  <div class="flex size-24 items-center justify-center rounded-full border border-dashed border-neutral-500 bg-ink-raised text-xs text-neutral-400">
+  <div class="flex size-24 items-center justify-center rounded-full border border-dashed border-neutral-400 bg-paper-raised text-xs text-neutral-600">
     Photo
   </div>
 
-  <h1 class="mt-8 max-w-2xl text-3xl tracking-tight md:text-4xl">
-    <span class="text-neutral-400">I&rsquo;m Shaun,</span> I build for the web and print{" "}
-    <span class="text-neutral-400">with engaging user experiences.</span>
+  <h1 class="mt-8 max-w-2xl text-3xl tracking-tight text-brand md:text-4xl">
+    <span class="text-neutral-500">I&rsquo;m Shaun,</span> I build for the web and print{" "}
+    <span class="text-neutral-500">with engaging user experiences.</span>
   </h1>
 
-  <ul class="mt-6 flex flex-wrap justify-center gap-y-1 text-sm text-neutral-300">
+  <ul class="mt-6 flex flex-wrap justify-center gap-y-1 text-sm text-neutral-600">
     {roles.map((role, i) => (
-      <li class:list={["px-3", i > 0 && "sm:border-l sm:border-neutral-600"]}>{role}</li>
+      <li class:list={["px-3", i > 0 && "sm:border-l sm:border-neutral-300"]}>{role}</li>
     ))}
   </ul>
 
   <a
     href="#domains"
     aria-label="Scroll to content"
-    class="mt-16 flex size-10 items-center justify-center interactive rounded-full bg-white/10 text-neutral-300 hover:bg-white/20 active:bg-white/30"
+    class="mt-16 flex size-10 items-center justify-center interactive rounded-full bg-brand text-ink hover:bg-brand/85 active:bg-brand/70"
   >
     <Icon name="chevron-down" class="size-5" />
   </a>

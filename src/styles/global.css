@@ -6,16 +6,25 @@
   Radii in use: rounded-lg (boxes), rounded-2xl (cards), rounded-full (pills).
 */
 @theme {
-  /* Colour: one accent, two darks. Greys come from Tailwind's neutral ramp. */
+  /* Colour: warm paper background, near-black text, one orange accent.
+     Greys come from Tailwind's neutral ramp. On paper, small grey text needs
+     neutral-600 or darker to reach 4.5:1. Orange is 3.3:1 on paper, so keep it
+     to large text, fills (with ink text on top) and underlines. */
   --color-brand: #f44a02;
   --color-ink: #101010;
-  --color-ink-raised: #171717;
+  --color-paper: #f5f4f0;
+  --color-paper-raised: #ffffff;
 
   /* Layout: one page width, used by .container-default */
   --container-page: 75rem;
 }
 
 @layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
   h1,
   h2,
   h3 {
@@ -28,7 +37,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid var(--color-brand);
     outline-offset: 2px;
   }
 
