@@ -4,6 +4,9 @@ on:
   # Deploys on every push to the `live` branch
   push:
     branches: [ live ]
+  # Rebuilds once a day so the Letterboxd section stays current (05:17 UTC)
+  schedule:
+    - cron: "17 5 * * *"
   # Allows a manual run from the Actions tab on GitHub
   workflow_dispatch:
 
