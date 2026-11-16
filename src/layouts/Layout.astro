@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Analytics from "../components/Analytics.astro";
+import Closing from "../components/Closing.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 
 interface Props {
@@ -42,6 +43,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	</head>
 	<body>
 		<slot />
+		<Closing />
 		<SiteFooter />
 	</body>
 </html>

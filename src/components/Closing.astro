@@ -1,0 +1,45 @@
+---
+import Icon from "./Icon.astro";
+
+// The last thing on every page. It shares the orange block with SiteFooter so the
+// two read as one ending, but this part is the sign-off and contact, not the footer.
+
+// TODO: replace with the address you want public.
+const email = "you@example.com";
+
+// TODO: add the real LinkedIn and Bluesky addresses.
+const links = [
+  { label: "LinkedIn", href: "#" },
+  { label: "Letterboxd", href: "https://letterboxd.com/shaundotdigital/" },
+  { label: "GitHub", href: "https://github.com/shaundotdigital" },
+  { label: "Bluesky", href: "#" },
+];
+---
+
+<section id="contact" class="on-brand bg-brand text-ink">
+  <div class="container-default pt-24 pb-16 md:pt-32">
+    <h2 class="max-w-3xl text-4xl tracking-tight md:text-6xl">
+      <span class="text-white">That&rsquo;s the end of the page.</span> Say hello if you want to talk testing, content or films.
+    </h2>
+
+    <div class="mt-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <a
+        href={`mailto:${email}`}
+        class="interactive inline-flex items-center gap-3 self-start rounded-full bg-ink px-6 py-3 text-lg text-paper hover:bg-ink/85 active:bg-ink/70"
+      >
+        {email}
+        <Icon name="arrow-right" class="size-5" />
+      </a>
+
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        {links.map((link) => (
+          <li>
+            <a href={link.href} class="interactive underline-offset-4 hover:underline active:text-ink/70">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

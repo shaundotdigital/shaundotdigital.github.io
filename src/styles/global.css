@@ -57,6 +57,11 @@
     @apply mx-auto max-w-page px-8;
   }
 
+  /* For anything sitting on an orange fill, where the orange focus ring would vanish. */
+  .on-brand :focus-visible {
+    outline-color: var(--color-ink);
+  }
+
   /* Hover, focus and press feedback for links and buttons. */
   .interactive {
     @apply transition-colors duration-150 ease-out;

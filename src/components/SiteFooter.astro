@@ -2,22 +2,22 @@
 import { OPT_OUT_KEY } from "./Analytics.astro";
 ---
 
-<footer class="bg-paper font-sans text-neutral-600">
-  <div class="container-default flex flex-col gap-4 border-t py-8 border-ink/10 text-sm md:flex-row md:items-start md:justify-between">
+<footer class="on-brand bg-brand font-sans text-ink">
+  <div class="container-default flex flex-col gap-4 border-t py-8 border-ink/20 text-sm md:flex-row md:items-start md:justify-between">
     <p>&copy; {new Date().getFullYear()} Shaun Digital</p>
 
     <div class="max-w-xl">
       <p>
         This site uses Google Analytics to count visits and see which pages get read, so I can improve it.
         No advertising features are used, and it is switched off for visitors in the EU.{" "}
-        <a href="/privacy" class="interactive underline underline-offset-4 hover:text-ink hover:decoration-brand active:text-neutral-500">Privacy</a>
+        <a href="/privacy" class="interactive underline underline-offset-4 hover:no-underline active:text-ink/70">Privacy</a>
       </p>
       <p class="mt-2">
         <button
           type="button"
           data-analytics-toggle
           data-key={OPT_OUT_KEY}
-          class="interactive cursor-pointer underline underline-offset-4 hover:text-ink hover:decoration-brand active:text-neutral-500"
+          class="interactive cursor-pointer underline underline-offset-4 hover:no-underline active:text-ink/70"
         >
           Opt out of analytics
         </button>
