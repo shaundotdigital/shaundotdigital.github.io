@@ -1,5 +1,8 @@
 ---
-// Placeholder timeline. Newest first. `roles` lists earlier titles at the same company,
+import Icon from "../Icon.astro";
+
+// Placeholder timeline of earlier roles. Newest first. The current role lives in
+// FeaturedRole.astro, so it is not repeated here. `roles` lists earlier titles at the same company,
 // `links` and `tags` are optional.
 interface Entry {
   dates: string;
@@ -13,15 +16,6 @@ interface Entry {
 }
 
 const entries: Entry[] = [
-  {
-    dates: "2023 - Present",
-    title: "Digital Optimisation Executive",
-    company: "Brakes / Sysco",
-    href: "#",
-    summary:
-      "Placeholder summary. What the role covers, who you work with and the kind of problems you solve day to day.",
-    tags: ["A/B testing", "Analytics", "Amplience", "Salesforce", "SAP"],
-  },
   {
     dates: "20XX - 2023",
     title: "Job title",
@@ -48,20 +42,20 @@ const entries: Entry[] = [
 ];
 ---
 
-<section id="experience" class="bg-neutral-900 text-white">
-  <div class="mx-auto max-w-4xl px-8 py-16">
-    <h2 class="sr-only">Experience</h2>
+<section id="experience" class="bg-ink-raised text-white">
+  <div class="container-default py-20">
+    <h2 class="sr-only">Earlier experience</h2>
 
-    <ol class="space-y-16">
+    <ol class="space-y-10">
       {entries.map((entry) => (
         <li class="grid gap-2 md:grid-cols-[11rem_1fr] md:gap-6">
-          <p class="pt-1 text-xs tracking-wide text-neutral-500 uppercase">{entry.dates}</p>
+          <p class="pt-1 text-xs tracking-wide text-neutral-400 uppercase tabular-nums">{entry.dates}</p>
 
           <div>
             <h3 class="text-lg">
               {entry.href ? (
-                <a href={entry.href} class="hover:underline">
-                  {entry.title} &middot; {entry.company} <span aria-hidden="true">&#8599;</span>
+                <a href={entry.href} class="interactive underline-offset-4 hover:underline active:text-neutral-300">
+                  {entry.title} &middot; {entry.company} <Icon name="arrow-up-right" class="inline size-4 -translate-y-0.5" />
                 </a>
               ) : (
                 <>{entry.title} &middot; {entry.company}</>
@@ -69,7 +63,7 @@ const entries: Entry[] = [
             </h3>
 
             {entry.roles && (
-              <ul class="text-neutral-500">
+              <ul class="text-neutral-400">
                 {entry.roles.map((role) => <li>{role}</li>)}
               </ul>
             )}
@@ -79,7 +73,7 @@ const entries: Entry[] = [
             {entry.links && (
               <ul class="mt-4 flex flex-wrap gap-4 text-sm">
                 {entry.links.map((link) => (
-                  <li><a href={link.href} class="underline underline-offset-4 hover:text-neutral-300">{link.label}</a></li>
+                  <li><a href={link.href} class="interactive underline underline-offset-4 hover:text-neutral-300 active:text-neutral-400">{link.label}</a></li>
                 ))}
               </ul>
             )}

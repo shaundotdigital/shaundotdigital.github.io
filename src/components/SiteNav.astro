@@ -1,4 +1,6 @@
 ---
+import Icon from "./Icon.astro";
+
 // Placeholder navigation. Swap the hrefs for real pages as they get built.
 const links = [
   { label: "Home", href: "/", current: true },
@@ -22,7 +24,7 @@ const work = [
         href={link.href}
         aria-current={link.current ? "page" : undefined}
         class:list={[
-          "rounded-full px-3 py-1.5",
+          "interactive rounded-full px-3 py-1.5 active:bg-white/20",
           link.current ? "bg-white/10 text-white" : "text-neutral-400 hover:text-white",
         ]}
       >
@@ -30,14 +32,14 @@ const work = [
       </a>
     ))}
 
-    <details class="relative">
-      <summary class="cursor-pointer list-none rounded-full px-3 py-1.5 text-neutral-400 hover:text-white [&::-webkit-details-marker]:hidden">
-        Work <span aria-hidden="true">&#9662;</span>
+    <details class="relative" data-nav-menu>
+      <summary class="interactive flex cursor-pointer list-none items-center gap-1 rounded-full px-3 py-1.5 text-neutral-400 hover:text-white active:bg-white/20 [&::-webkit-details-marker]:hidden">
+        Work <Icon name="chevron-down" class="size-4" />
       </summary>
       <ul class="absolute right-0 mt-2 w-44 rounded-lg border border-white/10 bg-ink p-2">
         {work.map((item) => (
           <li>
-            <a href={item.href} class="block rounded px-3 py-1.5 text-neutral-400 hover:bg-white/10 hover:text-white">
+            <a href={item.href} class="interactive block px-3 py-1.5 text-neutral-400 hover:bg-white/10 hover:text-white active:bg-white/20">
               {item.label}
             </a>
           </li>
@@ -46,3 +48,21 @@ const work = [
     </details>
   </nav>
 </header>
+
+<script>
+  // Close the Work menu on Escape or a click outside it.
+  const menu = document.querySelector<HTMLDetailsElement>("[data-nav-menu]");
+
+  if (menu) {
+    document.addEventListener("click", (event) => {
+      if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menu.open) {
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      }
+    });
+  }
+</script>

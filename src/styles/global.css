@@ -1,12 +1,55 @@
 @import "tailwindcss";
 
+/*
+  Design tokens. Everything on the site should come from here or from
+  Tailwind's own scales (neutral ramp, 4px spacing, type scale).
+  Radii in use: rounded-lg (boxes), rounded-2xl (cards), rounded-full (pills).
+*/
 @theme {
+  /* Colour: one accent, two darks. Greys come from Tailwind's neutral ramp. */
   --color-brand: #f44a02;
   --color-ink: #101010;
+  --color-ink-raised: #171717;
+
+  /* Layout: one page width, used by .container-default */
+  --container-page: 75rem;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
+  /* Horizontal frame only. Sections set their own vertical padding (py-20). */
   .container-default {
-    @apply max-w-[1200px] mx-auto p-8;
+    @apply mx-auto max-w-page px-8;
+  }
+
+  /* Hover, focus and press feedback for links and buttons. */
+  .interactive {
+    @apply transition-colors duration-150 ease-out;
   }
 }
