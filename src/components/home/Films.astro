@@ -63,10 +63,10 @@ const shortDate = (iso: string) => {
       {recent.length > 0 && (
         <>
           <h3 class="mt-16 text-xs tracking-wide text-neutral-600 uppercase">Recently watched</h3>
-          <!-- Bleeds to the screen edge so the row can scroll sideways on small screens -->
-          <ol class="-mx-8 mt-4 flex snap-x scroll-px-8 gap-3 overflow-x-auto px-8 pt-1 pb-2">
+          <!-- Always whole posters: 4 across on phones (first 8 films), 5 across on tablets, all 10 in one row on desktop -->
+          <ol class="mt-4 grid grid-cols-4 gap-x-3 gap-y-6 sm:grid-cols-5 lg:grid-cols-10">
             {recent.map((film) => (
-              <li class="w-28 shrink-0 snap-start">
+              <li class="[&:nth-child(n+9)]:hidden sm:[&:nth-child(n+9)]:block">
                 <a href={film.url} class="group block">
                   <div class="flex aspect-[2/3] items-center justify-center overflow-hidden rounded-lg bg-neutral-200 transition-transform duration-150 ease-out group-hover:-translate-y-1 group-active:translate-y-0">
                     {film.poster ? (
@@ -84,7 +84,7 @@ const shortDate = (iso: string) => {
                       <span class="p-2 text-center text-xs text-neutral-600">{film.title}</span>
                     )}
                   </div>
-                  <p class="mt-2 flex items-center gap-1.5 text-xs text-neutral-600 tabular-nums">
+                  <p class="mt-2 flex flex-wrap items-center gap-x-1.5 text-xs text-neutral-600 tabular-nums">
                     {shortDate(film.watched)}
                     {film.rewatch && (
                       <>
