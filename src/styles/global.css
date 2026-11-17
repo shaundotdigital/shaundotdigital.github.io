@@ -161,6 +161,24 @@
     }
   }
 
+  /* Shared pieces, matching the hero. Use these rather than restyling each time. */
+
+  /* Small labels: section eyebrows, field names, dates. Sentence case, never uppercase.
+     Set the colour where it is used (neutral-600 on light, brand or paper on ink). */
+  .label {
+    @apply font-sans text-sm font-medium;
+  }
+
+  /* Text links: always underlined, the line turns terracotta on hover. */
+  .link {
+    @apply underline underline-offset-4 transition-colors duration-150 ease-out hover:decoration-brand;
+  }
+
+  /* The main call to action: terracotta pill, ink text, usually with an arrow icon. */
+  .button-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-ink transition-colors duration-150 ease-out hover:bg-brand/85 active:bg-brand/70;
+  }
+
   /* Hover, focus and press feedback for links and buttons. */
   .interactive {
     @apply transition-colors duration-150 ease-out;

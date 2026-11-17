@@ -16,13 +16,8 @@ const shortDate = (iso: string) => {
 {(favourites.length > 0 || recent.length > 0) && (
   <section id="films" class="bg-paper-raised text-ink">
     <div class="container-default py-20">
-      <h2 class="max-w-lg text-2xl tracking-tight md:text-3xl">
-        <span class="text-neutral-500">Away from work</span> I watch a lot of films{filmsLogged ? (
-          <>
-            ,{" "}
-            <span class="text-neutral-500 tabular-nums">{filmsLogged} logged on Letterboxd so far.</span>
-          </>
-        ) : "."}
+      <h2 class="max-w-lg text-2xl leading-[1.2] md:text-3xl">
+        Away from work I watch a lot of films{filmsLogged ? <span class="tabular-nums">, {filmsLogged} logged on Letterboxd so far.</span> : "."}
       </h2>
 
       <!-- Wide screens: favourites in one row of four on the left, recently watched 4x2 on the right.
@@ -31,7 +26,10 @@ const shortDate = (iso: string) => {
       <div class="mt-10 grid gap-16 lg:grid-cols-[2fr_1fr] lg:gap-12">
       {favourites.length > 0 && (
         <div>
-          <h3 class="text-xs tracking-wide text-neutral-600 uppercase">Four favourites</h3>
+          <h3 class="label flex items-center gap-3 text-neutral-600">
+            <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
+            Four favourites
+          </h3>
           <ol class="mt-4 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6 lg:gap-x-4">
             {favourites.map((film) => (
               <li>
@@ -66,7 +64,10 @@ const shortDate = (iso: string) => {
 
       {recent.length > 0 && (
         <div>
-          <h3 class="text-xs tracking-wide text-neutral-600 uppercase">Recently watched</h3>
+          <h3 class="label flex items-center gap-3 text-neutral-600">
+            <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
+            Recently watched
+          </h3>
           <!-- Always whole rows: 4 across on phones (8 films), 5 across on tablets (10), 4 across beside the favourites (8) -->
           <ol class="mt-4 grid grid-cols-4 gap-x-3 gap-y-6 sm:grid-cols-5 md:gap-x-6 lg:grid-cols-4 lg:gap-x-3">
             {recent.map((film) => (
@@ -113,7 +114,7 @@ const shortDate = (iso: string) => {
       </div>
 
       <p class="mt-8 text-sm">
-        <a href={profileUrl} class="interactive underline underline-offset-4 hover:decoration-brand active:text-neutral-600">
+        <a href={profileUrl} class="link active:text-neutral-600">
           My full diary on Letterboxd <Icon name="arrow-up-right" class="inline size-4 -translate-y-0.5" />
         </a>
       </p>

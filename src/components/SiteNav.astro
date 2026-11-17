@@ -2,13 +2,14 @@
 import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
-// Placeholder navigation. Swap the hrefs for real pages as they get built.
+// Section links start with "/" so they also work from other pages, such as /privacy.
+// Playbook and the Work items are placeholders until those pages exist.
 const links = [
-  { label: "CV", href: "#experience" },
-  { label: "Approach", href: "#domains" },
-  { label: "Films", href: "#films" },
+  { label: "CV", href: "/#experience" },
+  { label: "Approach", href: "/#domains" },
+  { label: "Films", href: "/#films" },
   { label: "Playbook", href: "#" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const work = [

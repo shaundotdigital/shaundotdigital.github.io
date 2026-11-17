@@ -86,15 +86,14 @@ const entries: Entry[] = [
 
 <section id="experience" class="bg-ink text-paper">
   <div class="container-default py-20">
-    <h2 class="max-w-lg text-2xl tracking-tight md:text-3xl">
-      <span class="text-paper/60">I currently</span> work at Sysco,{" "}
-      <span class="text-paper/60">improving the</span> online customer experience.
+    <h2 class="max-w-lg text-2xl leading-[1.2] md:text-3xl">
+      I currently work at Sysco, improving the online customer experience.
     </h2>
 
     <ol class="mt-12">
       {entries.map((entry, i) => (
         <li class="grid gap-1 md:grid-cols-[11rem_1fr] md:gap-6">
-          <p class="text-xs tracking-wide text-brand uppercase tabular-nums md:pt-1.5">{entry.dates}</p>
+          <p class="label text-brand tabular-nums md:pt-1">{entry.dates}</p>
 
           <!-- The left border is the timeline rail. Padding, not margins, keeps it unbroken between entries. -->
           <div class:list={["relative md:border-l md:border-paper/15 md:pl-8", i < entries.length - 1 && "pb-12"]}>
