@@ -17,6 +17,9 @@ const {
 
 const pageTitle = title === siteName ? siteName : `${title} | ${siteName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// Preview image for links shared on LinkedIn, Bluesky, messaging apps and so on.
+// Social sites need a full URL. Source design: 1200 x 630, paper, logo, headline and photo.
+const shareImage = new URL("/og-image.jpg", Astro.site);
 ---
 
 <!doctype html>
@@ -33,7 +36,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:title" content={pageTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonicalURL} />
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:image" content={shareImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Shaun's logo, the headline 'Hey! I'm Shaun. I create and optimise digital content' and a photo of Shaun" />
+		<meta property="og:locale" content="en_GB" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={shareImage} />
 
 		<!-- Favicons: SVG for current browsers, ICO for any that skip SVG, and a PNG for Apple
 		     devices (home screen icons and Safari). The apple icon has a paper background because
