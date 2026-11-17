@@ -1,31 +1,114 @@
 ---
 import Icon from "../Icon.astro";
+import { getLetterboxd, posterAt } from "../../lib/letterboxd";
 
-// Placeholder copy. Roles show as a single line split by dividers.
 const roles = ["Digital Optimisation", "UX and CRO", "Content", "Web and Print"];
+
+// The "now" card uses the latest film from the same Letterboxd data as the films section.
+const { recent } = await getLetterboxd();
+const lastWatched = recent[0];
+
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const shortDate = (iso: string) => {
+  const [, month, day] = iso.split("-").map(Number);
+  return `${day} ${months[month - 1]}`;
+};
 ---
 
-<section id="top" class="flex flex-col items-center bg-paper px-6 pt-32 pb-8 md:pt-40 text-center text-ink">
-  <!-- Avatar placeholder: replace with an <Image /> when the photo is final -->
-  <div class="flex size-24 items-center justify-center rounded-full border border-dashed border-neutral-400 bg-paper-raised text-xs text-neutral-600">
-    Photo
+<section id="top" class="bg-paper text-ink">
+  <div class="container-default grid items-center gap-12 pt-32 pb-20 md:pt-40 lg:grid-cols-[3fr_2fr] lg:gap-16">
+    <div>
+      <h1 class="max-w-3xl text-4xl tracking-tight text-brand md:text-5xl">
+        <span class="text-neutral-500">Hey! I&rsquo;m Shaun. I</span> create <span class="text-neutral-500">and</span> optimise digital content <span class="text-neutral-500">to create better experiences.</span>
+      </h1>
+
+      <ul class="mt-6 flex flex-wrap gap-y-1 text-neutral-600">
+        {roles.map((role, i) => (
+          <li class:list={["pr-3", i > 0 && "border-l border-neutral-300 pl-3"]}>{role}</li>
+        ))}
+      </ul>
+
+      <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
+        <a
+          href="#contact"
+          class="interactive inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-ink hover:bg-brand/85 active:bg-brand/70"
+        >
+          Get in touch
+          <Icon name="arrow-right" class="size-5" />
+        </a>
+        <a href="#experience" class="interactive underline underline-offset-4 hover:decoration-brand active:text-neutral-600">
+          See my experience
+        </a>
+      </div>
+    </div>
+
+    <!-- ID card: a tilted badge with an orange card behind it for depth. It straightens on hover.
+         The photo is a placeholder until the real one is ready. -->
+    <div class="group relative mx-auto w-full max-w-sm lg:mx-0 lg:justify-self-end">
+      <div aria-hidden="true" class="absolute inset-0 translate-x-3 translate-y-2 rotate-3 rounded-2xl bg-brand"></div>
+
+      <aside class="relative -rotate-2 overflow-hidden rounded-2xl bg-paper-raised shadow-xl shadow-ink/10 transition-transform duration-200 ease-out group-hover:rotate-0">
+        <div class="flex items-center justify-between bg-ink px-6 pt-3 pb-4 text-paper">
+          <span class="text-sm">byshaun.xyz</span>
+          <!-- Lanyard slot -->
+          <span aria-hidden="true" class="h-2 w-12 rounded-full bg-paper/25"></span>
+          <span class="text-sm text-paper/70">ID</span>
+        </div>
+
+        <div class="p-6">
+          <div class="flex items-center gap-4">
+            <div class="flex size-20 shrink-0 items-center justify-center rounded-lg border border-dashed border-neutral-400 text-xs text-neutral-600">
+              Photo
+            </div>
+            <div>
+              <p class="text-2xl tracking-tight">Shaun</p>
+              <p class="text-sm text-neutral-600">Digital Optimisation Executive</p>
+            </div>
+          </div>
+
+          <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-5 border-t border-ink/10 pt-6">
+            <div>
+              <dt class="text-xs tracking-wide text-neutral-600 uppercase">Based in</dt>
+              <dd class="mt-1">Kent, UK</dd>
+            </div>
+            <div>
+              <dt class="text-xs tracking-wide text-neutral-600 uppercase">In digital since</dt>
+              <dd class="mt-1 tabular-nums">2015</dd>
+            </div>
+            <div class="col-span-2">
+              <dt class="text-xs tracking-wide text-neutral-600 uppercase">Working on</dt>
+              <dd class="mt-1">Testing and content at Brakes / Sysco</dd>
+            </div>
+
+            {lastWatched && (
+              <div class="col-span-2">
+                <dt class="text-xs tracking-wide text-neutral-600 uppercase">Last watched</dt>
+                <dd class="mt-2">
+                  <a href={lastWatched.url} class="flex items-center gap-3 [&:hover_.film-title]:underline">
+                    {lastWatched.poster && (
+                      <img
+                        src={posterAt(lastWatched.poster, 150)}
+                        width="40"
+                        height="60"
+                        alt=""
+                        class="h-15 w-10 shrink-0 rounded object-cover"
+                      />
+                    )}
+                    <span>
+                      <span class="film-title block underline-offset-4 decoration-brand">
+                        {lastWatched.title} <span class="text-neutral-600 tabular-nums">({lastWatched.year})</span>
+                      </span>
+                      <span class="block text-sm text-neutral-600 tabular-nums">
+                        {shortDate(lastWatched.watched)}{lastWatched.rewatch && ", rewatch"}
+                      </span>
+                    </span>
+                  </a>
+                </dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      </aside>
+    </div>
   </div>
-
-  <h1 class="mt-8 max-w-2xl text-3xl tracking-tight text-brand md:text-4xl">
-    <span class="text-neutral-500">Hey! I’m Shaun. I </span>create <span class="text-neutral-500">and</span> optimise digital content <span class="text-neutral-500">to create a better experiences</span>
-  </h1>
-
-  <ul class="mt-6 flex flex-wrap justify-center gap-y-1 text-sm text-neutral-600">
-    {roles.map((role, i) => (
-      <li class:list={["px-3", i > 0 && "sm:border-l sm:border-neutral-300"]}>{role}</li>
-    ))}
-  </ul>
-
-  <a
-    href="#domains"
-    aria-label="Scroll to content"
-    class="mt-16 flex size-10 items-center justify-center interactive rounded-full bg-brand text-ink hover:bg-brand/85 active:bg-brand/70"
-  >
-    <Icon name="chevron-down" class="size-5" />
-  </a>
 </section>
