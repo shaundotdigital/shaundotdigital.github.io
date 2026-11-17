@@ -7,6 +7,11 @@ import Logo from "./Logo.astro";
 
 const email = "shaun.skeen@icloud.com";
 
+// The address never appears in the page's HTML, so spam bots scanning for it find nothing.
+// Each half is stored reversed and put back together by the inline script below.
+const [emailUser, emailDomain] = email.split("@");
+const reverse = (text: string) => [...text].reverse().join("");
+
 const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/shaunskeen" },
   { label: "Letterboxd", href: "https://letterboxd.com/shaundotdigital/" },
@@ -25,13 +30,24 @@ const links = [
     </h2>
 
     <div class="mt-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <!-- Without JavaScript the button reads "Email me" and points to this section -->
       <a
-        href={`mailto:${email}`}
+        href="#contact"
+        data-email-user={reverse(emailUser)}
+        data-email-domain={reverse(emailDomain)}
         class="button-primary self-start"
       >
-        {email}
+        <span data-email-text>Email me</span>
         <Icon name="arrow-right" class="size-5" />
       </a>
+      <script is:inline>
+        document.querySelectorAll("[data-email-user]").forEach((link) => {
+          const flip = (text) => [...text].reverse().join("");
+          const address = flip(link.dataset.emailUser) + "@" + flip(link.dataset.emailDomain);
+          link.href = "mailto:" + address;
+          link.querySelector("[data-email-text]").textContent = address;
+        });
+      </script>
 
       <ul class="flex flex-wrap gap-x-6 gap-y-2">
         {links.map((link) => (
