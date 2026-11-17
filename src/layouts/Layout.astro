@@ -35,7 +35,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="og:url" content={canonicalURL} />
 		<meta name="twitter:card" content="summary" />
 
+		<!-- Favicons: SVG for current browsers, ICO for any that skip SVG, and a PNG for Apple
+		     devices (home screen icons and Safari). The apple icon has a paper background because
+		     iOS fills transparent areas with black. -->
+		<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link type="text/plain" rel="author" href="/humans.txt" />
 		<meta name="generator" content={Astro.generator} />
 		<Analytics />
