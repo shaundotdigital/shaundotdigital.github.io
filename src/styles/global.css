@@ -116,23 +116,26 @@
     outline-color: var(--color-ink);
   }
 
-  /* Fine dot grid over a section's background, like graph paper. Content stays above it.
+  /* Fine line grid over a section's background, like graph paper. Content stays above it.
      It fades out towards the bottom so it blends into the next section. */
-  .texture-dots {
+  .texture-grid {
     position: relative;
     isolation: isolate;
   }
 
-  .texture-dots::before {
+  .texture-grid::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-image: radial-gradient(color-mix(in srgb, var(--color-ink) 18%, transparent) 1px, transparent 1.5px);
-    background-size: 24px 24px;
+    --grid-line: color-mix(in srgb, var(--color-ink) 7%, transparent);
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
     background-position: center top;
-    mask-image: linear-gradient(to bottom, black 60%, transparent);
+    mask-image: linear-gradient(to bottom, black 55%, transparent);
   }
 
   /* A black pill that sweeps in from left to right over a phrase once the page loads.
