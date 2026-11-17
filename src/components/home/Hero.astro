@@ -1,6 +1,7 @@
 ---
 import Icon from "../Icon.astro";
-import Logo from "../Logo.astro";
+import { Image } from "astro:assets";
+import photo from "../../assets/shaun.jpeg";
 import { getLetterboxd, posterAt } from "../../lib/letterboxd";
 
 const roles = ["Digital Optimisation", "UX and CRO", "Content", "Web and Print"];
@@ -58,7 +59,7 @@ const shortDate = (iso: string) => {
 
     <!-- ID card: a tilted badge with a terracotta card behind it for depth. It straightens on hover.
          Only shown on wide screens, where it sits beside the headline; on smaller screens it
-         would push everything else down. The short logo mark stands in for a photo. -->
+         would push everything else down. -->
     <div class="group relative hidden w-full max-w-sm justify-self-end lg:block">
       <div aria-hidden="true" class="absolute inset-0 translate-x-3 translate-y-2 rotate-3 rounded-2xl bg-brand"></div>
 
@@ -70,7 +71,14 @@ const shortDate = (iso: string) => {
 
         <div class="p-6">
           <div class="flex items-center gap-4">
-            <Logo short class="shrink-0 text-4xl" />
+            <!-- Astro resizes and compresses this at build time; 160px covers high-res screens -->
+            <Image
+              src={photo}
+              alt="Photo of Shaun"
+              width={160}
+              height={160}
+              class="size-20 shrink-0 rounded-lg object-cover"
+            />
             <div>
               <p class="font-display text-2xl font-bold">Shaun</p>
               <p class="text-sm text-neutral-600">Digital Optimisation Executive</p>
