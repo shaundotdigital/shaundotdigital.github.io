@@ -16,7 +16,7 @@ export const USERNAME = "shaundotdigital";
 
 const PROFILE_URL = `https://letterboxd.com/${USERNAME}/`;
 const SNAPSHOT_PATH = path.join(process.cwd(), "data", "letterboxd-recent.json");
-const RECENT_COUNT = 10;
+const RECENT_COUNT = 12;
 const TIMEOUT_MS = 8000;
 
 export interface Film {
