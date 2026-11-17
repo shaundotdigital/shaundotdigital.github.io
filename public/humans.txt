@@ -1,11 +1,14 @@
-/* Team involved */
-	Web designer: Shaun
-	From: England, United Kingdom
+/* TEAM */
+	Designer and developer: Shaun
+	Site: https://byshaun.xyz
+	From: Kent, England, United Kingdom
 
-/* Special thanks */
-
-/* Site details */
-	Last update:2026/07/01
-	Language: English
-	Doctype:HTML5
-	IDE: Visual Studio Code, GitHub, AstroJS
+/* SITE */
+	Last update: 2026/11/17
+	Language: English (UK)
+	Doctype: HTML5
+	Built with: Astro, Tailwind CSS
+	Fonts: Space Grotesk, system fonts
+	Hosting: GitHub Pages
+	Film data: Letterboxd
+	IDE: Visual Studio Code
