@@ -1,0 +1,32 @@
+---
+// The shaun logo: lowercase name in a pill with the terracotta dot.
+// Everything is sized in em, so set the size with a text size class, e.g. class="text-xl".
+//   primary  - navy pill, paper text (on light backgrounds)
+//   reversed - paper pill, navy text (on navy)
+//   outline  - navy outline, navy text
+// `short` swaps the name for "s", for avatars and tight spaces.
+interface Props {
+  variant?: "primary" | "reversed" | "outline";
+  short?: boolean;
+  class?: string;
+}
+
+const { variant = "primary", short = false, class: className } = Astro.props;
+
+const variants = {
+  primary: "bg-ink text-paper",
+  reversed: "bg-paper text-ink",
+  outline: "border-[0.07em] border-ink text-ink",
+};
+---
+
+<span
+  class:list={[
+    "inline-flex items-center gap-[0.3em] rounded-full py-[0.18em] pr-[0.18em] pl-[0.5em] leading-none font-bold tracking-tight lowercase",
+    variants[variant],
+    className,
+  ]}
+>
+  <span class="pb-[0.08em]">{short ? "s" : "shaun"}</span>
+  <span aria-hidden="true" class="size-[1.1em] shrink-0 rounded-full bg-brand"></span>
+</span>

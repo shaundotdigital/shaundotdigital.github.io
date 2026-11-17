@@ -21,7 +21,7 @@ interface Entry {
 const entries: Entry[] = [
   {
     company: "Sysco",
-    note: "Formely Brakes Foodservice",
+    note: "Formerly Brakes Foodservice",
     dates: "Oct 2023 - Present",
     current: true,
     roles: [
@@ -84,38 +84,39 @@ const entries: Entry[] = [
 ];
 ---
 
-<section id="experience" class="bg-paper text-ink">
+<section id="experience" class="bg-ink text-paper">
   <div class="container-default py-20">
     <h2 class="max-w-md text-2xl tracking-tight md:text-3xl">
-      <span class="text-neutral-500">I currently</span> work at Sysco,{" "}
-      <span class="text-neutral-500">improving the</span> online customer experience.
+      <span class="text-paper/60">I currently</span> work at Sysco,{" "}
+      <span class="text-paper/60">improving the</span> online customer experience.
     </h2>
 
     <ol class="mt-12">
       {entries.map((entry, i) => (
         <li class="grid gap-1 md:grid-cols-[11rem_1fr] md:gap-6">
-          <p class="text-xs tracking-wide text-neutral-600 uppercase tabular-nums md:pt-1.5">{entry.dates}</p>
+          <p class="text-xs tracking-wide text-sky uppercase tabular-nums md:pt-1.5">{entry.dates}</p>
 
           <!-- The left border is the timeline rail. Padding, not margins, keeps it unbroken between entries. -->
-          <div class:list={["relative md:border-l md:border-ink/10 md:pl-8", i < entries.length - 1 && "pb-12"]}>
+          <div class:list={["relative md:border-l md:border-paper/15 md:pl-8", i < entries.length - 1 && "pb-12"]}>
             <span
               aria-hidden="true"
               class:list={[
                 "absolute top-2 -left-[5px] hidden size-2.5 rounded-full md:block",
-                entry.current ? "bg-brand" : "bg-neutral-300",
+                entry.current ? "bg-brand" : "bg-paper/35",
               ]}
             ></span>
 
             {entry.roles.length === 1 ? (
               <>
                 <h3 class:list={[entry.current ? "text-xl" : "text-lg"]}>
-                  {entry.roles[0].title} <span class="text-neutral-500">&middot; {entry.company}</span>
+                  {entry.roles[0].title} <span class="text-paper/60">&middot; {entry.company}</span>
                 </h3>
-                <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">{entry.roles[0].summary}</p>
+                {entry.note && <p class="text-sm text-paper/70">{entry.note}</p>}
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-paper/70">{entry.roles[0].summary}</p>
                 {entry.roles[0].tags && (
                   <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
                     {entry.roles[0].tags.map((tag) => (
-                      <li class="rounded-full bg-ink/5 px-3 py-1 text-xs text-neutral-700">{tag}</li>
+                      <li class="rounded-full bg-paper/10 px-3 py-1 text-xs text-paper/85">{tag}</li>
                     ))}
                   </ul>
                 )}
@@ -123,7 +124,7 @@ const entries: Entry[] = [
             ) : (
               <>
                 <h3 class="text-lg">{entry.company}</h3>
-                <p class="text-sm text-neutral-600">{[entry.note, `${entry.roles.length} roles`].filter(Boolean).join(" · ")}</p>
+                <p class="text-sm text-paper/70">{[entry.note, `${entry.roles.length} roles`].filter(Boolean).join(" · ")}</p>
 
                 <!-- Roles at the same company, newest first. Small hollow markers sit on the main rail. -->
                 <ol class="mt-6 space-y-8">
@@ -131,17 +132,17 @@ const entries: Entry[] = [
                     <li class="relative">
                       <span
                         aria-hidden="true"
-                        class="absolute top-1.5 -left-[36px] hidden size-2 rounded-full border border-neutral-400 bg-paper md:block"
+                        class="absolute top-1.5 -left-[36px] hidden size-2 rounded-full border border-paper/50 bg-ink md:block"
                       ></span>
                       <h4 class="flex flex-wrap items-baseline gap-x-3">
                         <span>{role.title}</span>
-                        <span class="text-sm text-neutral-600 tabular-nums">{role.dates}</span>
+                        <span class="text-sm text-paper/70 tabular-nums">{role.dates}</span>
                       </h4>
-                      <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">{role.summary}</p>
+                      <p class="mt-2 max-w-xl text-sm leading-relaxed text-paper/70">{role.summary}</p>
                       {role.tags && (
                         <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
                           {role.tags.map((tag) => (
-                            <li class="rounded-full bg-ink/5 px-3 py-1 text-xs text-neutral-700">{tag}</li>
+                            <li class="rounded-full bg-paper/10 px-3 py-1 text-xs text-paper/85">{tag}</li>
                           ))}
                         </ul>
                       )}

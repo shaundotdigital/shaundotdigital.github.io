@@ -1,7 +1,8 @@
 ---
 import Icon from "./Icon.astro";
+import Logo from "./Logo.astro";
 
-// The last thing on every page. It shares the orange block with SiteFooter so the
+// The last thing on every page. It shares the sky block with SiteFooter so the
 // two read as one ending, but this part is the sign-off and contact, not the footer.
 
 // TODO: replace with the address you want public.
@@ -16,10 +17,12 @@ const links = [
 ];
 ---
 
-<section id="contact" class="on-brand bg-brand text-ink">
+<section id="contact" class="focus-ink bg-sky text-ink">
   <div class="container-default pt-24 pb-16 md:pt-32">
-    <h2 class="max-w-3xl text-4xl tracking-tight md:text-6xl">
-      <span class="text-white">That&rsquo;s the end of the page.</span> Say hello if you want to talk testing, content or films.
+    <Logo class="text-3xl" />
+
+    <h2 class="mt-10 max-w-3xl text-4xl md:text-6xl">
+      <span class="text-neutral-600">That&rsquo;s the end of the page.</span> Say hello if you want to talk testing, content or films.
     </h2>
 
     <div class="mt-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
