@@ -12,6 +12,8 @@ interface Role {
 interface Entry {
   company: string;
   dates: string;
+  /** Shown under a multi-role company name, e.g. what the company is called now. */
+  note?: string;
   current?: boolean;
   roles: Role[];
 }
@@ -60,6 +62,7 @@ const entries: Entry[] = [
   {
     company: "TRI UK",
     dates: "Jul 2015 - Jul 2019",
+    note: "Now part of Evans Cycles",
     roles: [
       {
         title: "Web Manager",
@@ -119,7 +122,7 @@ const entries: Entry[] = [
             ) : (
               <>
                 <h3 class="text-lg">{entry.company}</h3>
-                <p class="text-sm text-neutral-600">{entry.roles.length} roles</p>
+                <p class="text-sm text-neutral-600">{[entry.note, `${entry.roles.length} roles`].filter(Boolean).join(" · ")}</p>
 
                 <!-- Roles at the same company, newest first. Small hollow markers sit on the main rail. -->
                 <ol class="mt-6 space-y-8">
