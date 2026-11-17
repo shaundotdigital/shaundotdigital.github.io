@@ -2,7 +2,7 @@
 import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
-// The last thing on every page. It shares the sky block with SiteFooter so the
+// The last thing on every page. It shares the black block with SiteFooter so the
 // two read as one ending, but this part is the sign-off and contact, not the footer.
 
 // TODO: replace with the address you want public.
@@ -17,18 +17,18 @@ const links = [
 ];
 ---
 
-<section id="contact" class="focus-ink bg-sky text-ink">
+<section id="contact" class="bg-ink text-paper">
   <div class="container-default pt-24 pb-16 md:pt-32">
-    <Logo class="text-3xl" />
+    <Logo variant="outline-reversed" class="text-3xl" />
 
     <h2 class="mt-10 max-w-3xl text-4xl md:text-6xl">
-      <span class="text-neutral-600">That&rsquo;s the end of the page.</span> Say hello if you want to talk testing, content or films.
+      <span class="text-neutral-400">That&rsquo;s the end of the page.</span> Say hello if you want to talk testing, content or films.
     </h2>
 
     <div class="mt-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
       <a
         href={`mailto:${email}`}
-        class="interactive inline-flex items-center gap-3 self-start rounded-full bg-ink px-6 py-3 text-lg text-paper hover:bg-ink/85 active:bg-ink/70"
+        class="interactive inline-flex items-center gap-3 self-start rounded-full bg-brand px-6 py-3 text-lg text-ink hover:bg-brand/85 active:bg-brand/70"
       >
         {email}
         <Icon name="arrow-right" class="size-5" />
@@ -37,7 +37,7 @@ const links = [
       <ul class="flex flex-wrap gap-x-6 gap-y-2">
         {links.map((link) => (
           <li>
-            <a href={link.href} class="interactive underline-offset-4 hover:underline active:text-ink/70">
+            <a href={link.href} class="interactive underline-offset-4 hover:underline active:text-paper/70">
               {link.label}
             </a>
           </li>
