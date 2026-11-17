@@ -1,7 +1,7 @@
 ---
 import Icon from "../Icon.astro";
 
-// Placeholder timeline of earlier roles. Newest first. The current role lives in
+// Earlier roles, newest first. The current role lives in
 // FeaturedRole.astro, so it is not repeated here. `roles` lists earlier titles at the same company,
 // `links` and `tags` are optional.
 interface Entry {
@@ -17,27 +17,44 @@ interface Entry {
 
 const entries: Entry[] = [
   {
-    dates: "20XX - 2023",
-    title: "Job title",
-    company: "Company",
-    href: "#",
-    roles: ["Earlier title", "First title"],
+    dates: "Jan 2021 - Oct 2023",
+    title: "Lead Senior Designer",
+    company: "hellooodesign",
     summary:
-      "Placeholder summary. Use this entry for a longer stint with more than one title, listing the earlier ones under the main heading.",
-    tags: ["Skill", "Skill", "Skill", "Skill", "Skill", "Skill"],
+      "Joined a new design agency at launch and looked after its brand guidelines and design system. Led WordPress builds from design to launch, with over 35 sites designed, including busy e-commerce stores, plus email campaigns and print work such as brochures and business cards.",
+    tags: ["Web design", "WordPress", "Brand guidelines", "Print", "Photoshop", "Illustrator", "Google Analytics"],
   },
   {
-    dates: "20XX - 20XX",
-    title: "Job title",
-    company: "Company",
-    href: "#",
+    dates: "Jan 2020 - Dec 2020",
+    title: "Senior Web Designer",
+    company: "Smart DesignUK",
     summary:
-      "Placeholder summary. Use this entry for a shorter role or project, with links out to related work or coverage.",
-    links: [
-      { label: "Link one", href: "#" },
-      { label: "Link two", href: "#" },
-    ],
-    tags: ["Skill", "Skill", "Skill"],
+      "Worked with the sales team and clients to take responsive websites from first brief to handover. Ran planning meetings, presented designs, briefed freelancers and set up domains and hosting.",
+    tags: ["Web design", "Photoshop", "Illustrator"],
+  },
+  {
+    dates: "Aug 2019 - Sep 2019",
+    title: "Website Content Administrator",
+    company: "ZLT Electrical",
+    summary:
+      "Kept pricing, specs and images accurate across a catalogue of over 65,000 products. Added products through the ERP system and uploaded them to three websites in bulk with CSV files.",
+    tags: ["Product data", "Excel", "Web analytics"],
+  },
+  {
+    dates: "Aug 2017 - Jul 2019",
+    title: "Web Manager",
+    company: "TRI UK",
+    summary:
+      "Led the move of TRI UK's website and IT systems into the Sports Direct group, modernising the e-commerce site and its payment gateway. Managed product data for thousands of products, designed online and print media, set up IT for three stores and worked with over twenty cycling brands on their London Bike Show stands.",
+    tags: ["E-commerce", "SEO", "Product data", "phpMyAdmin", "Adobe Creative Suite", "IT support"],
+  },
+  {
+    dates: "Jul 2015 - May 2016",
+    title: "Digital Content Developer",
+    company: "TRI UK",
+    summary:
+      "Contract role making weekly Mailchimp newsletters for three stores and graphics for the website, social media and in-store use. Also ran the 2016 TRI UK catalogue, keeping suppliers and deadlines on track.",
+    tags: ["Photoshop", "Illustrator", "InDesign", "Mailchimp", "Social media"],
   },
 ];
 ---
