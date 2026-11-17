@@ -11,6 +11,8 @@ import Films from '../components/home/Films.astro';
 ---
 
 <Layout>
+	<!-- Start connecting to Letterboxd's image server early, for the film posters -->
+	<link slot="head" rel="preconnect" href="https://a.ltrbxd.com" />
 	<div class="relative font-sans">
 		<SiteNav />
 		<main>

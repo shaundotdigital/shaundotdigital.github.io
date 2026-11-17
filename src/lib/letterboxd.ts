@@ -44,7 +44,11 @@ export interface LetterboxdData {
   recent: Watch[];
 }
 
-/** Letterboxd poster URLs carry their size, so the same poster can be requested smaller. */
+/**
+ * Letterboxd poster URLs carry their size, so the same poster can be requested smaller.
+ * Only some widths exist. These work for every poster tested: 70, 140, 150, 230, 300, 600.
+ * Any other width can return an error, so pick from that list.
+ */
 export function posterAt(url: string, width: number): string {
   return url.replace(/-0-\d+-0-\d+-crop/, `-0-${width}-0-${Math.round(width * 1.5)}-crop`);
 }

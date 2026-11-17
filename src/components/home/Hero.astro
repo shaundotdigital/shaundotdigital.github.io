@@ -87,7 +87,8 @@ const shortDate = (iso: string) => {
                   <a href={lastWatched.url} class="flex items-center gap-3 [&:hover_.film-title]:underline">
                     {lastWatched.poster && (
                       <img
-                        src={posterAt(lastWatched.poster, 150)}
+                        src={posterAt(lastWatched.poster, 70)}
+                        srcset={`${posterAt(lastWatched.poster, 70)} 1x, ${posterAt(lastWatched.poster, 140)} 2x`}
                         width="40"
                         height="60"
                         alt=""

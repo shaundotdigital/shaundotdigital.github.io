@@ -40,6 +40,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<link type="text/plain" rel="author" href="/humans.txt" />
 		<meta name="generator" content={Astro.generator} />
 		<Analytics />
+		<slot name="head" />
 	</head>
 	<body>
 		<slot />

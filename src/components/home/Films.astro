@@ -39,9 +39,9 @@ const shortDate = (iso: string) => {
                   <div class="flex aspect-[2/3] items-center justify-center overflow-hidden rounded-lg bg-neutral-200 transition-transform duration-150 ease-out group-hover:-translate-y-1 group-active:translate-y-0">
                     {film.poster ? (
                       <img
-                        src={posterAt(film.poster, 300)}
-                        srcset={`${posterAt(film.poster, 300)} 300w, ${posterAt(film.poster, 600)} 600w`}
-                        sizes="(min-width: 1024px) 14vw, (min-width: 768px) 25vw, 50vw"
+                        src={posterAt(film.poster, 230)}
+                        srcset={`${posterAt(film.poster, 150)} 150w, ${posterAt(film.poster, 230)} 230w, ${posterAt(film.poster, 300)} 300w`}
+                        sizes="(min-width: 1200px) 170px, (min-width: 1024px) calc(16.6vw - 31px), (min-width: 768px) calc(25vw - 34px), calc(50vw - 40px)"
                         width="300"
                         height="450"
                         alt=""
@@ -75,9 +75,9 @@ const shortDate = (iso: string) => {
                   <div class="flex aspect-[2/3] items-center justify-center overflow-hidden rounded-lg bg-neutral-200 transition-transform duration-150 ease-out group-hover:-translate-y-1 group-active:translate-y-0">
                     {film.poster ? (
                       <img
-                        src={posterAt(film.poster, 150)}
-                        srcset={`${posterAt(film.poster, 150)} 150w, ${posterAt(film.poster, 300)} 300w`}
-                        sizes="(min-width: 1024px) 7vw, (min-width: 640px) 18vw, 25vw"
+                        src={posterAt(film.poster, 140)}
+                        srcset={`${posterAt(film.poster, 70)} 70w, ${posterAt(film.poster, 140)} 140w, ${posterAt(film.poster, 230)} 230w`}
+                        sizes="(min-width: 1200px) 82px, (min-width: 1024px) calc(8.3vw - 18px), (min-width: 768px) calc(20vw - 32px), (min-width: 640px) calc(20vw - 22px), calc(25vw - 25px)"
                         width="150"
                         height="225"
                         alt={`${film.title} (${film.year})`}
