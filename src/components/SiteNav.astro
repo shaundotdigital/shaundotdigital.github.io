@@ -1,21 +1,13 @@
 ---
-import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
-// Section links start with "/" so they also work from other pages, such as /privacy.
-// Playbook and the Work items are placeholders until those pages exist.
+// One link per section on the homepage, in page order. Links start with "/" so they
+// also work from other pages, such as /privacy. Add a link here only when its section exists.
 const links = [
-  { label: "CV", href: "/#experience" },
   { label: "Approach", href: "/#domains" },
+  { label: "Experience", href: "/#experience" },
   { label: "Films", href: "/#films" },
-  { label: "Playbook", href: "#" },
   { label: "Contact", href: "/#contact" },
-];
-
-const work = [
-  { label: "Project one", href: "#" },
-  { label: "Project two", href: "#" },
-  { label: "Project three", href: "#" },
 ];
 ---
 
@@ -35,39 +27,7 @@ const work = [
         {link.label}
       </a>
     ))}
-
-    <details class="relative" data-nav-menu>
-      <summary class="interactive flex cursor-pointer list-none items-center gap-1 rounded-full px-3 py-1.5 text-neutral-600 hover:text-ink active:bg-ink/10 [&::-webkit-details-marker]:hidden">
-        Work <Icon name="chevron-down" class="size-4" />
-      </summary>
-      <ul class="absolute right-0 mt-2 w-44 rounded-lg border border-ink/10 bg-paper-raised p-2">
-        {work.map((item) => (
-          <li>
-            <a href={item.href} class="interactive block px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10">
-              {item.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </details>
   </nav>
   </div>
 </header>
 
-<script>
-  // Close the Work menu on Escape or a click outside it.
-  const menu = document.querySelector<HTMLDetailsElement>("[data-nav-menu]");
-
-  if (menu) {
-    document.addEventListener("click", (event) => {
-      if (menu.open && !menu.contains(event.target as Node)) menu.open = false;
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && menu.open) {
-        menu.open = false;
-        menu.querySelector("summary")?.focus();
-      }
-    });
-  }
-</script>
