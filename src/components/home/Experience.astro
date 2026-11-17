@@ -1,21 +1,31 @@
 ---
-import Icon from "../Icon.astro";
+// Work history, newest first, drawn as one timeline. The current role is first and
+// gets the orange marker. `earlier` lists previous titles at the same company.
+interface Role {
+  title: string;
+  dates: string;
+}
 
-// Earlier roles, newest first. The current role lives in
-// FeaturedRole.astro, so it is not repeated here. `roles` lists earlier titles at the same company,
-// `links` and `tags` are optional.
 interface Entry {
   dates: string;
   title: string;
   company: string;
-  href?: string;
-  roles?: string[];
+  current?: boolean;
+  earlier?: Role[];
   summary: string;
-  links?: { label: string; href: string }[];
   tags?: string[];
 }
 
 const entries: Entry[] = [
+  {
+    dates: "Oct 2023 - Present",
+    title: "Digital Optimisation Executive",
+    company: "Brakes / Sysco",
+    current: true,
+    summary:
+      "Part of the Brand and Digital Optimisation team. I run A/B and multivariate tests in Salesforce Personalisation, build pages and reusable components in Amplience, manage categories and products in SAP, and report on performance to shape content, UX and trading decisions.",
+    tags: ["A/B testing", "Analytics", "CRO", "UX", "SEO", "Amplience", "SAP", "Salesforce"],
+  },
   {
     dates: "Jan 2021 - Oct 2023",
     title: "Lead Senior Designer",
@@ -33,70 +43,57 @@ const entries: Entry[] = [
     tags: ["Web design", "Photoshop", "Illustrator"],
   },
   {
-    dates: "Aug 2019 - Sep 2019",
-    title: "Website Content Administrator",
-    company: "ZLT Electrical",
-    summary:
-      "Kept pricing, specs and images accurate across a catalogue of over 65,000 products. Added products through the ERP system and uploaded them to three websites in bulk with CSV files.",
-    tags: ["Product data", "Excel", "Web analytics"],
-  },
-  {
-    dates: "Aug 2017 - Jul 2019",
+    dates: "Jul 2015 - Jul 2019",
     title: "Web Manager",
     company: "TRI UK",
+    earlier: [{ title: "Digital Content Developer, contract", dates: "Jul 2015 - May 2016" }],
     summary:
-      "Led the move of TRI UK's website and IT systems into the Sports Direct group, modernising the e-commerce site and its payment gateway. Managed product data for thousands of products, designed online and print media, set up IT for three stores and worked with over twenty cycling brands on their London Bike Show stands.",
-    tags: ["E-commerce", "SEO", "Product data", "phpMyAdmin", "Adobe Creative Suite", "IT support"],
-  },
-  {
-    dates: "Jul 2015 - May 2016",
-    title: "Digital Content Developer",
-    company: "TRI UK",
-    summary:
-      "Contract role making weekly Mailchimp newsletters for three stores and graphics for the website, social media and in-store use. Also ran the 2016 TRI UK catalogue, keeping suppliers and deadlines on track.",
-    tags: ["Photoshop", "Illustrator", "InDesign", "Mailchimp", "Social media"],
+      "Started on contract making newsletters, store graphics and the 2016 catalogue, then came back as Web Manager to lead the move of TRI UK's website and IT systems into the Sports Direct group. That meant modernising the e-commerce site and payment gateway, managing data for thousands of products, designing for print and online, setting up IT for three stores and working with over twenty cycling brands on their London Bike Show stands.",
+    tags: ["E-commerce", "SEO", "Product data", "Adobe Creative Suite", "Mailchimp", "IT support"],
   },
 ];
 ---
 
 <section id="experience" class="bg-paper text-ink">
   <div class="container-default py-20">
-    <h2 class="sr-only">Earlier experience</h2>
+    <h2 class="max-w-md text-2xl tracking-tight md:text-3xl">
+      <span class="text-neutral-500">I currently</span> work at Brakes / Sysco,{" "}
+      <span class="text-neutral-500">improving the</span> online customer experience.
+    </h2>
 
-    <ol class="space-y-10">
-      {entries.map((entry) => (
-        <li class="grid gap-2 md:grid-cols-[11rem_1fr] md:gap-6">
-          <p class="pt-1 text-xs tracking-wide text-neutral-600 uppercase tabular-nums">{entry.dates}</p>
+    <ol class="mt-12">
+      {entries.map((entry, i) => (
+        <li class="grid gap-1 md:grid-cols-[11rem_1fr] md:gap-6">
+          <p class="text-xs tracking-wide text-neutral-600 uppercase tabular-nums md:pt-1.5">{entry.dates}</p>
 
-          <div>
-            <h3 class="text-lg">
-              {entry.href ? (
-                <a href={entry.href} class="interactive underline-offset-4 hover:underline hover:decoration-brand active:text-neutral-600">
-                  {entry.title} &middot; {entry.company} <Icon name="arrow-up-right" class="inline size-4 -translate-y-0.5" />
-                </a>
-              ) : (
-                <>{entry.title} &middot; {entry.company}</>
-              )}
+          <!-- The left border is the timeline rail. Padding, not margins, keeps it unbroken between entries. -->
+          <div class:list={["relative md:border-l md:border-ink/10 md:pl-8", i < entries.length - 1 && "pb-12"]}>
+            <span
+              aria-hidden="true"
+              class:list={[
+                "absolute top-2 -left-[5px] hidden size-2.5 rounded-full md:block",
+                entry.current ? "bg-brand" : "bg-neutral-300",
+              ]}
+            ></span>
+
+            <h3 class:list={[entry.current ? "text-xl" : "text-lg"]}>
+              {entry.title} <span class="text-neutral-500">&middot; {entry.company}</span>
             </h3>
 
-            {entry.roles && (
-              <ul class="text-neutral-600">
-                {entry.roles.map((role) => <li>{role}</li>)}
+            {entry.earlier && (
+              <ul class="mt-1 text-sm text-neutral-600">
+                {entry.earlier.map((role) => (
+                  <li>
+                    Before that: {role.title}, <span class="tabular-nums">{role.dates}</span>
+                  </li>
+                ))}
               </ul>
             )}
 
             <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">{entry.summary}</p>
 
-            {entry.links && (
-              <ul class="mt-4 flex flex-wrap gap-4 text-sm">
-                {entry.links.map((link) => (
-                  <li><a href={link.href} class="interactive underline underline-offset-4 hover:decoration-brand active:text-neutral-600">{link.label}</a></li>
-                ))}
-              </ul>
-            )}
-
             {entry.tags && (
-              <ul class="mt-4 flex flex-wrap gap-2">
+              <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
                 {entry.tags.map((tag) => (
                   <li class="rounded-full bg-ink/5 px-3 py-1 text-xs text-neutral-700">{tag}</li>
                 ))}
