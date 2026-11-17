@@ -34,8 +34,9 @@
   --color-neutral-900: #212121;
   --color-neutral-950: #171717;
 
-  /* Type: Space Grotesk, self-hosted. Headings are bold, body is regular. */
-  --font-sans: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+  /* Type: body text uses Tailwind's default system font stack (font-sans).
+     Headings and the logo use Space Grotesk, self-hosted (font-display). */
+  --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
 
   /* Layout: one page width, used by .container-default */
   --container-page: 75rem;
@@ -59,6 +60,13 @@
   h2,
   h3 {
     text-wrap: balance;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
   }
 
   h1,
