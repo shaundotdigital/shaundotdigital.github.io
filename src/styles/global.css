@@ -20,6 +20,14 @@
 }
 
 @layer base {
+  /* Links to a section (#contact, #experience and so on) glide down the page instead of jumping.
+     Skipped for anyone who has asked their device to reduce motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
