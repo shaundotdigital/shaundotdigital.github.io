@@ -1,12 +1,13 @@
 ---
 // The shaun logo: lowercase name in a pill with the terracotta dot.
 // Everything is sized in em, so set the size with a text size class, e.g. class="text-xl".
-//   primary  - navy pill, paper text (on light backgrounds)
-//   reversed - paper pill, navy text (on navy)
-//   outline  - navy outline, navy text
+//   primary          - ink pill, paper text (on light backgrounds)
+//   reversed         - paper pill, ink text (on dark backgrounds)
+//   outline          - ink outline and text (on light backgrounds)
+//   outline-reversed - paper outline and text (on dark backgrounds)
 // `short` swaps the name for "s", for avatars and tight spaces.
 interface Props {
-  variant?: "primary" | "reversed" | "outline";
+  variant?: "primary" | "reversed" | "outline" | "outline-reversed";
   short?: boolean;
   class?: string;
 }
@@ -17,6 +18,7 @@ const variants = {
   primary: "bg-ink text-paper",
   reversed: "bg-paper text-ink",
   outline: "border-[0.07em] border-ink text-ink",
+  "outline-reversed": "border-[0.07em] border-paper text-paper",
 };
 ---
 
