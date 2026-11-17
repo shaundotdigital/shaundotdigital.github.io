@@ -94,7 +94,7 @@ const entries: Entry[] = [
     <ol class="mt-12">
       {entries.map((entry, i) => (
         <li class="grid gap-1 md:grid-cols-[11rem_1fr] md:gap-6">
-          <p class="text-xs tracking-wide text-sky uppercase tabular-nums md:pt-1.5">{entry.dates}</p>
+          <p class="text-xs tracking-wide text-brand uppercase tabular-nums md:pt-1.5">{entry.dates}</p>
 
           <!-- The left border is the timeline rail. Padding, not margins, keeps it unbroken between entries. -->
           <div class:list={["relative md:border-l md:border-paper/15 md:pl-8", i < entries.length - 1 && "pb-12"]}>

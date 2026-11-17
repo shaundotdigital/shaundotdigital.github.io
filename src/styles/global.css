@@ -8,20 +8,20 @@
 */
 @theme {
   /* Brand colours, from the shaun logo set, with near-black ink in place of the navy.
+     Three colours: ink, paper and brand, plus white for raised surfaces.
      Contrast rules:
      - Brand (terracotta) is 3.2:1 on paper and 3.6:1 on white: large headline text,
-       fills with ink text on top (5.3:1) and underlines only. Never small text.
-     - Brand on sky is 2.2:1, so never put brand on sky. On sky, buttons are ink.
-     - Ink on sky is 12:1; sky on ink is the same. */
+       fills with ink text on top (5.3:1) and underlines only. Never small text on light.
+     - Brand on ink is 5.3:1, so on black sections it is fine for small text too.
+     - Paper on ink is 17:1. */
   --color-brand: #da6446;
   --color-ink: #101010;
   --color-paper: #f5f4f0;
   --color-paper-raised: #ffffff;
-  --color-sky: #a9d1fb;
 
   /* Greys are mixes of the ink and white, so they match it exactly.
      On paper or white: 500 is fine for large text (3.4:1), small text needs 600 or darker.
-     On sky: large text needs 600 (3.6:1), small text needs 700 (5.7:1). */
+     On ink: 400 or lighter (7.8:1). */
   --color-neutral-50: #f8f8f8;
   --color-neutral-100: #f1f1f1;
   --color-neutral-200: #e2e2e2;
@@ -73,7 +73,7 @@
   }
 
   ::selection {
-    background-color: var(--color-sky);
+    background-color: var(--color-brand);
     color: var(--color-ink);
   }
 
@@ -103,7 +103,7 @@
     @apply mx-auto max-w-page px-8;
   }
 
-  /* For sections on a light colour fill (sky), where the terracotta focus ring would be too faint. */
+  /* For sections on a terracotta fill, where the terracotta focus ring would vanish. Not used right now. */
   .focus-ink :focus-visible {
     outline-color: var(--color-ink);
   }
