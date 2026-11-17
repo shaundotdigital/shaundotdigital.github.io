@@ -1,24 +1,40 @@
 ---
-// Placeholder cards. Six short statements about the areas you have worked in.
+// Approach: how I work, written from my own summary. Four short cards, one idea each.
 const cards = [
-  "Website performance and conversion work for a large B2B e‑commerce site.",
-  "A/B and multivariate testing, from hypothesis through to rollout.",
-  "Analytics and reporting that shape UX and content decisions.",
-  "Content and campaign management across CMS and commerce platforms.",
-  "Working with SEO, e‑commerce and brand teams on shared goals.",
-  "Design for print and brand consistency across channels.",
+  {
+    title: "Content management",
+    body: "I manage digital content across Amplience, Salesforce and SAP, from campaign pages to product and category content.",
+  },
+  {
+    title: "Testing and analytics",
+    body: "I use analytics, A/B testing and multivariate experiments to find opportunities and improve digital performance.",
+  },
+  {
+    title: "Working with teams",
+    body: "I work with e‑commerce, SEO and brand marketing, plus design and development teams, to deliver content and optimisation work.",
+  },
+  {
+    title: "Design background",
+    body: "Before this, I led website design and brand projects at Hellooo Group, and worked across web design, content management and IT.",
+  },
 ];
 ---
 
 <section id="domains" class="bg-paper-raised text-ink">
   <div class="container-default pt-12 pb-20">
-    <h2 class="max-w-lg text-2xl leading-[1.2] md:text-3xl">
-      I&rsquo;ve worked with digital across various teams and disciplines.
+    <h2 class="max-w-2xl text-2xl leading-[1.2] md:text-3xl">
+      I focus on practical ways to improve user experience and conversion.
     </h2>
+    <p class="mt-4 max-w-2xl text-lg text-neutral-700">
+      Data, structured testing and continuous improvement, used to deliver digital experiences that work.
+    </p>
 
-    <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cards.map((card) => (
-        <li class="min-h-36 rounded-2xl bg-paper p-6 text-neutral-700">{card}</li>
+        <li class="rounded-2xl bg-paper p-6">
+          <h3 class="text-lg">{card.title}</h3>
+          <p class="mt-2 text-neutral-700">{card.body}</p>
+        </li>
       ))}
     </ul>
   </div>
