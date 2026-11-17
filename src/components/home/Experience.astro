@@ -1,55 +1,81 @@
 ---
 // Work history, newest first, drawn as one timeline. The current role is first and
-// gets the orange marker. `earlier` lists previous titles at the same company.
+// gets the orange marker. A company with more than one role lists them under the
+// company name, newest first, each with its own dates.
 interface Role {
   title: string;
   dates: string;
-}
-
-interface Entry {
-  dates: string;
-  title: string;
-  company: string;
-  current?: boolean;
-  earlier?: Role[];
   summary: string;
   tags?: string[];
 }
 
+interface Entry {
+  company: string;
+  dates: string;
+  current?: boolean;
+  roles: Role[];
+}
+
 const entries: Entry[] = [
   {
-    dates: "Oct 2023 - Present",
-    title: "Digital Optimisation Executive",
     company: "Brakes / Sysco",
+    dates: "Oct 2023 - Present",
     current: true,
-    summary:
-      "Part of the Brand and Digital Optimisation team. I run A/B and multivariate tests in Salesforce Personalisation, build pages and reusable components in Amplience, manage categories and products in SAP, and report on performance to shape content, UX and trading decisions.",
-    tags: ["A/B testing", "Analytics", "CRO", "UX", "SEO", "Amplience", "SAP", "Salesforce"],
+    roles: [
+      {
+        title: "Digital Optimisation Executive",
+        dates: "Oct 2023 - Present",
+        summary:
+          "Part of the Brand and Digital Optimisation team. I run A/B and multivariate tests in Salesforce Personalisation, build pages and reusable components in Amplience, manage categories and products in SAP, and report on performance to shape content, UX and trading decisions.",
+        tags: ["A/B testing", "Analytics", "CRO", "UX", "SEO", "Amplience", "SAP", "Salesforce"],
+      },
+    ],
   },
   {
-    dates: "Jan 2021 - Oct 2023",
-    title: "Lead Senior Designer",
     company: "hellooodesign",
-    summary:
-      "Joined a new design agency at launch and looked after its brand guidelines and design system. Led WordPress builds from design to launch, with over 35 sites designed, including busy e-commerce stores, plus email campaigns and print work such as brochures and business cards.",
-    tags: ["Web design", "WordPress", "Brand guidelines", "Print", "Photoshop", "Illustrator", "Google Analytics"],
+    dates: "Jan 2021 - Oct 2023",
+    roles: [
+      {
+        title: "Lead Senior Designer",
+        dates: "Jan 2021 - Oct 2023",
+        summary:
+          "Joined a new design agency at launch and looked after its brand guidelines and design system. Led WordPress builds from design to launch, with over 35 sites designed, including busy e-commerce stores, plus email campaigns and print work such as brochures and business cards.",
+        tags: ["Web design", "WordPress", "Brand guidelines", "Print", "Photoshop", "Illustrator", "Google Analytics"],
+      },
+    ],
   },
   {
-    dates: "Jan 2020 - Dec 2020",
-    title: "Senior Web Designer",
     company: "Smart DesignUK",
-    summary:
-      "Worked with the sales team and clients to take responsive websites from first brief to handover. Ran planning meetings, presented designs, briefed freelancers and set up domains and hosting.",
-    tags: ["Web design", "Photoshop", "Illustrator"],
+    dates: "Jan 2020 - Dec 2020",
+    roles: [
+      {
+        title: "Senior Web Designer",
+        dates: "Jan 2020 - Dec 2020",
+        summary:
+          "Worked with the sales team and clients to take responsive websites from first brief to handover. Ran planning meetings, presented designs, briefed freelancers and set up domains and hosting.",
+        tags: ["Web design", "Photoshop", "Illustrator"],
+      },
+    ],
   },
   {
-    dates: "Jul 2015 - Jul 2019",
-    title: "Web Manager",
     company: "TRI UK",
-    earlier: [{ title: "Digital Content Developer, contract", dates: "Jul 2015 - May 2016" }],
-    summary:
-      "Started on contract making newsletters, store graphics and the 2016 catalogue, then came back as Web Manager to lead the move of TRI UK's website and IT systems into the Sports Direct group. That meant modernising the e-commerce site and payment gateway, managing data for thousands of products, designing for print and online, setting up IT for three stores and working with over twenty cycling brands on their London Bike Show stands.",
-    tags: ["E-commerce", "SEO", "Product data", "Adobe Creative Suite", "Mailchimp", "IT support"],
+    dates: "Jul 2015 - Jul 2019",
+    roles: [
+      {
+        title: "Web Manager",
+        dates: "Aug 2017 - Jul 2019",
+        summary:
+          "Led the move of TRI UK's website and IT systems into the Sports Direct group, modernising the e-commerce site and its payment gateway. Managed product data for thousands of products, designed online and print media, set up IT for three stores and worked with over twenty cycling brands on their London Bike Show stands.",
+        tags: ["E-commerce", "SEO", "Product data", "phpMyAdmin", "Adobe Creative Suite", "IT support"],
+      },
+      {
+        title: "Digital Content Developer, contract",
+        dates: "Jul 2015 - May 2016",
+        summary:
+          "Made weekly Mailchimp newsletters for three stores and graphics for the website, social media and in-store use. Also ran the 2016 TRI UK catalogue, keeping suppliers and deadlines on track.",
+        tags: ["Photoshop", "Illustrator", "InDesign", "Mailchimp", "Social media"],
+      },
+    ],
   },
 ];
 ---
@@ -76,28 +102,49 @@ const entries: Entry[] = [
               ]}
             ></span>
 
-            <h3 class:list={[entry.current ? "text-xl" : "text-lg"]}>
-              {entry.title} <span class="text-neutral-500">&middot; {entry.company}</span>
-            </h3>
+            {entry.roles.length === 1 ? (
+              <>
+                <h3 class:list={[entry.current ? "text-xl" : "text-lg"]}>
+                  {entry.roles[0].title} <span class="text-neutral-500">&middot; {entry.company}</span>
+                </h3>
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">{entry.roles[0].summary}</p>
+                {entry.roles[0].tags && (
+                  <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
+                    {entry.roles[0].tags.map((tag) => (
+                      <li class="rounded-full bg-ink/5 px-3 py-1 text-xs text-neutral-700">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ) : (
+              <>
+                <h3 class="text-lg">{entry.company}</h3>
+                <p class="text-sm text-neutral-600">{entry.roles.length} roles</p>
 
-            {entry.earlier && (
-              <ul class="mt-1 text-sm text-neutral-600">
-                {entry.earlier.map((role) => (
-                  <li>
-                    Before that: {role.title}, <span class="tabular-nums">{role.dates}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">{entry.summary}</p>
-
-            {entry.tags && (
-              <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
-                {entry.tags.map((tag) => (
-                  <li class="rounded-full bg-ink/5 px-3 py-1 text-xs text-neutral-700">{tag}</li>
-                ))}
-              </ul>
+                <!-- Roles at the same company, newest first. Small hollow markers sit on the main rail. -->
+                <ol class="mt-6 space-y-8">
+                  {entry.roles.map((role) => (
+                    <li class="relative">
+                      <span
+                        aria-hidden="true"
+                        class="absolute top-1.5 -left-[36px] hidden size-2 rounded-full border border-neutral-400 bg-paper md:block"
+                      ></span>
+                      <h4 class="flex flex-wrap items-baseline gap-x-3">
+                        <span>{role.title}</span>
+                        <span class="text-sm text-neutral-600 tabular-nums">{role.dates}</span>
+                      </h4>
+                      <p class="mt-2 max-w-xl text-sm leading-relaxed text-neutral-600">{role.summary}</p>
+                      {role.tags && (
+                        <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
+                          {role.tags.map((tag) => (
+                            <li class="rounded-full bg-ink/5 px-3 py-1 text-xs text-neutral-700">{tag}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </>
             )}
           </div>
         </li>
