@@ -35,10 +35,10 @@ const links = [
         href="#contact"
         data-email-user={reverse(emailUser)}
         data-email-domain={reverse(emailDomain)}
-        class="button-primary self-start"
+        class="button-primary button-on-dark self-start"
       >
         <span data-email-text>Email me</span>
-        <Icon name="arrow-right" class="size-5" />
+        <span class="button-dot"><Icon name="arrow-right" class="size-5" /></span>
       </a>
       <script is:inline>
         document.querySelectorAll("[data-email-user]").forEach((link) => {

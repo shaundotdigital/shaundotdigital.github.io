@@ -174,9 +174,29 @@
     @apply underline underline-offset-4 transition-colors duration-150 ease-out hover:decoration-brand;
   }
 
-  /* The main call to action: terracotta pill, ink text, usually with an arrow icon. */
+  /* The main call to action, styled like the logo: a black pill with off-white text and the
+     arrow inside the terracotta dot. On black sections add .button-on-dark for the reversed
+     version (off-white pill, ink text), like the reversed logo. Markup:
+       <a class="button-primary">Label <span class="button-dot"><Icon name="arrow-right" /></span></a> */
   .button-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-ink transition-colors duration-150 ease-out hover:bg-brand/85 active:bg-brand/70;
+    @apply inline-flex items-center gap-3.5 rounded-full bg-ink py-1.5 pr-1.5 pl-6 font-medium text-paper transition-colors duration-150 ease-out hover:bg-ink/85 active:bg-ink/75;
+  }
+
+  .button-on-dark {
+    @apply bg-paper text-ink hover:bg-paper/90 active:bg-paper/80;
+  }
+
+  .button-dot {
+    @apply grid size-9 shrink-0 place-items-center rounded-full bg-brand text-ink;
+  }
+
+  /* The arrow nudges right on hover, so the button feels pressable */
+  .button-dot svg {
+    @apply transition-transform duration-150 ease-out;
+  }
+
+  .button-primary:hover .button-dot svg {
+    transform: translateX(2px);
   }
 
   /* Hover, focus and press feedback for links and buttons. */
