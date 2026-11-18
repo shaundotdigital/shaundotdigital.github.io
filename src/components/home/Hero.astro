@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import photo from "../../assets/shaun.jpeg";
 import { getLetterboxd, posterAt } from "../../lib/letterboxd";
 
-const roles = ["Digital Optimisation", "UX and CRO", "Content", "Web and Print"];
+const roles = ["Digital Optimisation", "UX and CRO", "Content"];
 
 // The "now" card uses the latest film from the same Letterboxd data as the films section.
 const { recent } = await getLetterboxd();
