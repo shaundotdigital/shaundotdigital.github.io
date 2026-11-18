@@ -37,3 +37,17 @@ jobs:
       - name: Deploy Astro to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # GitHub switches off scheduled workflows after 60 days with no activity in the repo,
+  # which would freeze the Letterboxd films. Re-enabling this workflow through the API
+  # resets that 60-day count without making a commit. Only runs on the daily scheduled build.
+  keepalive:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Keep the daily schedule switched on
+        run: gh api --method PUT "repos/${{ github.repository }}/actions/workflows/deploy.yml/enable"
+        env:
+          GH_TOKEN: ${{ github.token }}
