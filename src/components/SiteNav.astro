@@ -1,5 +1,6 @@
 ---
 import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
 // also work from other pages, such as /privacy. Add a link here only when its section exists.
@@ -18,8 +19,9 @@ const links = [
       <Logo class="text-2xl" />
     </a>
 
-    <!-- Tablet and up: links in a row -->
-    <nav aria-label="Main" class="-mx-3 hidden items-center gap-1 text-sm sm:flex">
+    <!-- Right side: links (tablet and up), the light/dark switch, and the menu button (phones) -->
+    <div class="flex items-center gap-2 sm:gap-4">
+    <nav aria-label="Main" class="hidden items-center gap-1 text-sm sm:flex">
       {links.map((link) => (
         <a
           href={link.href}
@@ -29,6 +31,8 @@ const links = [
         </a>
       ))}
     </nav>
+
+    <ThemeToggle />
 
     <!-- Phones: a menu button in the style of the logo (outline pill, lowercase bold).
          It reads "menu" when closed and "close" when open, and fills black on hover. -->
@@ -41,6 +45,7 @@ const links = [
     >
       <span class="pb-[0.08em]" data-menu-label>menu</span>
     </button>
+    </div>
 
     <nav
       id="mobile-menu"

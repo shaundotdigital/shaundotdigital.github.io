@@ -1,0 +1,72 @@
+---
+import Icon from "./Icon.astro";
+
+// Light and dark mode switch. It shows a moon in light mode and a sun in dark mode, and
+// saves the choice so it sticks between visits. Until a visitor chooses, the site follows
+// their device setting (see the theme script in Layout.astro).
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Switch to dark mode"
+  class="interactive relative grid size-9 shrink-0 place-items-center rounded-full border-2 border-ink text-ink hover:bg-ink hover:text-paper active:opacity-80 after:absolute after:-inset-1 after:content-['']"
+>
+  <span class="theme-icon-moon"><Icon name="moon" class="size-4" /></span>
+  <span class="theme-icon-sun"><Icon name="sun" class="size-4" /></span>
+</button>
+
+<style>
+  .theme-icon-sun {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-icon-moon {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-icon-sun {
+    display: block;
+  }
+</style>
+
+<script>
+  const root = document.documentElement;
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const label = () => (root.dataset.theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+
+  const apply = (theme: string) => {
+    root.dataset.theme = theme;
+    document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+      button.setAttribute("aria-label", label());
+    });
+  };
+
+  const saved = () => {
+    try {
+      return localStorage.getItem("theme");
+    } catch {
+      return null;
+    }
+  };
+
+  apply(root.dataset.theme ?? "light");
+
+  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      apply(next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch {
+        // Storage blocked: the switch still works for this page view.
+      }
+    });
+  });
+
+  // Follow the device setting live, but only while the visitor hasn't picked one.
+  media.addEventListener("change", (event) => {
+    if (!saved()) apply(event.matches ? "dark" : "light");
+  });
+</script>

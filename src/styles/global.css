@@ -42,6 +42,39 @@
   --container-page: 75rem;
 }
 
+/*
+  Dark mode. The theme script in Layout.astro sets data-theme="dark" on <html> from the
+  visitor's choice, or their device setting if they haven't chosen. Ink and paper swap, so
+  every component flips without its own dark styles. Greys are the same mixes, now of the
+  light text and the dark background: 600 is 7.5:1 on dark, 500 is 5.3:1. Brand is 5.3:1.
+*/
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #f5f4f0;
+  --color-paper: #101010;
+  --color-paper-raised: #1c1c1c;
+  --color-neutral-50: #171717;
+  --color-neutral-100: #1e1e1d;
+  --color-neutral-200: #2b2b2b;
+  --color-neutral-300: #424241;
+  --color-neutral-400: #676765;
+  --color-neutral-500: #878784;
+  --color-neutral-600: #a3a29f;
+  --color-neutral-700: #bebdba;
+  --color-neutral-800: #d5d4d1;
+  --color-neutral-900: #e5e4e0;
+  --color-neutral-950: #eeede9;
+}
+
+/*
+  Sections that are black in light mode (experience, closing, footer) carry .theme-inverse.
+  In dark mode they stay dark, a shade below the page, instead of flipping to light blocks.
+*/
+:root[data-theme="dark"] .theme-inverse {
+  --color-ink: #080808;
+  --color-paper: #f5f4f0;
+}
+
 @layer base {
   /* Links to a section (#contact, #experience and so on) glide down the page instead of jumping.
      Skipped for anyone who has asked their device to reduce motion. */

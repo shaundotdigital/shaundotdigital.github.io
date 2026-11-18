@@ -26,6 +26,19 @@ const shareImage = new URL("/og-image.jpg", Astro.site);
 <html lang="en-GB">
 	<head>
 		<meta charset="UTF-8" />
+		<!-- Pick light or dark before anything paints: the saved choice, else the device setting -->
+		<script is:inline>
+			(function () {
+				var theme = null;
+				try {
+					theme = localStorage.getItem("theme");
+				} catch (e) {}
+				if (theme !== "light" && theme !== "dark") {
+					theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+				}
+				document.documentElement.dataset.theme = theme;
+			})();
+		</script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{pageTitle}</title>
 		<meta name="description" content={description} />
