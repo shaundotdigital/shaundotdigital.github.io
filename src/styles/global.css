@@ -232,6 +232,23 @@
     transform: translateX(2px);
   }
 
+  /* The header logo's dot "clicks" on hover: it presses in, then bounces back out a little
+     past full size before settling. Used in SiteNav.astro. */
+  @keyframes logo-dot-click {
+    0% {
+      transform: scale(1);
+    }
+    35% {
+      transform: scale(0.7);
+    }
+    70% {
+      transform: scale(1.12);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   /* Hover, focus and press feedback for links and buttons. */
   .interactive {
     @apply transition-colors duration-150 ease-out;

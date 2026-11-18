@@ -15,7 +15,7 @@ const links = [
 <header class="absolute inset-x-0 top-0 z-10">
   <div class="container-default relative flex items-center justify-between gap-x-6 py-5">
     <!-- The logo is the link home, so there is no separate Home item -->
-    <a href="/" aria-label="Shaun, home" class="interactive rounded-full hover:opacity-85 active:opacity-70">
+    <a href="/" aria-label="Shaun, home" class="logo-link interactive rounded-full active:opacity-70">
       <Logo class="text-2xl" />
     </a>
 
@@ -64,6 +64,18 @@ const links = [
     </nav>
   </div>
 </header>
+
+<style>
+  /* Header logo only: on hover or keyboard focus the dot clicks (presses in and bounces
+     back). Logos elsewhere on the site don't have the logo-link wrapper, so they stay still.
+     Skipped for reduced motion. The keyframes (logo-dot-click) are in global.css. */
+  @media (prefers-reduced-motion: no-preference) {
+    .logo-link:hover :global(.logo-dot),
+    .logo-link:focus-visible :global(.logo-dot) {
+      animation: logo-dot-click 450ms ease-out;
+    }
+  }
+</style>
 
 <script>
   // Opens and closes the phone menu. It closes when a link is chosen, on Escape,
