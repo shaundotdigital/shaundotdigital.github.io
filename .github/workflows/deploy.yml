@@ -4,9 +4,11 @@ on:
   # Deploys on every push to the `live` branch
   push:
     branches: [ live ]
-  # Rebuilds once a day so the Letterboxd section stays current (05:17 UTC)
+  # Rebuilds twice a day so the Letterboxd section stays current. GitHub schedules run in
+  # UTC: 11:07 and 23:07 UTC is 11:07am and 11:07pm in UK winter, an hour later in summer.
+  # Minute 7 rather than 0 because runs at the top of the hour are more often delayed.
   schedule:
-    - cron: "17 5 * * *"
+    - cron: "7 11,23 * * *"
   # Allows a manual run from the Actions tab on GitHub
   workflow_dispatch:
 
