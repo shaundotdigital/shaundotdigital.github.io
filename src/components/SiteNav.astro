@@ -1,5 +1,4 @@
 ---
-import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
@@ -31,17 +30,16 @@ const links = [
       ))}
     </nav>
 
-    <!-- Phones: a menu button that opens the same links as a dropdown -->
+    <!-- Phones: a menu button in the style of the logo (outline pill, lowercase bold).
+         It reads "menu" when closed and "close" when open, and fills black on hover. -->
     <button
       type="button"
       aria-expanded="false"
       aria-controls="mobile-menu"
       data-menu-button
-      class="interactive -mr-2 flex size-11 items-center justify-center rounded-full text-ink hover:bg-ink/5 active:bg-ink/10 sm:hidden"
+      class="interactive relative inline-flex items-center rounded-full border-2 border-ink px-4 py-2 font-display text-base leading-none font-bold text-ink lowercase hover:bg-ink hover:text-paper active:opacity-80 after:absolute after:-inset-1.5 after:content-[''] sm:hidden"
     >
-      <span data-menu-open><Icon name="menu" class="size-6" /></span>
-      <span data-menu-close hidden><Icon name="close" class="size-6" /></span>
-      <span class="sr-only">Menu</span>
+      <span class="pb-[0.08em]" data-menu-label>menu</span>
     </button>
 
     <nav
@@ -69,14 +67,12 @@ const links = [
   const menu = document.querySelector<HTMLElement>("#mobile-menu");
 
   if (button && menu) {
-    const openIcon = button.querySelector<HTMLElement>("[data-menu-open]");
-    const closeIcon = button.querySelector<HTMLElement>("[data-menu-close]");
+    const label = button.querySelector<HTMLElement>("[data-menu-label]");
 
     const setOpen = (open: boolean) => {
       menu.hidden = !open;
       button.setAttribute("aria-expanded", String(open));
-      if (openIcon) openIcon.hidden = open;
-      if (closeIcon) closeIcon.hidden = !open;
+      if (label) label.textContent = open ? "close" : "menu";
     };
 
     button.addEventListener("click", () => setOpen(menu.hidden));
