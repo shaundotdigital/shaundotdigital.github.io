@@ -1,4 +1,5 @@
 ---
+import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
@@ -12,22 +13,86 @@ const links = [
 ---
 
 <header class="absolute inset-x-0 top-0 z-10">
-  <div class="container-default flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-5">
-  <!-- The logo is the link home, so there is no separate Home item -->
-  <a href="/" aria-label="Shaun, home" class="interactive rounded-full hover:opacity-85 active:opacity-70">
-    <Logo class="text-2xl" />
-  </a>
+  <div class="container-default relative flex items-center justify-between gap-x-6 py-5">
+    <!-- The logo is the link home, so there is no separate Home item -->
+    <a href="/" aria-label="Shaun, home" class="interactive rounded-full hover:opacity-85 active:opacity-70">
+      <Logo class="text-2xl" />
+    </a>
 
-  <nav aria-label="Main" class="-mx-3 flex flex-wrap items-center gap-1 text-sm">
-    {links.map((link) => (
-      <a
-        href={link.href}
-        class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
-      >
-        {link.label}
-      </a>
-    ))}
-  </nav>
+    <!-- Tablet and up: links in a row -->
+    <nav aria-label="Main" class="-mx-3 hidden items-center gap-1 text-sm sm:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Phones: a menu button that opens the same links as a dropdown -->
+    <button
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-button
+      class="interactive -mr-2 flex size-11 items-center justify-center rounded-full text-ink hover:bg-ink/5 active:bg-ink/10 sm:hidden"
+    >
+      <span data-menu-open><Icon name="menu" class="size-6" /></span>
+      <span data-menu-close hidden><Icon name="close" class="size-6" /></span>
+      <span class="sr-only">Menu</span>
+    </button>
+
+    <nav
+      id="mobile-menu"
+      aria-label="Main"
+      hidden
+      class="absolute inset-x-6 top-full rounded-2xl bg-paper-raised p-2 shadow-xl shadow-ink/10 sm:hidden"
+    >
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="interactive block rounded-lg px-4 py-3 font-display text-lg font-medium hover:bg-ink/5 active:bg-ink/10"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </header>
 
+<script>
+  // Opens and closes the phone menu. It closes when a link is chosen, on Escape,
+  // or on a tap anywhere outside it.
+  const button = document.querySelector<HTMLButtonElement>("[data-menu-button]");
+  const menu = document.querySelector<HTMLElement>("#mobile-menu");
+
+  if (button && menu) {
+    const openIcon = button.querySelector<HTMLElement>("[data-menu-open]");
+    const closeIcon = button.querySelector<HTMLElement>("[data-menu-close]");
+
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      button.setAttribute("aria-expanded", String(open));
+      if (openIcon) openIcon.hidden = open;
+      if (closeIcon) closeIcon.hidden = !open;
+    };
+
+    button.addEventListener("click", () => setOpen(menu.hidden));
+
+    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        setOpen(false);
+        button.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target as Node;
+      if (!menu.hidden && !menu.contains(target) && !button.contains(target)) setOpen(false);
+    });
+  }
+</script>
