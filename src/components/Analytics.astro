@@ -6,6 +6,7 @@
 // - EU/EEA and Swiss visitors: consent is still required there, so the tag is not loaded at all.
 // - Never loads for anyone who has opted out, or who sends a Global Privacy Control or
 //   Do Not Track signal.
+// - Also sends click, scroll, section and exit events (see Interaction tracking below).
 // - Advertising features are switched off, and the tag only runs on the built site, not in dev.
 export const GA_ID = "G-YCLEQYNLKH";
 export const OPT_OUT_KEY = "analytics-opt-out";
@@ -78,6 +79,147 @@ const enabled = import.meta.env.PROD;
         allow_google_signals: false,
         allow_ad_personalization_signals: false,
       });
+
+      // ---- Interaction tracking --------------------------------------------------------
+      // Custom events, sent only when the tag above is allowed to run. None of them carry
+      // personal data: email addresses are never sent, only the words "Email me".
+      //   ui_click       every link and button: element_label, element_type, link_type,
+      //                  link_url (not for email), section
+      //   scroll_depth   once each at 25, 50, 75 and 100 per cent: percent_scrolled
+      //   section_view   the first time a section reaches the middle of the screen: section
+      //   page_exit      when the visitor leaves or hides the page: last_section,
+      //                  furthest_section, max_scroll_percent
+      // To use these in reports, register the parameters as custom dimensions in GA4.
+      (function () {
+        var sectionNames = { top: "hero" };
+
+        function sectionOf(el) {
+          if (el.closest("header")) return "nav";
+          if (el.closest("footer")) return "footer";
+          var sec = el.closest("section[id]");
+          if (sec) return sectionNames[sec.id] || sec.id;
+          return "other";
+        }
+
+        function clean(text) {
+          text = (text || "").replace(/\s+/g, " ").trim();
+          // Never let an email address reach Google.
+          text = text.replace(/[^\s@]+@[^\s@]+/g, "[email]");
+          return text.slice(0, 100);
+        }
+
+        function labelOf(el) {
+          return clean(el.getAttribute("data-track-label") || el.getAttribute("aria-label") || el.innerText || el.textContent);
+        }
+
+        function linkType(a) {
+          var href = a.getAttribute("href") || "";
+          if (href.indexOf("mailto:") === 0) return "email";
+          if (href.indexOf("tel:") === 0) return "phone";
+          if (a.hash && a.pathname === location.pathname && a.host === location.host) return "anchor";
+          return a.host === location.host ? "internal" : "outbound";
+        }
+
+        function send(name, params) {
+          window.gtag("event", name, params);
+        }
+
+        // Clicks: one listener for the whole page, so links added later are caught too.
+        document.addEventListener(
+          "click",
+          function (e) {
+            var el = e.target.closest && e.target.closest("a, button, summary");
+            if (!el || el.hasAttribute("data-track-ignore")) return;
+            var params = {
+              element_label: labelOf(el),
+              element_type: el.tagName.toLowerCase(),
+              section: sectionOf(el),
+            };
+            if (el.tagName === "A") {
+              params.link_type = linkType(el);
+              if (params.link_type !== "email" && params.link_type !== "phone") {
+                params.link_url = el.href.slice(0, 200);
+              }
+              if (params.link_type === "email") params.element_label = "Email me";
+            }
+            send("ui_click", params);
+          },
+          true
+        );
+
+        // Scroll depth, plus the furthest point reached for page_exit.
+        var marks = [25, 50, 75, 100];
+        var sent = {};
+        var maxScroll = 0;
+        function onScroll() {
+          var doc = document.documentElement;
+          var scrollable = doc.scrollHeight - window.innerHeight;
+          var pct = scrollable <= 0 ? 100 : Math.round(((window.scrollY || doc.scrollTop) / scrollable) * 100);
+          if (pct > maxScroll) maxScroll = Math.min(pct, 100);
+          for (var i = 0; i < marks.length; i++) {
+            if (maxScroll >= marks[i] && !sent[marks[i]]) {
+              sent[marks[i]] = true;
+              send("scroll_depth", { percent_scrolled: marks[i] });
+            }
+          }
+        }
+
+        // Sections: tracked by whichever one crosses the middle line of the screen.
+        var order = [];
+        var current = "";
+        var furthest = -1;
+        var seen = {};
+        function watchSections() {
+          var secs = document.querySelectorAll("main section[id], section#contact");
+          if (!("IntersectionObserver" in window) || !secs.length) return;
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var name = sectionOf(entry.target);
+                current = name;
+                var idx = order.indexOf(name);
+                if (idx > furthest) furthest = idx;
+                if (!seen[name]) {
+                  seen[name] = true;
+                  send("section_view", { section: name });
+                }
+              });
+            },
+            { rootMargin: "-50% 0px -50% 0px" }
+          );
+          secs.forEach(function (sec) {
+            order.push(sectionOf(sec));
+            io.observe(sec);
+          });
+        }
+
+        // Exit point: sent once, when the page is closed, left or hidden.
+        var exitSent = false;
+        function onExit() {
+          if (exitSent) return;
+          exitSent = true;
+          send("page_exit", {
+            last_section: current || "hero",
+            furthest_section: order[furthest] || current || "hero",
+            max_scroll_percent: maxScroll,
+            transport_type: "beacon",
+          });
+        }
+
+        function start() {
+          watchSections();
+          onScroll();
+          window.addEventListener("scroll", onScroll, { passive: true });
+          document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "hidden") onExit();
+          });
+          window.addEventListener("pagehide", onExit);
+        }
+
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+        else start();
+      })();
 
       var s = document.createElement("script");
       s.async = true;
