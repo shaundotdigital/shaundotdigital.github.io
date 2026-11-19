@@ -1,69 +1,69 @@
 ---
+import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
 // also work from other pages, such as /privacy. Add a link here only when its section exists.
+// The icon is used in the phone tab bar.
 const links = [
-  { label: "Approach", href: "/#domains" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Films", href: "/#films" },
-  { label: "Contact", href: "/#contact" },
-];
+  { label: "Approach", href: "/#domains", section: "domains", icon: "compass" },
+  { label: "Experience", href: "/#experience", section: "experience", icon: "briefcase" },
+  { label: "Films", href: "/#films", section: "films", icon: "film" },
+  { label: "Contact", href: "/#contact", section: "contact", icon: "mail" },
+] as const;
 ---
 
 <header class="absolute inset-x-0 top-0 z-10">
   <div class="container-default relative flex items-center justify-between gap-x-6 py-5">
     <!-- The logo is the link home, so there is no separate Home item -->
-    <a href="/" aria-label="Shaun, home" class="logo-link interactive rounded-full active:opacity-70">
+    <a href="/" aria-label="Shaun, home" class="logo-link tap-target interactive rounded-full active:opacity-70">
       <Logo class="text-2xl" />
     </a>
 
-    <!-- Right side: links (tablet and up), the light/dark switch, and the menu button (phones) -->
-    <div class="flex items-center gap-2 sm:gap-4">
-    <nav aria-label="Main" class="hidden items-center gap-1 text-sm sm:flex">
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
+    <!-- Tablet and up: links and the light/dark switch. Phones use the tab bar below instead. -->
+    <div class="hidden items-center gap-4 sm:flex">
+      <nav aria-label="Main" class="flex items-center gap-1 text-sm">
+        {links.map((link) => (
+          <a
+            href={link.href}
+            class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
 
-    <ThemeToggle />
-
-    <!-- Phones: a menu button in the style of the logo (outline pill, lowercase bold).
-         It reads "menu" when closed and "close" when open, and fills black on hover. -->
-    <button
-      type="button"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      data-menu-button
-      class="interactive relative inline-flex items-center rounded-full border-2 border-ink px-4 py-2 font-display text-base leading-none font-bold text-ink lowercase hover:bg-ink hover:text-paper active:opacity-80 after:absolute after:-inset-1.5 after:content-[''] sm:hidden"
-    >
-      <span class="pb-[0.08em]" data-menu-label>menu</span>
-    </button>
+      <ThemeToggle />
     </div>
-
-    <nav
-      id="mobile-menu"
-      aria-label="Main"
-      hidden
-      class="absolute inset-x-6 top-full rounded-2xl bg-paper-raised p-2 shadow-xl shadow-ink/10 sm:hidden"
-    >
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class="interactive block rounded-lg px-4 py-3 font-display text-lg font-medium hover:bg-ink/5 active:bg-ink/10"
-        >
-          {link.label}
-        </a>
-      ))}
-    </nav>
   </div>
 </header>
+
+<!-- Phones only: a floating tab bar styled like the logo, an ink pill with paper text that
+     reverses in dark mode. It slides away while scrolling down and comes back on scroll up.
+     The tab for the section on screen is highlighted. -->
+<nav aria-label="Main" data-tab-bar class="tab-bar fixed inset-x-3 z-20 sm:hidden">
+  <!-- The faint outline keeps the pill visible over the black sections -->
+  <ul class="grid grid-cols-5 rounded-full bg-ink px-4 py-1.5 text-paper shadow-xl ring-1 shadow-black/25 ring-paper/20">
+    {links.map((link) => (
+      <li>
+        <a href={link.href} data-tab={link.section} class="tab interactive rounded-full">
+          <Icon name={link.icon} class="size-5" />
+          <span>{link.label}</span>
+        </a>
+      </li>
+    ))}
+    <li>
+      <!-- Same switch as the header one: ThemeToggle's script handles every [data-theme-toggle] -->
+      <button type="button" data-theme-toggle aria-label="Switch to dark mode" class="tab interactive w-full rounded-full">
+        <span class="tab-when-light"><Icon name="moon" class="size-5" /></span>
+        <span class="tab-when-dark"><Icon name="sun" class="size-5" /></span>
+        <span class="tab-when-light">Dark</span>
+        <span class="tab-when-dark">Light</span>
+      </button>
+    </li>
+  </ul>
+</nav>
 
 <style>
   /* Header logo only: on hover or keyboard focus the dot clicks (presses in and bounces
@@ -75,37 +75,129 @@ const links = [
       animation: logo-dot-click 450ms ease-out;
     }
   }
+
+  .tab-bar {
+    /* Floats above the bottom edge, and above the iPhone home indicator */
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    transition: transform 250ms ease-out;
+  }
+
+  .tab-bar[data-hidden] {
+    transform: translateY(calc(100% + 1rem + env(safe-area-inset-bottom)));
+  }
+
+  /* Keyboard users always see where focus is */
+  .tab-bar:focus-within {
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tab-bar {
+      transition: none;
+    }
+  }
+
+  /* Labels in the logo's lettering: display font, bold, lowercase */
+  .tab {
+    display: flex;
+    min-height: 3.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: lowercase;
+    color: color-mix(in srgb, var(--color-paper) 65%, transparent);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .tab:active {
+    background-color: color-mix(in srgb, var(--color-paper) 12%, transparent);
+  }
+
+  .tab[aria-current] {
+    color: var(--color-paper);
+  }
+
+  /* The active tab's icon turns terracotta, the colour of the dot in the logo */
+  .tab[aria-current] :global(svg) {
+    color: var(--color-brand);
+  }
+
+  .tab-when-dark {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .tab-when-light {
+    display: none;
+  }
+
+  :global(:root[data-theme="dark"]) .tab-when-dark {
+    display: block;
+  }
+
+  /* Room at the bottom of every page so the bar never covers the footer. Added to the footer
+     rather than the page, so the space stays the footer's colour. */
+  @media (width < 40rem) {
+    :global(body > footer) {
+      padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
+    }
+  }
 </style>
 
 <script>
-  // Opens and closes the phone menu. It closes when a link is chosen, on Escape,
-  // or on a tap anywhere outside it.
-  const button = document.querySelector<HTMLButtonElement>("[data-menu-button]");
-  const menu = document.querySelector<HTMLElement>("#mobile-menu");
+  const bar = document.querySelector<HTMLElement>("[data-tab-bar]");
 
-  if (button && menu) {
-    const label = button.querySelector<HTMLElement>("[data-menu-label]");
+  if (bar) {
+    // Hide while scrolling down, show again on any scroll up, near the top, or at the very end.
+    let lastY = window.scrollY;
+    let ticking = false;
 
-    const setOpen = (open: boolean) => {
-      menu.hidden = !open;
-      button.setAttribute("aria-expanded", String(open));
-      if (label) label.textContent = open ? "close" : "menu";
+    const update = () => {
+      const y = window.scrollY;
+      const atEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 4;
+      if (y < 80 || atEnd || y < lastY - 6) bar.removeAttribute("data-hidden");
+      else if (y > lastY + 6) bar.setAttribute("data-hidden", "");
+      if (Math.abs(y - lastY) > 6) lastY = y;
+      ticking = false;
     };
 
-    button.addEventListener("click", () => setOpen(menu.hidden));
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
 
-    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+    // Highlight the tab for whichever section crosses the middle of the screen.
+    const tabs = new Map<string, HTMLElement>();
+    bar.querySelectorAll<HTMLElement>("[data-tab]").forEach((tab) => tabs.set(tab.dataset.tab!, tab));
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !menu.hidden) {
-        setOpen(false);
-        button.focus();
-      }
-    });
+    const setCurrent = (id: string | null) => {
+      tabs.forEach((tab, key) => {
+        if (key === id) tab.setAttribute("aria-current", "location");
+        else tab.removeAttribute("aria-current");
+      });
+    };
 
-    document.addEventListener("click", (event) => {
-      const target = event.target as Node;
-      if (!menu.hidden && !menu.contains(target) && !button.contains(target)) setOpen(false);
-    });
+    const sections = document.querySelectorAll<HTMLElement>("section[id]");
+    if ("IntersectionObserver" in window && sections.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) setCurrent(tabs.has(entry.target.id) ? entry.target.id : null);
+          });
+        },
+        { rootMargin: "-50% 0px -50% 0px" }
+      );
+      sections.forEach((section) => observer.observe(section));
+    }
   }
 </script>

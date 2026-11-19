@@ -253,4 +253,20 @@
   .interactive {
     @apply transition-colors duration-150 ease-out;
   }
+
+  /* A tap area at least 44px tall for small standalone links and buttons, without changing
+     the layout. Not for links inside a sentence, where the hit areas of lines would overlap. */
+  .tap-target {
+    position: relative;
+  }
+
+  .tap-target::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -0.25rem;
+    left: -0.25rem;
+    height: max(100%, 2.75rem);
+    transform: translateY(-50%);
+  }
 }
