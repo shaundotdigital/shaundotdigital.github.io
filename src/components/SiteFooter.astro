@@ -18,12 +18,12 @@ const stack = [
         Built with{" "}
         {stack.map((item, i) => (
           <>
-            <a href={item.href} class="link active:text-paper/60">{item.label}</a>
+            <a href={item.href} target="_blank" rel="noopener" class="link active:text-paper/60">{item.label}</a>
             {i < stack.length - 2 ? ", " : i === stack.length - 2 ? " and " : "."}
           </>
         ))}
         {" "}Film data from{" "}
-        <a href="https://letterboxd.com" class="link active:text-paper/60">Letterboxd</a>.
+        <a href="https://letterboxd.com" target="_blank" rel="noopener" class="link active:text-paper/60">Letterboxd</a>.
       </p>
     </div>
 

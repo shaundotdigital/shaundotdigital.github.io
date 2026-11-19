@@ -33,7 +33,7 @@ const shortDate = (iso: string) => {
           <ol class="mt-4 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6 lg:gap-x-4">
             {favourites.map((film) => (
               <li>
-                <a href={film.url} class="group block">
+                <a href={film.url} target="_blank" rel="noopener" class="group block">
                   <div class="flex aspect-[2/3] items-center justify-center overflow-hidden rounded-lg bg-neutral-200 transition-transform duration-150 ease-out group-hover:-translate-y-1 group-active:translate-y-0">
                     {film.poster ? (
                       <img
@@ -72,7 +72,7 @@ const shortDate = (iso: string) => {
           <ol class="mt-4 grid grid-cols-4 gap-x-3 gap-y-6 sm:grid-cols-5 md:gap-x-6 lg:grid-cols-4 lg:gap-x-3">
             {recent.map((film) => (
               <li class="max-sm:[&:nth-child(n+9)]:hidden sm:max-lg:[&:nth-child(n+11)]:hidden lg:[&:nth-child(n+9)]:hidden">
-                <a href={film.url} class="group block">
+                <a href={film.url} target="_blank" rel="noopener" class="group block">
                   <div class="flex aspect-[2/3] items-center justify-center overflow-hidden rounded-lg bg-neutral-200 transition-transform duration-150 ease-out group-hover:-translate-y-1 group-active:translate-y-0">
                     {film.poster ? (
                       <img
@@ -114,7 +114,7 @@ const shortDate = (iso: string) => {
       </div>
 
       <p class="mt-8 text-sm">
-        <a href={profileUrl} class="link active:text-neutral-600">
+        <a href={profileUrl} target="_blank" rel="noopener" class="link active:text-neutral-600">
           My full diary on Letterboxd <Icon name="arrow-up-right" class="inline size-4 -translate-y-0.5" />
         </a>
       </p>

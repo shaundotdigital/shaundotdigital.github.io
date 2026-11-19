@@ -103,7 +103,7 @@ const shortDate = (iso: string) => {
               <div class="col-span-2">
                 <dt class="label text-neutral-600">Last watched</dt>
                 <dd class="mt-2">
-                  <a href={lastWatched.url} class="flex items-center gap-3 [&:hover_.film-title]:underline">
+                  <a href={lastWatched.url} target="_blank" rel="noopener" class="flex items-center gap-3 [&:hover_.film-title]:underline">
                     {lastWatched.poster && (
                       <img
                         src={posterAt(lastWatched.poster, 70)}
