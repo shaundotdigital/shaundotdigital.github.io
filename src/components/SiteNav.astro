@@ -45,7 +45,7 @@ const links = [
      scroll up. The tab for the section on screen is highlighted. -->
 <nav aria-label="Main" data-tab-bar class="tab-bar fixed inset-x-3 z-20 sm:hidden">
   <!-- The faint outline keeps the pill visible over the black sections -->
-  <ul class="tab-pill grid grid-cols-5 rounded-full px-4 py-1.5 text-paper shadow-xl ring-1 shadow-black/25 ring-paper/20">
+  <ul class="grid grid-cols-5 rounded-full bg-ink px-4 py-1.5 text-paper shadow-[0_2px_8px_rgb(0_0_0/0.2)] ring-1 ring-paper/20">
     {links.map((link) => (
       <li>
         <a href={link.href} data-tab={link.section} class="tab interactive rounded-full">
@@ -82,27 +82,24 @@ const links = [
     }
   }
 
+  /* Safari on iOS 26 fills the area behind its floating toolbar with whatever fixed element it
+     finds 4 to 6px above the bottom edge of the screen. So nothing here may reach that strip: the
+     bar sits 20px up, its shadow is kept short, and when hidden it is made invisible to Safari
+     (visibility: hidden) rather than left resting on the edge. */
   .tab-bar {
-    /* Floats above the bottom edge, and above the iPhone home indicator */
-    bottom: calc(0.75rem + env(safe-area-inset-bottom));
-    transition: transform 250ms ease-out;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom));
+    transition:
+      transform 250ms ease-out,
+      visibility 0s linear 0s;
   }
 
   .tab-bar[data-hidden] {
-    transform: translateY(calc(100% + 1rem + env(safe-area-inset-bottom)));
-  }
-
-  /* Safari on iOS 26 paints the area behind its floating toolbar in the background colour of
-     any fixed element near the bottom, which hid the page behind a solid band. The pill is
-     painted with a background image instead, so Safari finds no colour and the page shows through. */
-  .tab-pill {
-    background-color: transparent;
-    background-image: linear-gradient(var(--color-ink), var(--color-ink));
-  }
-
-  /* Keyboard users always see where focus is */
-  .tab-bar:focus-within {
-    transform: none;
+    transform: translateY(calc(100% + 1.5rem + env(safe-area-inset-bottom)));
+    visibility: hidden;
+    /* Slide away first, then hide */
+    transition:
+      transform 250ms ease-out,
+      visibility 0s linear 250ms;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -157,7 +154,7 @@ const links = [
      rather than the page, so the space stays the footer's colour. */
   @media (width < 40rem) {
     :global(body > footer) {
-      padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
+      padding-bottom: calc(6.25rem + env(safe-area-inset-bottom));
     }
   }
 </style>
@@ -188,6 +185,14 @@ const links = [
       window.clearTimeout(idleTimer);
       idleTimer = window.setTimeout(reveal, IDLE_MS);
     };
+
+    // A hidden bar can't take keyboard focus, so show it as soon as someone presses Tab.
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Tab") {
+        reveal();
+        bar.removeAttribute("data-hidden");
+      }
+    });
 
     restartIdle();
     ["pointerdown", "keydown", "touchstart"].forEach((type) =>
