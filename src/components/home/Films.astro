@@ -2,8 +2,8 @@
 import Icon from "../Icon.astro";
 import { getLetterboxd, posterAt } from "../../lib/letterboxd";
 
-// Recently watched is fetched from Letterboxd at build time, favourites come from
-// a data file. See src/lib/letterboxd.ts.
+// Recently watched, favourites and the film count are all fetched from Letterboxd at
+// build time. See src/lib/letterboxd.ts.
 const { favourites, recent, filmsLogged, profileUrl } = await getLetterboxd();
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

@@ -1,21 +1,19 @@
-// Film data for the homepage.
+// Film data for the homepage. Everything is fetched from Letterboxd when the site builds.
 //
-// - Recently watched is pulled from the public Letterboxd RSS feed when the
-//   site builds. If that request fails, the last good copy in
-//   data/letterboxd-recent.json is used. The dev server rewrites that file
-//   whenever the feed changes, so commit it when it shows up in git.
-// - The four favourites and the film count live in
-//   src/data/letterboxd-profile.json and are edited by hand. Letterboxd has no
-//   public API and blocks scripts from reading profile pages (403), so these
-//   cannot be fetched automatically.
+// - Recently watched comes from the public RSS feed.
+// - The four favourites and the film count come from the profile page, with each
+//   favourite's poster and director read from its film page.
+// - If a request fails, the last good copy in data/ is used instead:
+//   data/letterboxd-recent.json and data/letterboxd-profile.json. The dev server
+//   rewrites those files whenever Letterboxd changes, so commit them when they show up in git.
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import profile from "../data/letterboxd-profile.json";
 
 export const USERNAME = "shaundotdigital";
 
 const PROFILE_URL = `https://letterboxd.com/${USERNAME}/`;
 const SNAPSHOT_PATH = path.join(process.cwd(), "data", "letterboxd-recent.json");
+const PROFILE_SNAPSHOT_PATH = path.join(process.cwd(), "data", "letterboxd-profile.json");
 const RECENT_COUNT = 12;
 const TIMEOUT_MS = 8000;
 
@@ -35,6 +33,11 @@ export interface Watch extends Film {
   watched: string;
   rewatch: boolean;
   liked: boolean;
+}
+
+interface Profile {
+  filmsLogged: string | null;
+  favourites: Favourite[];
 }
 
 export interface LetterboxdData {
@@ -129,13 +132,94 @@ async function loadRecent(): Promise<Watch[]> {
   }
 }
 
+// Profile and film pages are normal web pages, so ask for them the way a browser would.
+const PAGE_HEADERS = {
+  Accept: "text/html,application/xhtml+xml",
+  "Accept-Language": "en-GB,en;q=0.9",
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36",
+};
+
+async function getPage(url: string): Promise<string> {
+  const response = await fetch(url, { headers: PAGE_HEADERS, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  if (!response.ok) throw new Error(`${url} returned ${response.status}`);
+  return response.text();
+}
+
+/** Poster and director for one film, from the structured data on its Letterboxd page. */
+async function fetchFilmDetails(slug: string): Promise<{ poster: string | null; director: string | null }> {
+  const html = await getPage(`https://letterboxd.com/film/${slug}/`);
+  const raw = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+  if (!raw) throw new Error(`No film details found for ${slug}`);
+  // Letterboxd wraps the JSON in /* <![CDATA[ */ comments.
+  const data = JSON.parse(raw.replace(/\/\*[\s\S]*?\*\//g, "").trim());
+  const directors: { name: string }[] = Array.isArray(data.director) ? data.director : data.director ? [data.director] : [];
+  return {
+    poster: typeof data.image === "string" ? data.image : null,
+    director: directors.map((d) => d.name).join(", ") || null,
+  };
+}
+
+async function fetchProfile(): Promise<Profile> {
+  const html = await getPage(PROFILE_URL);
+
+  const filmsLogged = html.match(/<span class="value">([\d,]+)<\/span><span class="definition[^"]*">Films<\/span>/)?.[1] ?? null;
+
+  const start = html.indexOf('id="favourites"');
+  if (start === -1) throw new Error("No favourites section on the profile page");
+  const section = html.slice(start, html.indexOf("</section>", start));
+
+  const picks: { slug: string; name: string }[] = [];
+  for (const match of section.matchAll(/data-item-name="([^"]+)"[^>]*?data-item-slug="([^"]+)"/g)) {
+    const [, name, slug] = match;
+    if (!picks.some((pick) => pick.slug === slug)) picks.push({ slug, name: decode(name) });
+  }
+  if (picks.length === 0) throw new Error("No favourite films found on the profile page");
+
+  const favourites = await Promise.all(
+    picks.slice(0, 4).map(async ({ slug, name }) => {
+      // The profile gives the name as "Title (2024)".
+      const named = name.match(/^(.*) \((\d{4})\)$/);
+      const details = await fetchFilmDetails(slug);
+      return {
+        title: named ? named[1] : name,
+        year: named ? named[2] : "",
+        director: details.director,
+        url: `https://letterboxd.com/film/${slug}/`,
+        poster: details.poster,
+      };
+    })
+  );
+
+  return { filmsLogged, favourites };
+}
+
+async function loadProfile(): Promise<Profile> {
+  let snapshot: Profile = { filmsLogged: null, favourites: [] };
+  try {
+    snapshot = JSON.parse(await readFile(PROFILE_SNAPSHOT_PATH, "utf-8"));
+  } catch {}
+
+  try {
+    const profile = await fetchProfile();
+    if (import.meta.env.DEV && JSON.stringify(profile) !== JSON.stringify(snapshot)) {
+      await mkdir(path.dirname(PROFILE_SNAPSHOT_PATH), { recursive: true });
+      await writeFile(PROFILE_SNAPSHOT_PATH, JSON.stringify(profile, null, 2) + "\n");
+    }
+    return profile;
+  } catch (error) {
+    console.warn(`[letterboxd] Using the saved copy of favourites and film count: ${(error as Error).message}`);
+    return snapshot;
+  }
+}
+
 let cached: Promise<LetterboxdData> | undefined;
 
-/** One feed request per build, or per dev server session. */
+/** Fetched once per build, or once per dev server session. */
 export function getLetterboxd(): Promise<LetterboxdData> {
-  return (cached ??= loadRecent().then((recent) => ({
+  return (cached ??= Promise.all([loadRecent(), loadProfile()]).then(([recent, profile]) => ({
     profileUrl: PROFILE_URL,
-    filmsLogged: profile.filmsLogged ?? null,
+    filmsLogged: profile.filmsLogged,
     favourites: profile.favourites,
     recent,
   })));
