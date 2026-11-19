@@ -1,0 +1,26 @@
+name: Something's broken
+description: A page, link or feature on byshaun.xyz isn't working or looks wrong.
+labels: ["bug"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: The address of the page with the problem.
+      placeholder: https://byshaun.xyz/
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What did you see, and what did you expect to see? Screenshots help.
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device and browser
+      placeholder: iPhone 16, Safari
+    validations:
+      required: true

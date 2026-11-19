@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security problem
+    url: https://github.com/shaundotdigital/shaundotdigital.github.io/security/advisories/new
+    about: Please report security problems privately, not as a public issue.
+  - name: Just want to say hello?
+    url: https://byshaun.xyz/#contact
+    about: Get in touch through the site instead.

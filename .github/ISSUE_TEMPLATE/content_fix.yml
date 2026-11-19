@@ -1,0 +1,18 @@
+name: Typo or dead link
+description: A spelling mistake, wrong detail or link that goes nowhere.
+labels: ["content"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      placeholder: https://byshaun.xyz/
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: What needs fixing
+      description: Quote the text or name the link, and say what it should be.
+    validations:
+      required: true

@@ -29,3 +29,13 @@ src/styles/      global.css - Tailwind import and theme colours
 ```
 
 `dist/` and `.astro/` are generated and not committed.
+
+## Contributing
+
+Small fixes are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and the [code of conduct](CODE_OF_CONDUCT.md). To report a security problem, see [SECURITY.md](SECURITY.md).
+
+## Licence
+
+The code is under the [MIT licence](LICENSE), so you're free to reuse it.
+
+The site's writing, my photo, the logo and the social share image are not covered by the MIT licence. They're © Shaun Skeen, all rights reserved. Film data and posters come from Letterboxd and belong to their owners.

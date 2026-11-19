@@ -1,0 +1,23 @@
+name: Accessibility problem
+description: Something is hard to read, hear or use, such as low contrast or a part you can't reach with a keyboard.
+labels: ["accessibility"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      placeholder: https://byshaun.xyz/
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's the problem
+      description: What were you trying to do, and what got in the way?
+    validations:
+      required: true
+  - type: input
+    id: setup
+    attributes:
+      label: Device, browser and any assistive tech
+      placeholder: Mac, Safari, VoiceOver
