@@ -40,8 +40,9 @@ const links = [
 </header>
 
 <!-- Phones only: a floating tab bar styled like the logo, an ink pill with paper text that
-     reverses in dark mode. It slides away while scrolling down and comes back on scroll up.
-     The tab for the section on screen is highlighted. -->
+     reverses in dark mode. It starts hidden and appears on the first scroll, or after 8 seconds
+     without a tap or scroll. From then on it slides away while scrolling down and comes back on
+     scroll up. The tab for the section on screen is highlighted. -->
 <nav aria-label="Main" data-tab-bar class="tab-bar fixed inset-x-3 z-20 sm:hidden">
   <!-- The faint outline keeps the pill visible over the black sections -->
   <ul class="tab-pill grid grid-cols-5 rounded-full px-4 py-1.5 text-paper shadow-xl ring-1 shadow-black/25 ring-paper/20">
@@ -64,6 +65,11 @@ const links = [
     </li>
   </ul>
 </nav>
+<!-- Start hidden. Set here, before the page paints, so the bar never flashes up on load.
+     Without JavaScript this never runs and the bar simply stays visible. -->
+<script is:inline>
+  document.querySelector("[data-tab-bar]")?.setAttribute("data-hidden", "");
+</script>
 
 <style>
   /* Header logo only: on hover or keyboard focus the dot clicks (presses in and bounces
@@ -160,17 +166,61 @@ const links = [
   const bar = document.querySelector<HTMLElement>("[data-tab-bar]");
 
   if (bar) {
-    // Hide while scrolling down, show again on any scroll up, near the top, or at the very end.
+    // Hidden on load (see the inline script above). It appears on the first scroll, or after
+    // 8 seconds with no taps, keys or scrolling.
+    const IDLE_MS = 8000;
+    let revealed = false;
+    // The hide rule waits until the first scroll has stopped, so the bar doesn't appear
+    // and then vanish again during the same swipe.
+    let hideRuleOn = false;
+    let settleTimer: number | undefined;
+    let idleTimer: number | undefined;
+
+    const reveal = () => {
+      if (revealed) return;
+      revealed = true;
+      window.clearTimeout(idleTimer);
+      ["pointerdown", "keydown", "touchstart"].forEach((type) => window.removeEventListener(type, restartIdle));
+      bar.removeAttribute("data-hidden");
+    };
+
+    const restartIdle = () => {
+      window.clearTimeout(idleTimer);
+      idleTimer = window.setTimeout(reveal, IDLE_MS);
+    };
+
+    restartIdle();
+    ["pointerdown", "keydown", "touchstart"].forEach((type) =>
+      window.addEventListener(type, restartIdle, { passive: true })
+    );
+
+    // After that: hide while scrolling down, show again on any scroll up, near the top, or at the very end.
     let lastY = window.scrollY;
     let ticking = false;
 
     const update = () => {
+      ticking = false;
       const y = window.scrollY;
+
+      if (!revealed) {
+        reveal();
+        lastY = y;
+      }
+
+      // Turn the hide rule on once scrolling pauses for a moment.
+      if (!hideRuleOn) {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(() => {
+          hideRuleOn = true;
+          lastY = window.scrollY;
+        }, 250);
+        return;
+      }
+
       const atEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 4;
       if (y < 80 || atEnd || y < lastY - 6) bar.removeAttribute("data-hidden");
       else if (y > lastY + 6) bar.setAttribute("data-hidden", "");
       if (Math.abs(y - lastY) > 6) lastY = y;
-      ticking = false;
     };
 
     window.addEventListener(
