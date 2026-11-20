@@ -1,0 +1,73 @@
+name: Sync Pages CMS edits
+
+# Pages CMS saves to the cms branch. Each save is put live straight away and copied to dev,
+# so content never needs merging by hand. When code is pushed to live, it's copied to cms,
+# so Pages CMS always edits the newest version of the site.
+#
+# Pushes made here with GITHUB_TOKEN don't start other workflows (GitHub's rule, which also
+# stops this one looping), so the deploy is started directly at the end.
+on:
+  push:
+    branches: [cms, live]
+
+permissions:
+  contents: write # push the merged branches
+  actions: write # start the deploy workflow
+
+# One sync at a time, in order, so quick saves in a row can't trip over each other.
+concurrency:
+  group: cms-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out every branch
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # ---- A save in Pages CMS ----
+
+      - name: Put the edit live
+        if: github.ref_name == 'cms'
+        run: |
+          git checkout live
+          git merge --no-edit -m "Publish content from Pages CMS" origin/cms
+          git push origin live
+          # Bring cms level with live, so the next save fast-forwards cleanly.
+          git checkout cms
+          git merge --ff-only live
+          git push origin cms
+
+      - name: Copy the edit to dev
+        if: github.ref_name == 'cms'
+        run: |
+          git checkout dev
+          if git merge --no-edit -m "Merge content from Pages CMS into dev" origin/cms; then
+            git push origin dev
+          else
+            git merge --abort
+            echo "::warning::The edit is live, but couldn't be merged into dev automatically. Merge cms into dev by hand."
+          fi
+
+      - name: Deploy the site
+        if: github.ref_name == 'cms'
+        run: gh workflow run deploy.yml --ref live
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      # ---- Code pushed to live ----
+
+      - name: Copy live to cms
+        if: github.ref_name == 'live'
+        run: |
+          git checkout cms
+          git merge --no-edit -m "Bring cms up to date with live" origin/live
+          git push origin cms
