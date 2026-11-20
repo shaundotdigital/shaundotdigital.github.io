@@ -86,6 +86,19 @@ The email address never appears in the page's HTML. It's put back together by a 
 
 GitHub doesn't let a workflow's own pushes start other workflows, so `cms-sync.yml` starts the deploy itself.
 
+### Testing CMS changes on dev
+
+Pages CMS reads `.pages.yml` from whichever branch is open, so new fields or sections can be tried on `dev` before they go live:
+
+1. Change `.pages.yml` (and the code that uses it) on `dev` and push.
+2. In Pages CMS, click the repo name at the top of the sidebar and switch from `cms` to `dev`.
+3. Try it out. Saves here are commits to `dev` only, so nothing goes live.
+4. Pull `dev` and run `npm run dev` to see the result.
+5. Merge `dev` into `live` and push. The code and any content saved on `dev` go live, and are copied to `cms`.
+6. Switch Pages CMS back to `cms` for everyday editing.
+
+Content saved on `dev` while testing goes live with the next release, so use real wording or undo it first.
+
 ### Films
 
 `src/lib/letterboxd.ts` reads the films data when the site builds:
