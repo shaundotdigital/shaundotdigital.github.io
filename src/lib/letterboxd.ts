@@ -3,6 +3,9 @@
 // - Recently watched comes from the public RSS feed.
 // - The four favourites and the film count come from the profile page, with each
 //   favourite's poster and director read from its film page.
+// - Letterboxd blocks GitHub's build servers from the profile page, so on the live build the
+//   saved count is used and topped up from the feed: every diary entry logged since the count
+//   was saved that isn't a rewatch is a new film. Favourites only update from the saved copy.
 // - If a request fails, the last good copy in data/ is used instead:
 //   data/letterboxd-recent.json and data/letterboxd-profile.json. The dev server
 //   rewrites those files whenever Letterboxd changes, so commit them when they show up in git.
@@ -38,6 +41,19 @@ export interface Watch extends Film {
 interface Profile {
   filmsLogged: string | null;
   favourites: Favourite[];
+  /** When the count was read: the newest feed entry at that moment (ISO date and time) */
+  countedUpTo?: string | null;
+}
+
+/** One diary entry in the feed, used to top up the film count */
+interface FeedEntry {
+  logged: string;
+  rewatch: boolean;
+}
+
+interface Feed {
+  recent: Watch[];
+  entries: FeedEntry[];
 }
 
 export interface LetterboxdData {
@@ -72,7 +88,7 @@ function tag(xml: string, name: string): string | null {
   return match ? decode(match[1].trim()) : null;
 }
 
-async function fetchRecent(): Promise<Watch[]> {
+async function fetchFeed(): Promise<Feed> {
   const url = `${PROFILE_URL}rss/`;
   const response = await fetch(url, {
     headers: {
@@ -85,6 +101,7 @@ async function fetchRecent(): Promise<Watch[]> {
   const xml = await response.text();
 
   const watches: Watch[] = [];
+  const entries: FeedEntry[] = [];
   for (const item of xml.split("<item>").slice(1)) {
     // Lists share the feed but have no film title, so they are skipped here.
     const title = tag(item, "letterboxd:filmTitle");
@@ -92,20 +109,35 @@ async function fetchRecent(): Promise<Watch[]> {
     const link = tag(item, "link");
     if (!title || !watched || !link) continue;
 
-    watches.push({
-      title,
-      year: tag(item, "letterboxd:filmYear") ?? "",
-      url: link,
-      poster: item.match(/<img src="([^"]+)"/)?.[1] ?? null,
-      watched,
-      rewatch: tag(item, "letterboxd:rewatch") === "Yes",
-      liked: tag(item, "letterboxd:memberLike") === "Yes",
-    });
-    if (watches.length === RECENT_COUNT) break;
+    const rewatch = tag(item, "letterboxd:rewatch") === "Yes";
+    const published = new Date(tag(item, "pubDate") ?? "");
+    if (!Number.isNaN(published.getTime())) entries.push({ logged: published.toISOString(), rewatch });
+
+    if (watches.length < RECENT_COUNT) {
+      watches.push({
+        title,
+        year: tag(item, "letterboxd:filmYear") ?? "",
+        url: link,
+        poster: item.match(/<img src="([^"]+)"/)?.[1] ?? null,
+        watched,
+        rewatch,
+        liked: tag(item, "letterboxd:memberLike") === "Yes",
+      });
+    }
   }
 
   if (watches.length === 0) throw new Error("No films found in the RSS feed");
-  return watches;
+  return { recent: watches, entries };
+}
+
+let feedRequest: Promise<Feed | null> | undefined;
+
+/** The feed is used twice (recently watched and the film count), so fetch it once. */
+function getFeed(): Promise<Feed | null> {
+  return (feedRequest ??= fetchFeed().catch((error) => {
+    console.warn(`[letterboxd] Could not read the RSS feed: ${(error as Error).message}`);
+    return null;
+  }));
 }
 
 async function readSnapshot(): Promise<Watch[]> {
@@ -119,17 +151,16 @@ async function readSnapshot(): Promise<Watch[]> {
 async function loadRecent(): Promise<Watch[]> {
   const snapshot = await readSnapshot();
 
-  try {
-    const recent = await fetchRecent();
-    if (import.meta.env.DEV && JSON.stringify(recent) !== JSON.stringify(snapshot)) {
-      await mkdir(path.dirname(SNAPSHOT_PATH), { recursive: true });
-      await writeFile(SNAPSHOT_PATH, JSON.stringify(recent, null, 2) + "\n");
-    }
-    return recent;
-  } catch (error) {
-    console.warn(`[letterboxd] Using the saved copy of recently watched: ${(error as Error).message}`);
+  const feed = await getFeed();
+  if (!feed) {
+    console.warn("[letterboxd] Using the saved copy of recently watched");
     return snapshot;
   }
+  if (import.meta.env.DEV && JSON.stringify(feed.recent) !== JSON.stringify(snapshot)) {
+    await mkdir(path.dirname(SNAPSHOT_PATH), { recursive: true });
+    await writeFile(SNAPSHOT_PATH, JSON.stringify(feed.recent, null, 2) + "\n");
+  }
+  return feed.recent;
 }
 
 // Profile and film pages are normal web pages, so ask for them the way a browser would.
@@ -194,14 +225,35 @@ async function fetchProfile(): Promise<Profile> {
   return { filmsLogged, favourites };
 }
 
+/** Newest entry in the feed, so a saved count knows which entries it already includes. */
+function newestEntry(feed: Feed | null): string | null {
+  if (!feed || feed.entries.length === 0) return null;
+  return feed.entries.map((entry) => entry.logged).sort().at(-1)!;
+}
+
+/** Adds every first-time watch logged since the saved count was read. */
+function topUpCount(saved: Profile, feed: Feed | null): string | null {
+  const base = Number((saved.filmsLogged ?? "").replace(/,/g, ""));
+  if (!saved.filmsLogged || !Number.isFinite(base) || !saved.countedUpTo || !feed) return saved.filmsLogged;
+
+  const since = new Date(saved.countedUpTo).getTime();
+  const added = feed.entries.filter((entry) => !entry.rewatch && new Date(entry.logged).getTime() > since).length;
+  if (added > 0) {
+    console.log(`[letterboxd] Film count worked out from the feed: ${saved.filmsLogged} + ${added} new`);
+  }
+  return (base + added).toLocaleString("en-GB");
+}
+
 async function loadProfile(): Promise<Profile> {
-  let snapshot: Profile = { filmsLogged: null, favourites: [] };
+  let snapshot: Profile = { filmsLogged: null, favourites: [], countedUpTo: null };
   try {
     snapshot = JSON.parse(await readFile(PROFILE_SNAPSHOT_PATH, "utf-8"));
   } catch {}
 
+  const feed = await getFeed();
+
   try {
-    const profile = await fetchProfile();
+    const profile: Profile = { ...(await fetchProfile()), countedUpTo: newestEntry(feed) ?? snapshot.countedUpTo ?? null };
     if (import.meta.env.DEV && JSON.stringify(profile) !== JSON.stringify(snapshot)) {
       await mkdir(path.dirname(PROFILE_SNAPSHOT_PATH), { recursive: true });
       await writeFile(PROFILE_SNAPSHOT_PATH, JSON.stringify(profile, null, 2) + "\n");
@@ -209,7 +261,7 @@ async function loadProfile(): Promise<Profile> {
     return profile;
   } catch (error) {
     console.warn(`[letterboxd] Using the saved copy of favourites and film count: ${(error as Error).message}`);
-    return snapshot;
+    return { ...snapshot, filmsLogged: topUpCount(snapshot, feed) };
   }
 }
 
