@@ -1,0 +1,101 @@
+{
+  "heading": "I currently work at Sysco, testing and improving the Brakes website.",
+  "entries": [
+    {
+      "company": "Sysco",
+      "note": "Formerly Brakes Foodservice",
+      "dates": "Oct 2023 - Present",
+      "current": true,
+      "roles": [
+        {
+          "title": "Digital Optimisation Executive",
+          "dates": "Oct 2023 - Present",
+          "summary": "Part of the Brand and Digital Optimisation team. I run A/B and multivariate tests in Salesforce Personalisation, build pages and reusable components in Amplience, manage categories and products in SAP, and report on performance to shape content, UX and trading decisions.",
+          "tags": [
+            "A/B testing",
+            "Analytics",
+            "CRO",
+            "UX",
+            "SEO",
+            "Amplience",
+            "SAP",
+            "Salesforce"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "hellooodesign",
+      "dates": "Jan 2021 - Oct 2023",
+      "roles": [
+        {
+          "title": "Lead Senior Designer",
+          "dates": "Jan 2021 - Oct 2023",
+          "summary": "Joined a new design agency at launch and looked after its brand guidelines and design system. Led WordPress builds from design to launch, with over 35 sites designed, including busy e-commerce stores, plus email campaigns and print work such as brochures and business cards.",
+          "tags": [
+            "Web design",
+            "WordPress",
+            "Brand guidelines",
+            "Print",
+            "Photoshop",
+            "Illustrator",
+            "Google Analytics"
+          ]
+        }
+      ],
+      "note": "",
+      "current": false
+    },
+    {
+      "company": "Smart Design UK",
+      "dates": "Dec 2019 - Dec 2020",
+      "roles": [
+        {
+          "title": "Senior Web Designer",
+          "dates": "Jan 2020 - Dec 2020",
+          "summary": "Worked with the sales team and clients to take responsive websites from first brief to handover. Ran planning meetings, presented designs, briefed freelancers and set up domains and hosting.",
+          "tags": [
+            "Web design",
+            "Photoshop",
+            "Illustrator"
+          ]
+        }
+      ],
+      "note": "",
+      "current": false
+    },
+    {
+      "company": "TRI UK",
+      "dates": "Jul 2015 - Jul 2019",
+      "note": "Now part of Evans Cycles",
+      "roles": [
+        {
+          "title": "Web Manager",
+          "dates": "Aug 2017 - Jul 2019",
+          "summary": "Led the move of TRI UK's website and IT systems into the Sports Direct group, modernising the e-commerce site and its payment gateway. Managed product data for thousands of products, designed online and print media, set up IT for three stores and worked with over twenty cycling brands on their London Bike Show stands.",
+          "tags": [
+            "E-commerce",
+            "SEO",
+            "Product data",
+            "phpMyAdmin",
+            "Adobe Creative Suite",
+            "IT support"
+          ]
+        },
+        {
+          "title": "Digital Content Developer, contract",
+          "dates": "Jul 2015 - May 2016",
+          "summary": "Made weekly Mailchimp newsletters for three stores and graphics for the website, social media and in-store use. Also ran the 2016 TRI UK catalogue, keeping suppliers and deadlines on track.",
+          "tags": [
+            "Photoshop",
+            "Illustrator",
+            "InDesign",
+            "Mailchimp",
+            "Social media"
+          ]
+        }
+      ],
+      "current": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "heading": "That’s the end of the page. Say hello if you want to talk testing, content or films.",
+  "email": "shaun.skeen@icloud.com",
+  "emailButton": "Email me",
+  "links": [
+    {
+      "label": "LinkedIn",
+      "icon": "linkedin",
+      "url": "https://www.linkedin.com/in/shaunskeen"
+    },
+    {
+      "label": "Letterboxd",
+      "icon": "letterboxd",
+      "url": "https://letterboxd.com/shaundotdigital/"
+    },
+    {
+      "label": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/shaundotdigital"
+    },
+    {
+      "label": "Bluesky",
+      "icon": "bluesky",
+      "url": "https://bsky.app/profile/shaundotdigital.bsky.social"
+    }
+  ]
+}

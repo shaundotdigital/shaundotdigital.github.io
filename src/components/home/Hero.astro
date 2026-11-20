@@ -1,10 +1,17 @@
 ---
 import Icon from "../Icon.astro";
 import { Image } from "astro:assets";
-import photo from "../../assets/shaun.jpeg";
+import type { ImageMetadata } from "astro";
 import { getLetterboxd, posterAt } from "../../lib/letterboxd";
+import hero from "../../data/hero.json";
 
-const roles = ["Digital Optimisation", "UX and CRO", "Content"];
+// The words live in src/data/hero.json, which Pages CMS edits.
+const { roles, card } = hero;
+
+// The ID card photo is picked in Pages CMS from src/assets, so Astro can still resize it.
+const photos = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,jpg,png,webp,avif}", { eager: true });
+const photo = photos[card.photo]?.default;
+if (!photo) throw new Error(`Hero photo not found: ${card.photo}. It must be an image in src/assets.`);
 
 // The "now" card uses the latest film from the same Letterboxd data as the films section.
 const { recent } = await getLetterboxd();
@@ -33,14 +40,14 @@ const shortDate = (iso: string) => {
       <!-- The key phrase gets a black pill, like the logo, that sweeps in once the page loads.
            See .pill-reveal in global.css. It never wraps, so keep the phrase short. -->
       <h1 class="mt-6 max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl xl:text-5xl">
-        Hey! I&rsquo;m Shaun. I create and optimise{" "}
+        {hero.headlineStart}{" "}
         <span class="relative inline-block rounded-full px-[0.4em] pt-[0.02em] pb-[0.1em] whitespace-nowrap">
-          digital content
+          {hero.headlineHighlight}
           <!-- The same words on the black pill, revealed over the plain ones. The words come from
                data-label via CSS, so search engines and copy and paste only see them once. -->
-          <span aria-hidden="true" data-label="digital content" class="pill-reveal absolute inset-0 rounded-full bg-ink px-[0.4em] pt-[0.02em] pb-[0.1em] text-paper"></span>
+          <span aria-hidden="true" data-label={hero.headlineHighlight} class="pill-reveal absolute inset-0 rounded-full bg-ink px-[0.4em] pt-[0.02em] pb-[0.1em] text-paper"></span>
         </span>{" "}
-        to create better experiences
+        {hero.headlineEnd}
       </h1>
 
       <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
@@ -48,11 +55,11 @@ const shortDate = (iso: string) => {
           href="#contact"
           class="button-primary"
         >
-          Get in touch
+          {hero.primaryButton}
           <span class="button-dot"><Icon name="arrow-right" class="size-5" /></span>
         </a>
         <a href="#experience" class="link tap-target active:text-neutral-600">
-          See my experience
+          {hero.secondaryLink}
         </a>
       </div>
     </div>
@@ -74,29 +81,29 @@ const shortDate = (iso: string) => {
             <!-- Astro resizes and compresses this at build time; 160px covers high-res screens -->
             <Image
               src={photo}
-              alt="Photo of Shaun"
+              alt={card.photoAlt}
               width={160}
               height={160}
               class="size-20 shrink-0 rounded-lg object-cover"
             />
             <div>
-              <p class="font-display text-2xl font-bold">Shaun</p>
-              <p class="text-sm text-neutral-600">Digital Optimisation Executive</p>
+              <p class="font-display text-2xl font-bold">{card.name}</p>
+              <p class="text-sm text-neutral-600">{card.jobTitle}</p>
             </div>
           </div>
 
           <dl class="mt-6 grid grid-cols-2 gap-x-4 gap-y-5 border-t border-ink/10 pt-6">
             <div>
               <dt class="label text-neutral-600">Based in</dt>
-              <dd class="mt-1">England, UK</dd>
+              <dd class="mt-1">{card.basedIn}</dd>
             </div>
             <div>
               <dt class="label text-neutral-600">In digital since</dt>
-              <dd class="mt-1 tabular-nums">2015</dd>
+              <dd class="mt-1 tabular-nums">{card.digitalSince}</dd>
             </div>
             <div class="col-span-2">
               <dt class="label text-neutral-600">Working on</dt>
-              <dd class="mt-1">Testing and creating content at Sysco</dd>
+              <dd class="mt-1">{card.workingOn}</dd>
             </div>
 
             {lastWatched && (

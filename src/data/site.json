@@ -1,0 +1,23 @@
+{
+  "name": "Shaun Digital",
+  "description": "Shaun creates and optimises digital content, using analytics and A/B testing to improve user experience and conversion.",
+  "shareImageAlt": "Shaun's logo, the headline 'Hey! I'm Shaun. I create and optimise digital content' and a photo of Shaun",
+  "nav": [
+    {
+      "label": "Approach",
+      "section": "domains"
+    },
+    {
+      "label": "Experience",
+      "section": "experience"
+    },
+    {
+      "label": "Films",
+      "section": "films"
+    },
+    {
+      "label": "Contact",
+      "section": "contact"
+    }
+  ]
+}

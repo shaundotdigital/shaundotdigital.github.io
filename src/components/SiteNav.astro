@@ -1,15 +1,11 @@
 ---
 import Logo from "./Logo.astro";
+import site from "../data/site.json";
 import ThemeToggle from "./ThemeToggle.astro";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
-// also work from other pages, such as /privacy. Add a link here only when its section exists.
-const links = [
-  { label: "Approach", href: "/#domains" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Films", href: "/#films" },
-  { label: "Contact", href: "/#contact" },
-];
+// also work from other pages, such as /privacy. The labels live in src/data/site.json.
+const links = site.nav.map((item) => ({ label: item.label, href: `/#${item.section}` }));
 ---
 
 <header class="absolute inset-x-0 top-0 z-10">

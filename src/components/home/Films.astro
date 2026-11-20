@@ -1,6 +1,7 @@
 ---
 import Icon from "../Icon.astro";
 import { getLetterboxd, posterAt } from "../../lib/letterboxd";
+import films from "../../data/films.json";
 
 // Recently watched, favourites and the film count are all fetched from Letterboxd at
 // build time. See src/lib/letterboxd.ts.
@@ -17,7 +18,7 @@ const shortDate = (iso: string) => {
   <section id="films" class="bg-paper-raised text-ink">
     <div class="container-default py-20">
       <h2 class="max-w-lg text-2xl leading-[1.2] md:text-3xl">
-        I watch a lot of films{filmsLogged ? <span class="tabular-nums">, {filmsLogged} logged on Letterboxd so far.</span> : "."}
+        {films.heading}{filmsLogged ? <span class="tabular-nums">, {filmsLogged} {films.countText}.</span> : "."}
       </h2>
 
       <!-- Wide screens: favourites in one row of four on the left, recently watched 4x2 on the right.
@@ -28,7 +29,7 @@ const shortDate = (iso: string) => {
         <div>
           <h3 class="label flex items-center gap-3 text-neutral-600">
             <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
-            Four favourites
+            {films.favouritesLabel}
           </h3>
           <ol class="mt-4 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 md:gap-x-6 lg:gap-x-4">
             {favourites.map((film) => (
@@ -66,7 +67,7 @@ const shortDate = (iso: string) => {
         <div>
           <h3 class="label flex items-center gap-3 text-neutral-600">
             <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
-            Recently watched
+            {films.recentLabel}
           </h3>
           <!-- Always whole rows: 4 across on phones (8 films), 5 across on tablets (10), 4 across beside the favourites (8) -->
           <ol class="mt-4 grid grid-cols-4 gap-x-3 gap-y-6 sm:grid-cols-5 md:gap-x-6 lg:grid-cols-4 lg:gap-x-3">
@@ -115,7 +116,7 @@ const shortDate = (iso: string) => {
 
       <p class="mt-8 text-sm">
         <a href={profileUrl} target="_blank" rel="noopener" class="link tap-target active:text-neutral-600">
-          My full diary on Letterboxd <Icon name="arrow-up-right" class="inline size-4 -translate-y-0.5" />
+          {films.diaryLink} <Icon name="arrow-up-right" class="inline size-4 -translate-y-0.5" />
         </a>
       </p>
     </div>

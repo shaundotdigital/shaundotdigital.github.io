@@ -1,0 +1,21 @@
+{
+  "roles": [
+    "Digital Optimisation",
+    "UX and CRO",
+    "Content"
+  ],
+  "headlineStart": "Hey! I’m Shaun. I create and optimise",
+  "headlineHighlight": "digital content",
+  "headlineEnd": "to create better experiences",
+  "primaryButton": "Get in touch",
+  "secondaryLink": "See my experience",
+  "card": {
+    "photo": "/src/assets/shaun.jpeg",
+    "photoAlt": "Photo of Shaun",
+    "name": "Shaun",
+    "jobTitle": "Digital Optimisation Executive",
+    "basedIn": "England, UK",
+    "digitalSince": "2015",
+    "workingOn": "Testing and creating content at Sysco"
+  }
+}

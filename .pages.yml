@@ -1,0 +1,328 @@
+# Pages CMS (https://pagescms.org): edit the site's words in a web editor.
+# Each entry below is one file in src/data. Saving in Pages CMS commits that file to the branch
+# you have open there (use cms), and the site builds from it like any other change.
+# Films aren't here: they fill themselves from Letterboxd when the site builds.
+
+media:
+  - name: images
+    label: Images
+    # Kept in src/assets so Astro can resize and compress them. The stored path
+    # (e.g. /src/assets/shaun.jpeg) is what the site looks up when it builds.
+    input: src/assets
+    output: /src/assets
+    categories: [image]
+
+content:
+  - name: site
+    label: Site settings
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - name: name
+        label: Site name
+        type: string
+        description: Shown in browser tabs and when the site is shared.
+        required: true
+      - name: description
+        label: Description
+        type: text
+        description: Shown in search results and link previews.
+        required: true
+      - name: shareImageAlt
+        label: Share image description
+        type: text
+        description: Describes public/og-image.jpg for screen readers.
+      - name: nav
+        label: Menu
+        type: object
+        description: Only the labels can change. Each one jumps to a section of the homepage.
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        fields:
+          - name: label
+            label: Label
+            type: string
+            required: true
+          - name: section
+            label: Section
+            type: string
+            readonly: true
+
+  - name: hero
+    label: Hero
+    type: file
+    path: src/data/hero.json
+    format: json
+    fields:
+      - name: roles
+        label: What I do
+        type: string
+        list: true
+        description: The short labels above the headline.
+      - name: headlineStart
+        label: Headline, before the pill
+        type: string
+        required: true
+      - name: headlineHighlight
+        label: Headline, in the black pill
+        type: string
+        description: Keep it short. The pill never wraps onto two lines.
+        required: true
+      - name: headlineEnd
+        label: Headline, after the pill
+        type: string
+      - name: primaryButton
+        label: Button
+        type: string
+        description: Jumps to the contact section.
+      - name: secondaryLink
+        label: Link beside the button
+        type: string
+        description: Jumps to the experience section.
+      - name: card
+        label: ID card (wide screens only)
+        type: object
+        fields:
+          - name: photo
+            label: Photo
+            type: image
+            options:
+              media: images
+          - name: photoAlt
+            label: Photo description
+            type: string
+          - name: name
+            label: Name
+            type: string
+          - name: jobTitle
+            label: Job title
+            type: string
+          - name: basedIn
+            label: Based in
+            type: string
+          - name: digitalSince
+            label: In digital since
+            type: string
+          - name: workingOn
+            label: Working on
+            type: string
+
+  - name: approach
+    label: Approach
+    type: file
+    path: src/data/approach.json
+    format: json
+    fields:
+      - name: heading
+        label: Heading
+        type: text
+        required: true
+      - name: intro
+        label: Intro
+        type: text
+      - name: cards
+        label: Cards
+        type: object
+        description: Shown four across on wide screens.
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: body
+            label: Text
+            type: text
+            required: true
+
+  - name: experience
+    label: Experience
+    type: file
+    path: src/data/experience.json
+    format: json
+    fields:
+      - name: heading
+        label: Heading
+        type: text
+        required: true
+      - name: entries
+        label: Companies
+        type: object
+        description: Newest first. Tick Current on the job you have now to give it the orange marker.
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{company} ({dates})"
+        fields:
+          - name: company
+            label: Company
+            type: string
+            required: true
+          - name: dates
+            label: Dates
+            type: string
+            description: For example, Oct 2023 - Present
+            required: true
+          - name: note
+            label: Note
+            type: string
+            description: Optional, e.g. Formerly Brakes Foodservice
+          - name: current
+            label: Current job
+            type: boolean
+          - name: roles
+            label: Roles
+            type: object
+            description: Newest first. More than one role lists them under the company name.
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: Job title
+                type: string
+                required: true
+              - name: dates
+                label: Dates
+                type: string
+                required: true
+              - name: summary
+                label: Summary
+                type: text
+                required: true
+              - name: tags
+                label: Tags
+                type: string
+                list: true
+
+  - name: films
+    label: Films section
+    type: file
+    path: src/data/films.json
+    format: json
+    fields:
+      - name: heading
+        label: Heading
+        type: string
+        description: The film count is added after this, e.g. "I watch a lot of films, 1,040 logged on Letterboxd so far."
+        required: true
+      - name: countText
+        label: Text after the count
+        type: string
+      - name: favouritesLabel
+        label: Favourites label
+        type: string
+      - name: recentLabel
+        label: Recently watched label
+        type: string
+      - name: diaryLink
+        label: Diary link
+        type: string
+
+  - name: contact
+    label: Contact
+    type: file
+    path: src/data/contact.json
+    format: json
+    fields:
+      - name: heading
+        label: Heading
+        type: text
+        required: true
+      - name: email
+        label: Email address
+        type: string
+        description: Hidden from spam bots on the site. Only shown once the page has loaded.
+        required: true
+      - name: emailButton
+        label: Button text without JavaScript
+        type: string
+        description: Most visitors see the email address on the button instead.
+      - name: links
+        label: Links
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        fields:
+          - name: label
+            label: Label
+            type: string
+            required: true
+          - name: url
+            label: Address
+            type: string
+            required: true
+          - name: icon
+            label: Logo
+            type: select
+            required: true
+            options:
+              values:
+                - name: linkedin
+                  label: LinkedIn
+                - name: letterboxd
+                  label: Letterboxd
+                - name: github
+                  label: GitHub
+                - name: bluesky
+                  label: Bluesky
+
+  - name: footer
+    label: Footer
+    type: file
+    path: src/data/footer.json
+    format: json
+    fields:
+      - name: copyright
+        label: Copyright name
+        type: string
+        description: The year is added automatically.
+      - name: builtWith
+        label: Built with
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        fields:
+          - name: label
+            label: Name
+            type: string
+            required: true
+          - name: url
+            label: Address
+            type: string
+            required: true
+      - name: analyticsNotice
+        label: Analytics notice
+        type: text
+      - name: privacyLink
+        label: Privacy link text
+        type: string
+
+  - name: privacy
+    label: Privacy page
+    type: file
+    path: src/data/privacy.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        description: Shown in search results.
+      - name: body
+        label: Page text
+        type: rich-text

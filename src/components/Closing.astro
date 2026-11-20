@@ -1,24 +1,21 @@
 ---
-import BrandIcon from "./BrandIcon.astro";
+import BrandIcon, { type Brand } from "./BrandIcon.astro";
+import contact from "../data/contact.json";
 import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 
 // The last thing on every page. It shares the black block with SiteFooter so the
 // two read as one ending, but this part is the sign-off and contact, not the footer.
 
-const email = "shaun.skeen@icloud.com";
+// The words, email and links live in src/data/contact.json, which Pages CMS edits.
+const { email } = contact;
 
 // The address never appears in the page's HTML, so spam bots scanning for it find nothing.
 // Each half is stored reversed and put back together by the inline script below.
 const [emailUser, emailDomain] = email.split("@");
 const reverse = (text: string) => [...text].reverse().join("");
 
-const links = [
-  { label: "LinkedIn", icon: "linkedin", href: "https://www.linkedin.com/in/shaunskeen" },
-  { label: "Letterboxd", icon: "letterboxd", href: "https://letterboxd.com/shaundotdigital/" },
-  { label: "GitHub", icon: "github", href: "https://github.com/shaundotdigital" },
-  { label: "Bluesky", icon: "bluesky", href: "https://bsky.app/profile/shaundotdigital.bsky.social" },
-] as const;
+const links = contact.links as { label: string; icon: Brand; url: string }[];
 ---
 
 <section id="contact" class="theme-inverse bg-ink text-paper">
@@ -27,7 +24,7 @@ const links = [
 
     <!-- Kept smaller than the hero headline, so the page opens louder than it closes -->
     <h2 class="mt-10 max-w-2xl text-[2rem] leading-[1.2] sm:text-4xl">
-      That&rsquo;s the end of the page. Say hello if you want to talk testing, content or films.
+      {contact.heading}
     </h2>
 
     <div class="mt-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
@@ -38,7 +35,7 @@ const links = [
         data-email-domain={reverse(emailDomain)}
         class="button-primary button-on-dark self-start"
       >
-        <span data-email-text>Email me</span>
+        <span data-email-text>{contact.emailButton}</span>
         <span class="button-dot"><Icon name="arrow-right" class="size-5" /></span>
       </a>
       <script is:inline>
@@ -53,7 +50,7 @@ const links = [
       <ul class="flex flex-wrap gap-x-6 gap-y-5">
         {links.map((link) => (
           <li>
-            <a href={link.href} target="_blank" rel="noopener" class="group tap-target inline-flex items-center gap-2 active:text-paper/70">
+            <a href={link.url} target="_blank" rel="noopener" class="group tap-target inline-flex items-center gap-2 active:text-paper/70">
               <BrandIcon name={link.icon} class="size-4 shrink-0" />
               <span class="link group-hover:decoration-brand">{link.label}</span>
             </a>

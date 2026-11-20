@@ -1,24 +1,20 @@
 ---
 import { OPT_OUT_KEY } from "./Analytics.astro";
+import footer from "../data/footer.json";
 
-// What the site is built with, shown under the copyright.
-const stack = [
-  { label: "Astro", href: "https://astro.build" },
-  { label: "Tailwind CSS", href: "https://tailwindcss.com" },
-  { label: "Space Grotesk", href: "https://fonts.google.com/specimen/Space+Grotesk" },
-  { label: "GitHub Pages", href: "https://pages.github.com" },
-];
+// The words and links live in src/data/footer.json, which Pages CMS edits.
+const stack = footer.builtWith;
 ---
 
 <footer class="theme-inverse bg-ink font-sans text-paper/80">
   <div class="container-default flex flex-col gap-4 border-t py-8 border-paper/15 text-sm md:flex-row md:items-start md:justify-between">
     <div class="space-y-2">
-      <p>&copy; {new Date().getFullYear()} Shaun Digital</p>
+      <p>&copy; {new Date().getFullYear()} {footer.copyright}</p>
       <p>
         Built with{" "}
         {stack.map((item, i) => (
           <>
-            <a href={item.href} target="_blank" rel="noopener" class="link active:text-paper/60">{item.label}</a>
+            <a href={item.url} target="_blank" rel="noopener" class="link active:text-paper/60">{item.label}</a>
             {i < stack.length - 2 ? ", " : i === stack.length - 2 ? " and " : "."}
           </>
         ))}
@@ -29,9 +25,8 @@ const stack = [
 
     <div class="max-w-full">
       <p>
-        This site uses Google Analytics to count visits and see which pages get read, so I can improve it.
-        It doesn&rsquo;t use advertising features, and it&rsquo;s switched off for visitors in the EU.{" "}
-        <a href="/privacy" class="link active:text-paper/60">Privacy</a>
+        {footer.analyticsNotice}{" "}
+        <a href="/privacy" class="link active:text-paper/60">{footer.privacyLink}</a>
       </p>
       <p class="mt-2">
         <button

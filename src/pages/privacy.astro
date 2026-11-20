@@ -1,46 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SiteNav from '../components/SiteNav.astro';
+// The page text lives in src/data/privacy.md, which Pages CMS edits.
+import { frontmatter, compiledContent } from '../data/privacy.md';
+
+// Markdown gives each heading an id. A heading called Contact would clash with the
+// contact section's id on this page, so the ids are removed.
+const body = (await compiledContent()).replace(/ id="[^"]*"/g, '');
 ---
 
-<Layout title="Privacy" description="How this site uses analytics and how to opt out.">
+<Layout title={frontmatter.title} description={frontmatter.description}>
 	<SiteNav />
 	<main class="bg-paper font-sans text-neutral-800">
 		<!-- Top padding clears the nav, which sits over the page -->
 		<div class="container-default pt-40 pb-20">
-		<div class="max-w-2xl space-y-6">
-			<h1 class="text-[2rem] leading-[1.2] sm:text-5xl">Privacy</h1>
-
-			<h2 class="text-xl">Analytics</h2>
-			<p>
-				This site uses Google Analytics 4 to collect statistics about visits: which pages are viewed,
-				roughly where visitors are and what kind of device they use. I use this only to understand how
-				the site is used and to improve it.
-			</p>
-			<ul class="list-disc space-y-2 pl-6">
-				<li>It also records how the site is used: which links and buttons are clicked, how far down the page you scroll, which sections you reach and where you leave. Email addresses are never sent.</li>
-				<li>Google Analytics sets cookies in your browser (named <code>_ga</code> and <code>_ga_*</code>) to tell visits apart. They last up to two years.</li>
-				<li>Advertising features, Google signals and ad personalisation are switched off.</li>
-				<li>Google processes the data on my behalf. I do not use it to identify you.</li>
-				<li>Analytics does not load for visitors in the EU, EEA or Switzerland, or if your browser sends a Global Privacy Control or Do Not Track signal.</li>
-			</ul>
-
-			<h2 class="text-xl">No cookie banner</h2>
-			<p>
-				UK law allows analytics used purely for statistics to run without asking for consent first,
-				as long as you are told about it and can easily opt out. This site relies on that rule.
-			</p>
-
-			<h2 class="text-xl">Opting out</h2>
-			<p>
-				Use the &ldquo;Opt out of analytics&rdquo; link in the footer of any page. Your choice is saved in
-				your browser and applies from the next page you load. You can opt back in the same way.
-			</p>
-
-			<h2 class="text-xl">Contact</h2>
-			<p>
-				Questions about this? Use the contact details at the bottom of this page.
-			</p>
+		<!-- Markdown comes out as plain h2, p and ul tags, so they're styled from here -->
+		<div class="max-w-2xl space-y-6 [&_h2]:text-xl [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
+			<h1 class="text-[2rem] leading-[1.2] sm:text-5xl">{frontmatter.title}</h1>
+			<Fragment set:html={body} />
 		</div>
 		</div>
 	</main>

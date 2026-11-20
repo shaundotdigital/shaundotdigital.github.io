@@ -1,0 +1,23 @@
+{
+  "copyright": "Shaun Digital",
+  "builtWith": [
+    {
+      "label": "Astro",
+      "url": "https://astro.build"
+    },
+    {
+      "label": "Tailwind CSS",
+      "url": "https://tailwindcss.com"
+    },
+    {
+      "label": "Space Grotesk",
+      "url": "https://fonts.google.com/specimen/Space+Grotesk"
+    },
+    {
+      "label": "GitHub Pages",
+      "url": "https://pages.github.com"
+    }
+  ],
+  "analyticsNotice": "This site uses Google Analytics to count visits and see which pages get read, so I can improve it. It doesn’t use advertising features, and it’s switched off for visitors in the EU.",
+  "privacyLink": "Privacy"
+}

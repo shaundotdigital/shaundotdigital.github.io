@@ -2,92 +2,32 @@
 // Work history, newest first, drawn as one timeline. The current role is first and
 // gets the orange marker. A company with more than one role lists them under the
 // company name, newest first, each with its own dates.
+// The entries live in src/data/experience.json, which Pages CMS edits.
+import experience from "../../data/experience.json";
+
 interface Role {
   title: string;
   dates: string;
   summary: string;
-  tags?: string[];
+  tags: string[];
 }
 
 interface Entry {
   company: string;
   dates: string;
   /** Shown under a multi-role company name, e.g. what the company is called now. */
-  note?: string;
-  current?: boolean;
+  note: string;
+  current: boolean;
   roles: Role[];
 }
 
-const entries: Entry[] = [
-  {
-    company: "Sysco",
-    note: "Formerly Brakes Foodservice",
-    dates: "Oct 2023 - Present",
-    current: true,
-    roles: [
-      {
-        title: "Digital Optimisation Executive",
-        dates: "Oct 2023 - Present",
-        summary:
-          "Part of the Brand and Digital Optimisation team. I run A/B and multivariate tests in Salesforce Personalisation, build pages and reusable components in Amplience, manage categories and products in SAP, and report on performance to shape content, UX and trading decisions.",
-        tags: ["A/B testing", "Analytics", "CRO", "UX", "SEO", "Amplience", "SAP", "Salesforce"],
-      },
-    ],
-  },
-  {
-    company: "hellooodesign",
-    dates: "Jan 2021 - Oct 2023",
-    roles: [
-      {
-        title: "Lead Senior Designer",
-        dates: "Jan 2021 - Oct 2023",
-        summary:
-          "Joined a new design agency at launch and looked after its brand guidelines and design system. Led WordPress builds from design to launch, with over 35 sites designed, including busy e-commerce stores, plus email campaigns and print work such as brochures and business cards.",
-        tags: ["Web design", "WordPress", "Brand guidelines", "Print", "Photoshop", "Illustrator", "Google Analytics"],
-      },
-    ],
-  },
-  {
-    company: "Smart Design UK",
-    dates: "Dec 2019 - Dec 2020",
-    roles: [
-      {
-        title: "Senior Web Designer",
-        dates: "Jan 2020 - Dec 2020",
-        summary:
-          "Worked with the sales team and clients to take responsive websites from first brief to handover. Ran planning meetings, presented designs, briefed freelancers and set up domains and hosting.",
-        tags: ["Web design", "Photoshop", "Illustrator"],
-      },
-    ],
-  },
-  {
-    company: "TRI UK",
-    dates: "Jul 2015 - Jul 2019",
-    note: "Now part of Evans Cycles",
-    roles: [
-      {
-        title: "Web Manager",
-        dates: "Aug 2017 - Jul 2019",
-        summary:
-          "Led the move of TRI UK's website and IT systems into the Sports Direct group, modernising the e-commerce site and its payment gateway. Managed product data for thousands of products, designed online and print media, set up IT for three stores and worked with over twenty cycling brands on their London Bike Show stands.",
-        tags: ["E-commerce", "SEO", "Product data", "phpMyAdmin", "Adobe Creative Suite", "IT support"],
-      },
-      {
-        title: "Digital Content Developer, contract",
-        dates: "Jul 2015 - May 2016",
-        summary:
-          "Made weekly Mailchimp newsletters for three stores and graphics for the website, social media and in-store use. Also ran the 2016 TRI UK catalogue, keeping suppliers and deadlines on track.",
-        tags: ["Photoshop", "Illustrator", "InDesign", "Mailchimp", "Social media"],
-      },
-    ],
-  },
-];
+const entries: Entry[] = experience.entries;
 ---
 
 <section id="experience" class="theme-inverse bg-ink text-paper">
   <div class="container-default py-20">
     <h2 class="max-w-lg text-2xl leading-[1.2] md:text-3xl">
-      I currently work at Sysco, testing and improving the Brakes website.
+      {experience.heading}
     </h2>
 
     <ol class="mt-12">
@@ -112,7 +52,7 @@ const entries: Entry[] = [
                 </h3>
                 {entry.note && <p class="text-sm text-paper/70">{entry.note}</p>}
                 <p class="mt-2 max-w-xl text-sm leading-relaxed text-paper/70">{entry.roles[0].summary}</p>
-                {entry.roles[0].tags && (
+                {entry.roles[0].tags.length > 0 && (
                   <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
                     {entry.roles[0].tags.map((tag) => (
                       <li class="rounded-full bg-paper/10 px-3 py-1 text-xs text-paper/85">{tag}</li>
@@ -138,7 +78,7 @@ const entries: Entry[] = [
                         <span class="text-sm text-paper/70 tabular-nums">{role.dates}</span>
                       </h4>
                       <p class="mt-2 max-w-xl text-sm leading-relaxed text-paper/70">{role.summary}</p>
-                      {role.tags && (
+                      {role.tags.length > 0 && (
                         <ul class="mt-4 flex max-w-xl flex-wrap gap-2">
                           {role.tags.map((tag) => (
                             <li class="rounded-full bg-paper/10 px-3 py-1 text-xs text-paper/85">{tag}</li>

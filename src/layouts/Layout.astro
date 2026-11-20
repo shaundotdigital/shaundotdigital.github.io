@@ -3,16 +3,17 @@ import "../styles/global.css";
 import Analytics from "../components/Analytics.astro";
 import Closing from "../components/Closing.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import site from "../data/site.json";
 
 interface Props {
 	title?: string;
 	description?: string;
 }
 
-const siteName = "Shaun Digital";
+const siteName = site.name;
 const {
 	title = siteName,
-	description = "Shaun creates and optimises digital content, using analytics and A/B testing to improve user experience and conversion.",
+	description = site.description,
 } = Astro.props;
 
 const pageTitle = title === siteName ? siteName : `${title} | ${siteName}`;
@@ -52,7 +53,7 @@ const shareImage = new URL("/og-image.jpg", Astro.site);
 		<meta property="og:image" content={shareImage} />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
-		<meta property="og:image:alt" content="Shaun's logo, the headline 'Hey! I'm Shaun. I create and optimise digital content' and a photo of Shaun" />
+		<meta property="og:image:alt" content={site.shareImageAlt} />
 		<meta property="og:locale" content="en_GB" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:image" content={shareImage} />
