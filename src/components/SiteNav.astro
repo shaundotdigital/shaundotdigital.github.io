@@ -1,17 +1,15 @@
 ---
-import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
 // also work from other pages, such as /privacy. Add a link here only when its section exists.
-// The icon is used in the phone tab bar.
 const links = [
-  { label: "Approach", href: "/#domains", section: "domains", icon: "compass" },
-  { label: "Experience", href: "/#experience", section: "experience", icon: "briefcase" },
-  { label: "Films", href: "/#films", section: "films", icon: "film" },
-  { label: "Contact", href: "/#contact", section: "contact", icon: "mail" },
-] as const;
+  { label: "Approach", href: "/#domains" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Films", href: "/#films" },
+  { label: "Contact", href: "/#contact" },
+];
 ---
 
 <header class="absolute inset-x-0 top-0 z-10">
@@ -21,55 +19,51 @@ const links = [
       <Logo class="text-2xl" />
     </a>
 
-    <!-- Tablet and up: links and the light/dark switch. Phones use the tab bar below instead. -->
-    <div class="hidden items-center gap-4 sm:flex">
-      <nav aria-label="Main" class="flex items-center gap-1 text-sm">
-        {links.map((link) => (
-          <a
-            href={link.href}
-            class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
-          >
-            {link.label}
-          </a>
-        ))}
-      </nav>
+    <!-- Right side: links (tablet and up), the light/dark switch, and the menu button (phones) -->
+    <div class="flex items-center gap-2 sm:gap-4">
+    <nav aria-label="Main" class="hidden items-center gap-1 text-sm sm:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
 
-      <ThemeToggle />
+    <ThemeToggle />
+
+    <!-- Phones: a menu button in the style of the logo (outline pill, lowercase bold).
+         It reads "menu" when closed and "close" when open, and fills black on hover. -->
+    <button
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-button
+      class="interactive relative inline-flex items-center rounded-full border-2 border-ink px-4 py-2 font-display text-base leading-none font-bold text-ink lowercase hover:bg-ink hover:text-paper active:opacity-80 after:absolute after:-inset-1.5 after:content-[''] sm:hidden"
+    >
+      <span class="pb-[0.08em]" data-menu-label>menu</span>
+    </button>
     </div>
+
+    <nav
+      id="mobile-menu"
+      aria-label="Main"
+      hidden
+      class="absolute inset-x-6 top-full rounded-2xl bg-paper-raised p-2 shadow-xl shadow-ink/10 sm:hidden"
+    >
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="interactive block rounded-lg px-4 py-3 font-display text-lg font-medium hover:bg-ink/5 active:bg-ink/10"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </header>
-
-<!-- Phones only: a floating tab bar styled like the logo, an ink pill with paper text that
-     reverses in dark mode. It starts hidden and appears on the first scroll, or after 8 seconds
-     without a tap or scroll. From then on it slides away while scrolling down and comes back on
-     scroll up. The tab for the section on screen is highlighted. -->
-<nav aria-label="Main" data-tab-bar class="tab-bar fixed inset-x-3 z-20 sm:hidden">
-  <!-- The faint outline keeps the pill visible over the black sections -->
-  <ul class="grid grid-cols-5 rounded-full bg-ink px-4 py-1.5 text-paper shadow-[0_2px_8px_rgb(0_0_0/0.2)] ring-1 ring-paper/20">
-    {links.map((link) => (
-      <li>
-        <a href={link.href} data-tab={link.section} class="tab interactive rounded-full">
-          <Icon name={link.icon} class="size-5" />
-          <span>{link.label}</span>
-        </a>
-      </li>
-    ))}
-    <li>
-      <!-- Same switch as the header one: ThemeToggle's script handles every [data-theme-toggle] -->
-      <button type="button" data-theme-toggle aria-label="Switch to dark mode" class="tab interactive w-full rounded-full">
-        <span class="tab-when-light"><Icon name="moon" class="size-5" /></span>
-        <span class="tab-when-dark"><Icon name="sun" class="size-5" /></span>
-        <span class="tab-when-light">Dark</span>
-        <span class="tab-when-dark">Light</span>
-      </button>
-    </li>
-  </ul>
-</nav>
-<!-- Start hidden. Set here, before the page paints, so the bar never flashes up on load.
-     Without JavaScript this never runs and the bar simply stays visible. -->
-<script is:inline>
-  document.querySelector("[data-tab-bar]")?.setAttribute("data-hidden", "");
-</script>
 
 <style>
   /* Header logo only: on hover or keyboard focus the dot clicks (presses in and bounces
@@ -81,186 +75,37 @@ const links = [
       animation: logo-dot-click 450ms ease-out;
     }
   }
-
-  /* Safari on iOS 26 fills the area behind its floating toolbar with whatever fixed element it
-     finds 4 to 6px above the bottom edge of the screen. So nothing here may reach that strip: the
-     bar sits 20px up, its shadow is kept short, and when hidden it is made invisible to Safari
-     (visibility: hidden) rather than left resting on the edge. */
-  .tab-bar {
-    bottom: calc(1.25rem + env(safe-area-inset-bottom));
-    transition:
-      transform 250ms ease-out,
-      visibility 0s linear 0s;
-  }
-
-  .tab-bar[data-hidden] {
-    transform: translateY(calc(100% + 1.5rem + env(safe-area-inset-bottom)));
-    visibility: hidden;
-    /* Slide away first, then hide */
-    transition:
-      transform 250ms ease-out,
-      visibility 0s linear 250ms;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .tab-bar {
-      transition: none;
-    }
-  }
-
-  /* Labels in the logo's lettering: display font, bold, lowercase */
-  .tab {
-    display: flex;
-    min-height: 3.5rem;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.2rem;
-    font-family: var(--font-display);
-    font-size: 0.6875rem;
-    font-weight: 700;
-    line-height: 1;
-    text-transform: lowercase;
-    color: color-mix(in srgb, var(--color-paper) 65%, transparent);
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .tab:active {
-    background-color: color-mix(in srgb, var(--color-paper) 12%, transparent);
-  }
-
-  .tab[aria-current] {
-    color: var(--color-paper);
-  }
-
-  /* The active tab's icon turns terracotta, the colour of the dot in the logo */
-  .tab[aria-current] :global(svg) {
-    color: var(--color-brand);
-  }
-
-  .tab-when-dark {
-    display: none;
-  }
-
-  :global(:root[data-theme="dark"]) .tab-when-light {
-    display: none;
-  }
-
-  :global(:root[data-theme="dark"]) .tab-when-dark {
-    display: block;
-  }
-
-  /* Room at the bottom of every page so the bar never covers the footer. Added to the footer
-     rather than the page, so the space stays the footer's colour. */
-  @media (width < 40rem) {
-    :global(body > footer) {
-      padding-bottom: calc(6.25rem + env(safe-area-inset-bottom));
-    }
-  }
 </style>
 
 <script>
-  const bar = document.querySelector<HTMLElement>("[data-tab-bar]");
+  // Opens and closes the phone menu. It closes when a link is chosen, on Escape,
+  // or on a tap anywhere outside it.
+  const button = document.querySelector<HTMLButtonElement>("[data-menu-button]");
+  const menu = document.querySelector<HTMLElement>("#mobile-menu");
 
-  if (bar) {
-    // Hidden on load (see the inline script above). It appears on the first scroll, or after
-    // 8 seconds with no taps, keys or scrolling.
-    const IDLE_MS = 8000;
-    let revealed = false;
-    // The hide rule waits until the first scroll has stopped, so the bar doesn't appear
-    // and then vanish again during the same swipe.
-    let hideRuleOn = false;
-    let settleTimer: number | undefined;
-    let idleTimer: number | undefined;
+  if (button && menu) {
+    const label = button.querySelector<HTMLElement>("[data-menu-label]");
 
-    const reveal = () => {
-      if (revealed) return;
-      revealed = true;
-      window.clearTimeout(idleTimer);
-      ["pointerdown", "keydown", "touchstart"].forEach((type) => window.removeEventListener(type, restartIdle));
-      bar.removeAttribute("data-hidden");
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      button.setAttribute("aria-expanded", String(open));
+      if (label) label.textContent = open ? "close" : "menu";
     };
 
-    const restartIdle = () => {
-      window.clearTimeout(idleTimer);
-      idleTimer = window.setTimeout(reveal, IDLE_MS);
-    };
+    button.addEventListener("click", () => setOpen(menu.hidden !== false));
 
-    // A hidden bar can't take keyboard focus, so show it as soon as someone presses Tab.
-    window.addEventListener("keydown", (event) => {
-      if (event.key === "Tab") {
-        reveal();
-        bar.removeAttribute("data-hidden");
+    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !menu.hidden) {
+        setOpen(false);
+        button.focus();
       }
     });
 
-    restartIdle();
-    ["pointerdown", "keydown", "touchstart"].forEach((type) =>
-      window.addEventListener(type, restartIdle, { passive: true })
-    );
-
-    // After that: hide while scrolling down, show again on any scroll up, near the top, or at the very end.
-    let lastY = window.scrollY;
-    let ticking = false;
-
-    const update = () => {
-      ticking = false;
-      const y = window.scrollY;
-
-      if (!revealed) {
-        reveal();
-        lastY = y;
-      }
-
-      // Turn the hide rule on once scrolling pauses for a moment.
-      if (!hideRuleOn) {
-        window.clearTimeout(settleTimer);
-        settleTimer = window.setTimeout(() => {
-          hideRuleOn = true;
-          lastY = window.scrollY;
-        }, 250);
-        return;
-      }
-
-      const atEnd = window.innerHeight + y >= document.documentElement.scrollHeight - 4;
-      if (y < 80 || atEnd || y < lastY - 6) bar.removeAttribute("data-hidden");
-      else if (y > lastY + 6) bar.setAttribute("data-hidden", "");
-      if (Math.abs(y - lastY) > 6) lastY = y;
-    };
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(update);
-        }
-      },
-      { passive: true }
-    );
-
-    // Highlight the tab for whichever section crosses the middle of the screen.
-    const tabs = new Map<string, HTMLElement>();
-    bar.querySelectorAll<HTMLElement>("[data-tab]").forEach((tab) => tabs.set(tab.dataset.tab!, tab));
-
-    const setCurrent = (id: string | null) => {
-      tabs.forEach((tab, key) => {
-        if (key === id) tab.setAttribute("aria-current", "location");
-        else tab.removeAttribute("aria-current");
-      });
-    };
-
-    const sections = document.querySelectorAll<HTMLElement>("section[id]");
-    if ("IntersectionObserver" in window && sections.length) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) setCurrent(tabs.has(entry.target.id) ? entry.target.id : null);
-          });
-        },
-        { rootMargin: "-50% 0px -50% 0px" }
-      );
-      sections.forEach((section) => observer.observe(section));
-    }
+    document.addEventListener("click", (event) => {
+      const target = event.target as Node;
+      if (!menu.hidden && !menu.contains(target) && !button.contains(target)) setOpen(false);
+    });
   }
 </script>

@@ -94,7 +94,7 @@ const enabled = import.meta.env.PROD;
         var sectionNames = { top: "hero" };
 
         function sectionOf(el) {
-          if (el.closest("header, [data-tab-bar]")) return "nav";
+          if (el.closest("header")) return "nav";
           if (el.closest("footer")) return "footer";
           var sec = el.closest("section[id]");
           if (sec) return sectionNames[sec.id] || sec.id;
