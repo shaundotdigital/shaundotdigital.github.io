@@ -1,6 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import SiteNav from "../../components/SiteNav.astro";
+import ProjectHero from "../../components/project/ProjectHero.astro";
+import ResultsBand from "../../components/project/ResultsBand.astro";
 import { getProjects } from "../../lib/projects";
 
 // One page per visible project. In the live build, drafts never reach this list,
@@ -14,20 +16,13 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const isDraft = project.data.status === "draft";
+const { results } = project.data;
 ---
 
 <Layout title={project.data.title} description={project.data.summary}>
 	<SiteNav />
-	<main class="bg-paper font-sans text-neutral-800">
-		<div class="container-default pt-40 pb-20">
-			{isDraft && (
-				<p class="mb-6 inline-block rounded-full bg-ink px-3 py-1 text-xs text-paper">
-					Draft: only visible on your machine
-				</p>
-			)}
-			<h1 class="max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl">{project.data.title}</h1>
-			{project.data.summary && <p class="mt-6 max-w-2xl text-lg">{project.data.summary}</p>}
-		</div>
+	<main class="font-sans">
+		<ProjectHero project={project} />
+		{results && <ResultsBand main={results.main} others={results.others} />}
 	</main>
 </Layout>

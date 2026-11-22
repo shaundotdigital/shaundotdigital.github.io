@@ -295,6 +295,77 @@ content:
             label: Summary
             type: text
             description: The paragraph under the headline. Also used in search results.
+          - name: category
+            label: Category
+            type: string
+            description: Shown in the breadcrumb, e.g. Social media.
+          - name: headlineStart
+            label: Headline, before the pill
+            type: string
+          - name: headlineHighlight
+            label: Headline, in the black pill
+            type: string
+            description: Keep it short. The pill never wraps onto two lines. Leave empty to show the title instead.
+          - name: headlineEnd
+            label: Headline, after the pill
+            type: string
+          - name: facts
+            label: Fact tiles
+            type: object
+            description: The small cards under the headline, e.g. Client, My role, Timeline, Channel. Four fit across on wide screens.
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}: {value}"
+            fields:
+              - name: label
+                label: Label
+                type: string
+                required: true
+              - name: value
+                label: Value
+                type: string
+                required: true
+          - name: tags
+            label: Skill tags
+            type: string
+            list: true
+          - name: results
+            label: Results band
+            type: object
+            description: The black band under the hero.
+            fields:
+              - name: main
+                label: Headline figure
+                type: object
+                fields:
+                  - name: value
+                    label: Figure
+                    type: string
+                    description: For example +66%
+                    required: true
+                  - name: label
+                    label: What it measures
+                    type: text
+                    required: true
+              - name: others
+                label: Supporting figures
+                type: object
+                description: Up to three, shown smaller beside the headline figure.
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{value} {label}"
+                  max: 3
+                fields:
+                  - name: value
+                    label: Figure
+                    type: string
+                    required: true
+                  - name: label
+                    label: What it measures
+                    type: string
+                    required: true
 
   - name: sitewide
     label: Site-wide

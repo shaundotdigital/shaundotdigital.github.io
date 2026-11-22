@@ -2,5 +2,24 @@
   "title": "Example project",
   "slug": "example-project",
   "status": "draft",
-  "summary": "Placeholder summary for testing the projects collection. Replace or delete this project once the real case studies are in."
+  "summary": "Placeholder summary for testing the projects collection. Replace or delete this project once the real case studies are in.",
+  "category": "Placeholder category",
+  "headlineStart": "A placeholder headline with",
+  "headlineHighlight": "a pill phrase",
+  "headlineEnd": "",
+  "facts": [
+    { "label": "Client", "value": "Placeholder client" },
+    { "label": "My role", "value": "Placeholder role" },
+    { "label": "Timeline", "value": "Jan 2020 to Dec 2021" },
+    { "label": "Channel", "value": "Placeholder channel" }
+  ],
+  "tags": ["Tag one", "Tag two", "Tag three"],
+  "results": {
+    "main": { "value": "+00%", "label": "Placeholder for the main result, in one sentence." },
+    "others": [
+      { "value": "0.0x", "label": "Placeholder figure" },
+      { "value": "00", "label": "Placeholder figure" },
+      { "value": "0.0", "label": "Placeholder figure" }
+    ]
+  }
 }
