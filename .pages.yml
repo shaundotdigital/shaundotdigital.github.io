@@ -389,6 +389,36 @@ content:
               - name: intro
                 label: Section intro
                 type: text
+              - name: cards
+                label: Period cards
+                type: object
+                description: Two cards above the chart, one per period, each with one big figure.
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{dates}: {value}"
+                  max: 2
+                fields:
+                  - name: after
+                    label: In the "after" period
+                    type: boolean
+                    description: Turn on for the black card. Leave off for the light one.
+                  - name: dates
+                    label: Dates
+                    type: string
+                    required: true
+                    description: For example Jul 2014 to Jul 2017.
+                  - name: value
+                    label: Big figure
+                    type: string
+                    required: true
+                  - name: measure
+                    label: What it measures
+                    type: string
+                    required: true
+                  - name: text
+                    label: One more sentence
+                    type: text
               - name: title
                 label: Chart title
                 type: string
@@ -425,6 +455,67 @@ content:
                     label: Axis label
                     type: string
                     description: Not used in this chart.
+          - name: findings
+            label: Findings (figure cards)
+            type: object
+            description: Cards with one big figure each. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: cards
+                label: Cards
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{figure} {title}"
+                fields:
+                  - name: figure
+                    label: Big figure
+                    type: string
+                    required: true
+                    description: For example 36% or 0 to 27.
+                  - name: title
+                    label: What it is
+                    type: string
+                    required: true
+                  - name: text
+                    label: Explanation
+                    type: text
+                  - name: barsCaption
+                    label: Caption under the bars
+                    type: string
+                  - name: bars
+                    label: Comparison bars
+                    type: object
+                    description: Optional. Two or so bars comparing figures inside this card.
+                    list:
+                      collapsible:
+                        collapsed: true
+                        summary: "{label}: {value}"
+                    fields:
+                      - name: label
+                        label: Label
+                        type: string
+                        required: true
+                      - name: value
+                        label: Value
+                        type: number
+                        required: true
+                        description: The biggest value fills the bar.
+                      - name: display
+                        label: Shown as
+                        type: string
+                        description: Optional. How the figure reads, e.g. 2.30 (a number field would drop the trailing zero).
+                      - name: strong
+                        label: Black bar
+                        type: boolean
+                        description: Turn on to draw this bar in black instead of grey.
           - name: changes
             label: Changes (before and after rows)
             type: object
@@ -516,6 +607,92 @@ content:
                     label: Axis label
                     type: string
                     description: Shown under the column. Add it on January only, e.g. 2018, so years read along the bottom.
+          - name: tweets
+            label: Tweets
+            type: object
+            description: Recreated tweets in a black band. Hidden until it has at least one tweet.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: author
+                label: Account name
+                type: string
+                description: For example TRI UK.
+              - name: handle
+                label: Handle
+                type: string
+                description: For example @triuk.
+              - name: avatar
+                label: Avatar letters
+                type: string
+                description: Two or three letters shown in the round badge, e.g. TRI. Leave empty for none.
+              - name: items
+                label: Tweets
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "#{rank} {time}"
+                fields:
+                  - name: rank
+                    label: Rank
+                    type: number
+                    description: Optional. Shown as #1, #2 and so on.
+                  - name: text
+                    label: Tweet text
+                    type: text
+                    required: true
+                    description: Hashtags and @mentions turn blue on their own.
+                  - name: time
+                    label: Time and date
+                    type: string
+                    required: true
+                    description: For example 5:17 pm · 11 Dec 2018.
+                  - name: replies
+                    label: Replies
+                    type: number
+                  - name: reposts
+                    label: Retweets
+                    type: number
+                  - name: likes
+                    label: Likes
+                    type: number
+                  - name: url
+                    label: Link to the tweet
+                    type: string
+          - name: lessons
+            label: Lessons
+            type: object
+            description: A list of short lessons, plus a note about the data. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: items
+                label: Lessons
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Lesson
+                    type: string
+                    required: true
+                  - name: text
+                    label: Why
+                    type: text
+                    required: true
+              - name: note
+                label: Note about the data
+                type: text
 
   - name: sitewide
     label: Site-wide

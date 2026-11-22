@@ -16,6 +16,37 @@ const bar = z.object({
 	tick: z.string().optional(),
 });
 
+// A card above the period chart: one big figure for one of the two periods.
+const periodCard = z.object({
+	after: z.boolean().default(false),
+	dates: z.string(),
+	value: z.string(),
+	measure: z.string(),
+	text: z.string().optional(),
+});
+
+// A finding: a big figure, what it means, and optionally a small two-bar comparison.
+const finding = z.object({
+	figure: z.string(),
+	title: z.string(),
+	text: z.string().optional(),
+	barsCaption: z.string().optional(),
+	bars: z
+		.array(z.object({ label: z.string(), value: z.number(), display: z.string().optional(), strong: z.boolean().default(false) }))
+		.default([]),
+});
+
+// A recreated tweet.
+const tweet = z.object({
+	rank: z.number().optional(),
+	text: z.string(),
+	time: z.string(),
+	replies: z.number().default(0),
+	reposts: z.number().default(0),
+	likes: z.number().default(0),
+	url: z.string().optional(),
+});
+
 // A chart section: heading and intro above, the chart below.
 const chart = z.object({
 	heading: z.string(),
@@ -61,7 +92,14 @@ const projects = defineCollection({
 			.default({ before: "Before", after: "After" }),
 
 		// Charts. Each one is optional, and a section only shows when it's filled in.
-		trend: chart.optional(),
+		trend: chart.extend({ cards: z.array(periodCard).max(2).default([]) }).optional(),
+		findings: z
+			.object({
+				heading: z.string(),
+				intro: z.string().optional(),
+				cards: z.array(finding).default([]),
+			})
+			.optional(),
 		changes: z
 			.object({
 				heading: z.string(),
@@ -81,6 +119,23 @@ const projects = defineCollection({
 			})
 			.optional(),
 		monthly: chart.optional(),
+		tweets: z
+			.object({
+				heading: z.string(),
+				intro: z.string().optional(),
+				author: z.string().default(""),
+				handle: z.string().default(""),
+				avatar: z.string().default(""),
+				items: z.array(tweet).default([]),
+			})
+			.optional(),
+		lessons: z
+			.object({
+				heading: z.string(),
+				items: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+				note: z.string().optional(),
+			})
+			.optional(),
 	}),
 });
 

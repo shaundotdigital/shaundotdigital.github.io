@@ -1,0 +1,618 @@
+{
+  "title": "TRI UK on Twitter",
+  "slug": "tri-uk",
+  "status": "draft",
+  "summary": "I first worked on TRI UK's Twitter account following my manager's plan. When I took over social, I changed how we tweeted, and the account had the best two years in its history.",
+  "category": "Social media",
+  "headlineStart": "Growing TRI UK's Twitter engagement",
+  "headlineHighlight": "once I took the lead",
+  "headlineEnd": "",
+  "facts": [
+    {
+      "label": "Client",
+      "value": "TRI UK, triathlon and cycling retail"
+    },
+    {
+      "label": "My role",
+      "value": "Social media lead"
+    },
+    {
+      "label": "Timeline",
+      "value": "Aug 2017 to Jul 2019"
+    },
+    {
+      "label": "Channel",
+      "value": "Twitter"
+    }
+  ],
+  "tags": [
+    "Social media",
+    "Content strategy",
+    "Analytics",
+    "Brand partnerships"
+  ],
+  "results": {
+    "main": {
+      "value": "+66%",
+      "label": "more engagement per tweet in my two years leading social than in the three years before."
+    },
+    "others": [
+      {
+        "value": "2.2x",
+        "label": "engagement per month"
+      },
+      {
+        "value": "16.5",
+        "label": "tweets a month, up from 12.6"
+      },
+      {
+        "value": "18",
+        "label": "tweets scoring 10 or more, against 10 before"
+      }
+    ]
+  },
+  "periods": {
+    "before": "Before I led social",
+    "after": "My time leading social"
+  },
+  "trend": {
+    "heading": "My two years leading social were the account's best",
+    "intro": "I looked at every tweet from 2014 to 2019 and split them into before and after I led social.",
+    "cards": [
+      {
+        "after": false,
+        "dates": "Jul 2014 to Jul 2017",
+        "value": "1.65",
+        "measure": "engagements per tweet",
+        "text": "12.6 tweets a month. More than a third were Instagram auto-shares."
+      },
+      {
+        "after": true,
+        "dates": "Aug 2017 to Jul 2019",
+        "value": "2.74",
+        "measure": "engagements per tweet, the account's highest",
+        "text": "16.5 tweets a month, almost all with native images."
+      }
+    ],
+    "title": "Average engagement per tweet over time",
+    "alt": "Average engagement per tweet over time. Before I led social: 1.96, 2.65, 1.44, 0.86 and 1.42 from Jul 2014 to Jul 2017. My time: 1.96, 2.41, 3.45 and 3.94 from Aug 2017 to Mar 2019, then 1.41 in Apr to Jul 2019.",
+    "bars": [
+      {
+        "label": "Jul to Dec 2014",
+        "value": 1.96,
+        "after": false
+      },
+      {
+        "label": "Jan to Jun 2015",
+        "value": 2.65,
+        "after": false
+      },
+      {
+        "label": "Jul 2015 to May 2016",
+        "value": 1.44,
+        "after": false
+      },
+      {
+        "label": "Jun to Dec 2016",
+        "value": 0.86,
+        "after": false
+      },
+      {
+        "label": "Jan to Jul 2017",
+        "value": 1.42,
+        "after": false
+      },
+      {
+        "label": "Aug to Dec 2017",
+        "value": 1.96,
+        "after": true
+      },
+      {
+        "label": "Jan to Jun 2018",
+        "value": 2.41,
+        "after": true
+      },
+      {
+        "label": "Jul to Dec 2018",
+        "value": 3.45,
+        "after": true
+      },
+      {
+        "label": "Jan to Mar 2019",
+        "value": 3.94,
+        "after": true
+      },
+      {
+        "label": "Apr to Jul 2019",
+        "value": 1.41,
+        "after": true
+      }
+    ]
+  },
+  "findings": {
+    "heading": "What held the account back before I took over",
+    "intro": "I first worked on the account under my manager's plan. These figures cover all 465 tweets from Jul 2014 to Jul 2017.",
+    "cards": [
+      {
+        "figure": "36%",
+        "title": "of tweets were Instagram auto-shares",
+        "text": "That's 167 of the 465 tweets. On Twitter they showed as a bare link with no image and earned about a third of what a native image did.",
+        "barsCaption": "Engagements per tweet",
+        "bars": [
+          {
+            "label": "Instagram links (167)",
+            "value": 0.74,
+            "display": "0.74",
+            "strong": false
+          },
+          {
+            "label": "Native images (247)",
+            "value": 2.3,
+            "display": "2.30",
+            "strong": true
+          }
+        ]
+      },
+      {
+        "figure": "0 to 27",
+        "title": "tweets a month, on and off",
+        "text": "Across 37 months, the busiest had 27 tweets and three had none at all, so followers had no reason to expect us."
+      },
+      {
+        "figure": "1.21",
+        "title": "engagements per sales tweet",
+        "text": "That's the average across 110 discount tweets linking to the shop. The 84 tweets from events, like the London Triathlon, averaged 2.60."
+      }
+    ]
+  },
+  "changes": {
+    "heading": "What I changed when I took over social",
+    "intro": "Each row compares the 465 tweets before I led social with the 395 in my time leading it.",
+    "rows": [
+      {
+        "title": "Stopped Instagram auto-sharing",
+        "description": "Share of tweets that were auto-shared links.",
+        "before": 36,
+        "after": 3,
+        "unit": "%",
+        "scale": 100
+      },
+      {
+        "title": "Native images and video",
+        "description": "Share of tweets with their own image or video.",
+        "before": 53,
+        "after": 90,
+        "unit": "%",
+        "scale": 100
+      },
+      {
+        "title": "Tagged brands, riders and partners",
+        "description": "Share of tweets tagging Cervélo, Focus, our athletes and others.",
+        "before": 46,
+        "after": 59,
+        "unit": "%",
+        "scale": 100
+      },
+      {
+        "title": "Showed the store and workshop",
+        "description": "Engagements per store and workshop tweet: new bikes, builds and fits.",
+        "before": 1.56,
+        "after": 3.23
+      },
+      {
+        "title": "Tweeted every month",
+        "description": "Tweets a month. I never went below 10 from Oct 2017 to Mar 2019.",
+        "before": 12.6,
+        "after": 16.5
+      }
+    ]
+  },
+  "monthly": {
+    "heading": "Engagement reached 142 a month, more than double any month before",
+    "intro": "Before I led social, no month passed 68 engagements.",
+    "title": "Engagement per month, Jul 2014 to Jul 2019",
+    "alt": "Monthly engagement for @triuk. Before I led social, no month passed 68. In my time it peaked at 142 in Dec 2018 and 137 in Jan 2019.",
+    "note": "The peak came in Dec 2018, when the first Cervélo S5 Ultegra and 2019 Focus bikes arrived.",
+    "bars": [
+      {
+        "label": "Jul 2014",
+        "value": 56,
+        "after": false
+      },
+      {
+        "label": "Aug 2014",
+        "value": 25,
+        "after": false
+      },
+      {
+        "label": "Sep 2014",
+        "value": 27,
+        "after": false
+      },
+      {
+        "label": "Oct 2014",
+        "value": 33,
+        "after": false
+      },
+      {
+        "label": "Nov 2014",
+        "value": 68,
+        "after": false
+      },
+      {
+        "label": "Dec 2014",
+        "value": 15,
+        "after": false
+      },
+      {
+        "label": "Jan 2015",
+        "value": 54,
+        "after": false,
+        "tick": "2015"
+      },
+      {
+        "label": "Feb 2015",
+        "value": 60,
+        "after": false
+      },
+      {
+        "label": "Mar 2015",
+        "value": 31,
+        "after": false
+      },
+      {
+        "label": "Apr 2015",
+        "value": 36,
+        "after": false
+      },
+      {
+        "label": "May 2015",
+        "value": 26,
+        "after": false
+      },
+      {
+        "label": "Jun 2015",
+        "value": 0,
+        "after": false
+      },
+      {
+        "label": "Jul 2015",
+        "value": 22,
+        "after": false
+      },
+      {
+        "label": "Aug 2015",
+        "value": 22,
+        "after": false
+      },
+      {
+        "label": "Sep 2015",
+        "value": 1,
+        "after": false
+      },
+      {
+        "label": "Oct 2015",
+        "value": 0,
+        "after": false
+      },
+      {
+        "label": "Nov 2015",
+        "value": 4,
+        "after": false
+      },
+      {
+        "label": "Dec 2015",
+        "value": 0,
+        "after": false
+      },
+      {
+        "label": "Jan 2016",
+        "value": 8,
+        "after": false,
+        "tick": "2016"
+      },
+      {
+        "label": "Feb 2016",
+        "value": 3,
+        "after": false
+      },
+      {
+        "label": "Mar 2016",
+        "value": 9,
+        "after": false
+      },
+      {
+        "label": "Apr 2016",
+        "value": 3,
+        "after": false
+      },
+      {
+        "label": "May 2016",
+        "value": 3,
+        "after": false
+      },
+      {
+        "label": "Jun 2016",
+        "value": 10,
+        "after": false
+      },
+      {
+        "label": "Jul 2016",
+        "value": 10,
+        "after": false
+      },
+      {
+        "label": "Aug 2016",
+        "value": 9,
+        "after": false
+      },
+      {
+        "label": "Sep 2016",
+        "value": 9,
+        "after": false
+      },
+      {
+        "label": "Oct 2016",
+        "value": 16,
+        "after": false
+      },
+      {
+        "label": "Nov 2016",
+        "value": 11,
+        "after": false
+      },
+      {
+        "label": "Dec 2016",
+        "value": 17,
+        "after": false
+      },
+      {
+        "label": "Jan 2017",
+        "value": 52,
+        "after": false,
+        "tick": "2017"
+      },
+      {
+        "label": "Feb 2017",
+        "value": 33,
+        "after": false
+      },
+      {
+        "label": "Mar 2017",
+        "value": 13,
+        "after": false
+      },
+      {
+        "label": "Apr 2017",
+        "value": 23,
+        "after": false
+      },
+      {
+        "label": "May 2017",
+        "value": 17,
+        "after": false
+      },
+      {
+        "label": "Jun 2017",
+        "value": 29,
+        "after": false
+      },
+      {
+        "label": "Jul 2017",
+        "value": 12,
+        "after": false
+      },
+      {
+        "label": "Aug 2017",
+        "value": 6,
+        "after": true
+      },
+      {
+        "label": "Sep 2017",
+        "value": 9,
+        "after": true
+      },
+      {
+        "label": "Oct 2017",
+        "value": 72,
+        "after": true
+      },
+      {
+        "label": "Nov 2017",
+        "value": 89,
+        "after": true
+      },
+      {
+        "label": "Dec 2017",
+        "value": 18,
+        "after": true
+      },
+      {
+        "label": "Jan 2018",
+        "value": 49,
+        "after": true,
+        "tick": "2018"
+      },
+      {
+        "label": "Feb 2018",
+        "value": 44,
+        "after": true
+      },
+      {
+        "label": "Mar 2018",
+        "value": 51,
+        "after": true
+      },
+      {
+        "label": "Apr 2018",
+        "value": 31,
+        "after": true
+      },
+      {
+        "label": "May 2018",
+        "value": 40,
+        "after": true
+      },
+      {
+        "label": "Jun 2018",
+        "value": 62,
+        "after": true
+      },
+      {
+        "label": "Jul 2018",
+        "value": 41,
+        "after": true
+      },
+      {
+        "label": "Aug 2018",
+        "value": 41,
+        "after": true
+      },
+      {
+        "label": "Sep 2018",
+        "value": 43,
+        "after": true
+      },
+      {
+        "label": "Oct 2018",
+        "value": 31,
+        "after": true
+      },
+      {
+        "label": "Nov 2018",
+        "value": 37,
+        "after": true
+      },
+      {
+        "label": "Dec 2018",
+        "value": 142,
+        "after": true
+      },
+      {
+        "label": "Jan 2019",
+        "value": 137,
+        "after": true,
+        "tick": "2019"
+      },
+      {
+        "label": "Feb 2019",
+        "value": 38,
+        "after": true
+      },
+      {
+        "label": "Mar 2019",
+        "value": 69,
+        "after": true
+      },
+      {
+        "label": "Apr 2019",
+        "value": 7,
+        "after": true
+      },
+      {
+        "label": "May 2019",
+        "value": 5,
+        "after": true
+      },
+      {
+        "label": "Jun 2019",
+        "value": 9,
+        "after": true
+      },
+      {
+        "label": "Jul 2019",
+        "value": 10,
+        "after": true
+      }
+    ]
+  },
+  "tweets": {
+    "heading": "The six best-performing tweets",
+    "intro": "I've recreated each tweet here with its original text, date and counts.",
+    "author": "TRI UK",
+    "handle": "@triuk",
+    "avatar": "TRI",
+    "items": [
+      {
+        "rank": 1,
+        "text": "We just had the first of many @cervelo S5 Ultegra spec bikes delivered! This beautiful blue S5 is unlike any S5 Cervelo have released before. Super lightweight, aero, comfortable and at a great price point. What more could you want from a bike ? #cervelo #s5 #road #ride",
+        "time": "5:17 pm · 11 Dec 2018",
+        "likes": 32,
+        "reposts": 5,
+        "replies": 2,
+        "url": "https://twitter.com/triuk/status/1072541001108086784"
+      },
+      {
+        "rank": 2,
+        "text": "This limited-edition speed machine unites brands that are both deeply committed to cutting-edge engineering, R&D, and raising the bar with every new product.\n\n@cervelo and @Lamborghini join Forces on this fantastic Limited-Edition P5X.",
+        "time": "7:31 pm · 22 Jun 2018",
+        "likes": 17,
+        "reposts": 6,
+        "replies": 1,
+        "url": "https://twitter.com/triuk/status/1010228682345078785"
+      },
+      {
+        "rank": 3,
+        "text": "Check out this beauty of a @cervelo P5 leaving our Yeovil store today! Fully kitted out with a set of @ZippSpeed wheels, this is sure to be one of the fastest bikes around 🔥",
+        "time": "8:35 pm · 14 Mar 2019",
+        "likes": 21,
+        "reposts": 0,
+        "replies": 2,
+        "url": "https://twitter.com/triuk/status/1106292670970892294"
+      },
+      {
+        "rank": 4,
+        "text": "Here it is, the brand new for 2019 @FOCUSBikes Izalco Max 8.7! Focus have totally re-designed the #izalcomax to create a faster and lighter frame as well as incorporating discs into the range. With a carbon wheelset and priced at only £2649, this bike is sure to be a top seller.",
+        "time": "10:24 am · 8 Dec 2018",
+        "likes": 15,
+        "reposts": 6,
+        "replies": 1,
+        "url": "https://twitter.com/triuk/status/1071349767257710592"
+      },
+      {
+        "rank": 5,
+        "text": "This @cervelo R5 classics edition has been treated to a gold service from our workshop team. It’s also kitted up with a new @kmcchain to match the @fabriccycling bar tape, to finish of the build, a top quality set of @Mavic Comete UST wheels! One of our favourite builds for sure!",
+        "time": "2:15 pm · 2 Mar 2019",
+        "likes": 16,
+        "reposts": 5,
+        "replies": 0,
+        "url": "https://twitter.com/triuk/status/1101848585224835072"
+      },
+      {
+        "rank": 6,
+        "text": "Seems like Santa has popped by early and delivered 90 @cervelo bikes! 🎅 \n\nIncluding the new 2019 #Cervelo #S3 & #S5 for those riders who crave road-blurring speed.",
+        "time": "12:39 pm · 17 Dec 2018",
+        "likes": 16,
+        "reposts": 3,
+        "replies": 1,
+        "url": "https://twitter.com/triuk/status/1074645217008123904"
+      }
+    ]
+  },
+  "lessons": {
+    "heading": "What TRI UK taught me about social",
+    "items": [
+      {
+        "title": "Post natively",
+        "text": "Cross-posted links earned about 70% less than images uploaded straight to Twitter."
+      },
+      {
+        "title": "Tag the brand",
+        "text": "Every one of the top six tweets tagged the bike brand."
+      },
+      {
+        "title": "Show the store and workshop",
+        "text": "Store and workshop tweets earned nearly twice what discount tweets did."
+      },
+      {
+        "title": "Keep a steady rhythm",
+        "text": "From Oct 2017 to Mar 2019 I tweeted at least 10 times every month."
+      },
+      {
+        "title": "Plan around launches",
+        "text": "New-range deliveries and race weekends produced every peak in five years."
+      }
+    ],
+    "note": "About the data: every public tweet from @triuk between Jul 2014 and Jul 2019, 1,150 in all. Engagement means likes, retweets and replies on TRI UK's own tweets, so treat the figures as a guide rather than exact."
+  }
+}

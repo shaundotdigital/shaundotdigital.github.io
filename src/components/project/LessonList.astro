@@ -1,0 +1,17 @@
+---
+// A numbered-style list of lessons: a title on the left, a sentence on the right.
+interface Props {
+	items: { title: string; text: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="flex flex-col">
+	{items.map((item) => (
+		<li class="grid gap-x-10 gap-y-2 border-t border-neutral-200 py-6 md:grid-cols-2">
+			<h3 class="font-display text-xl leading-snug font-bold">{item.title}</h3>
+			<p class="text-base leading-relaxed text-neutral-700">{item.text}</p>
+		</li>
+	))}
+</ol>

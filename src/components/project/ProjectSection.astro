@@ -1,23 +1,34 @@
 ---
 // One band of a project page: a heading and intro, then whatever goes inside.
-// "raised" is white in light mode, "paper" is the page colour. The page alternates them.
+// "raised" is white in light mode, "paper" is the page colour, "ink" is the black band.
 interface Props {
 	id: string;
 	heading: string;
 	intro?: string;
-	surface?: "raised" | "paper";
+	surface?: "raised" | "paper" | "ink";
 }
 
 const { id, heading, intro, surface = "paper" } = Astro.props;
 ---
 
-<section aria-labelledby={`${id}-heading`} class:list={["text-ink", surface === "raised" ? "bg-paper-raised" : "bg-paper"]}>
+<section
+	aria-labelledby={`${id}-heading`}
+	class:list={[
+		surface === "ink" && "theme-inverse bg-ink text-paper",
+		surface === "raised" && "bg-paper-raised text-ink",
+		surface === "paper" && "bg-paper text-ink",
+	]}
+>
 	<div class="container-default flex flex-col gap-10 py-20">
 		<div class="flex flex-col gap-4">
 			<h2 id={`${id}-heading`} class="max-w-3xl font-display text-3xl leading-tight font-bold tracking-tight text-balance">
 				{heading}
 			</h2>
-			{intro && <p class="max-w-2xl text-lg leading-relaxed text-neutral-700 text-pretty">{intro}</p>}
+			{intro && (
+				<p class:list={["max-w-2xl text-lg leading-relaxed text-pretty", surface === "ink" ? "text-paper/70" : "text-neutral-700"]}>
+					{intro}
+				</p>
+			)}
 		</div>
 		<slot />
 	</div>

@@ -6,6 +6,10 @@ import ResultsBand from "../../components/project/ResultsBand.astro";
 import ProjectSection from "../../components/project/ProjectSection.astro";
 import ColumnChart from "../../components/project/ColumnChart.astro";
 import ChangeRows from "../../components/project/ChangeRows.astro";
+import PeriodCards from "../../components/project/PeriodCards.astro";
+import FindingCards from "../../components/project/FindingCards.astro";
+import TweetCard from "../../components/project/TweetCard.astro";
+import LessonList from "../../components/project/LessonList.astro";
 import { getProjects } from "../../lib/projects";
 
 // One page per visible project. In the live build, drafts never reach this list,
@@ -19,13 +23,14 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { results, periods, trend, changes, monthly } = project.data;
+const { results, periods, trend, findings, changes, monthly, tweets, lessons } = project.data;
 
 // Sections alternate between white and the page colour, whichever of them are filled in.
+// The tweets band is always black, so it sits outside that pattern.
 // The chart card inside takes the opposite colour so it stands out.
 const surfaces: Record<string, "raised" | "paper"> = {};
 let position = 0;
-for (const key of ["trend", "changes", "monthly"] as const) {
+for (const key of ["trend", "findings", "changes", "monthly", "lessons"] as const) {
 	if (project.data[key]) surfaces[key] = position++ % 2 === 0 ? "raised" : "paper";
 }
 const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper" : "raised");
@@ -38,6 +43,7 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 		{results && <ResultsBand main={results.main} others={results.others} />}
 		{trend && (
 			<ProjectSection id="trend" heading={trend.heading} intro={trend.intro} surface={surfaces.trend}>
+				{trend.cards.length > 0 && <PeriodCards cards={trend.cards} periods={periods} surface={opposite(surfaces.trend)} />}
 				<ColumnChart
 					variant="periods"
 					title={trend.title}
@@ -47,6 +53,11 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 					periods={periods}
 					surface={opposite(surfaces.trend)}
 				/>
+			</ProjectSection>
+		)}
+		{findings && (
+			<ProjectSection id="findings" heading={findings.heading} intro={findings.intro} surface={surfaces.findings}>
+				<FindingCards cards={findings.cards} surface={opposite(surfaces.findings)} />
 			</ProjectSection>
 		)}
 		{changes && (
@@ -65,6 +76,21 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 					periods={periods}
 					surface={opposite(surfaces.monthly)}
 				/>
+			</ProjectSection>
+		)}
+		{tweets && tweets.items.length > 0 && (
+			<ProjectSection id="tweets" heading={tweets.heading} intro={tweets.intro} surface="ink">
+				<div class="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
+					{tweets.items.map((item) => (
+						<TweetCard author={tweets.author} handle={tweets.handle} avatar={tweets.avatar} {...item} />
+					))}
+				</div>
+			</ProjectSection>
+		)}
+		{lessons && (
+			<ProjectSection id="lessons" heading={lessons.heading} surface={surfaces.lessons}>
+				<LessonList items={lessons.items} />
+				{lessons.note && <p class="max-w-3xl text-sm leading-relaxed text-neutral-600">{lessons.note}</p>}
 			</ProjectSection>
 		)}
 	</main>

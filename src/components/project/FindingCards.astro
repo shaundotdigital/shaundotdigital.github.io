@@ -1,0 +1,55 @@
+---
+// Cards with one big figure each. A card can also carry a small two-bar comparison.
+interface Bar {
+	label: string;
+	value: number;
+	display?: string;
+	strong: boolean;
+}
+
+interface Card {
+	figure: string;
+	title: string;
+	text?: string;
+	barsCaption?: string;
+	bars: Bar[];
+}
+
+interface Props {
+	cards: Card[];
+	surface: "raised" | "paper";
+}
+
+const { cards, surface } = Astro.props;
+---
+
+<div class="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
+	{cards.map((card) => {
+		const max = Math.max(...card.bars.map((bar) => bar.value), 1);
+		return (
+			<div class:list={["flex flex-col gap-3 rounded-2xl p-6", surface === "raised" ? "bg-paper-raised" : "bg-paper"]}>
+				<p class="font-display text-5xl leading-none font-bold tabular-nums">{card.figure}</p>
+				<h3 class="font-display text-lg leading-snug font-bold">{card.title}</h3>
+				{card.text && <p class="text-base leading-relaxed text-neutral-700">{card.text}</p>}
+				{card.bars.length > 0 && (
+					<div class="mt-2 flex flex-col gap-2">
+						{card.bars.map((bar) => (
+							<div class="grid grid-cols-[8rem_1fr_2.5rem] items-center gap-3 text-sm">
+								<span class="text-neutral-600">{bar.label}</span>
+								<div class:list={["h-3 rounded-full", surface === "raised" ? "bg-paper" : "bg-paper-raised"]}>
+									<div
+										class:list={["h-3 rounded-full", bar.strong ? "bg-ink" : "bg-neutral-400"]}
+										style={`width:${Math.round((bar.value / max) * 100)}%`}
+									>
+									</div>
+								</div>
+								<b class="text-right tabular-nums">{bar.display ?? bar.value}</b>
+							</div>
+						))}
+						{card.barsCaption && <p class="text-xs text-neutral-600">{card.barsCaption}</p>}
+					</div>
+				)}
+			</div>
+		);
+	})}
+</div>
