@@ -262,6 +262,39 @@ content:
           - name: body
             label: Page text
             type: rich-text
+      - name: projects
+        label: Projects
+        type: collection
+        path: src/data/projects
+        format: json
+        view:
+          primary: title
+          fields: [title, status]
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: slug
+            label: Web address
+            type: string
+            description: Lowercase, words joined with hyphens, e.g. tri-uk. Becomes byshaun.xyz/projects/tri-uk. Don't change it once published.
+            required: true
+          - name: status
+            label: Status
+            type: select
+            required: true
+            description: Drafts only show when you run npm run dev. Choose Published to put it live.
+            options:
+              values:
+                - name: draft
+                  label: Draft
+                - name: published
+                  label: Published
+          - name: summary
+            label: Summary
+            type: text
+            description: The paragraph under the headline. Also used in search results.
 
   - name: sitewide
     label: Site-wide
