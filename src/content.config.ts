@@ -8,6 +8,24 @@ const stat = z.object({
 	label: z.string(),
 });
 
+// One bar in a chart. "after" colours it in the brand colour instead of grey.
+const bar = z.object({
+	label: z.string(),
+	value: z.number(),
+	after: z.boolean().default(false),
+	tick: z.string().optional(),
+});
+
+// A chart section: heading and intro above, the chart below.
+const chart = z.object({
+	heading: z.string(),
+	intro: z.string().optional(),
+	title: z.string(),
+	alt: z.string().optional(),
+	note: z.string().optional(),
+	bars: z.array(bar).default([]),
+});
+
 // Case studies. One JSON file per project in src/data/projects, edited in Pages CMS.
 const projects = defineCollection({
 	loader: glob({ pattern: "*.json", base: "./src/data/projects" }),
@@ -33,6 +51,36 @@ const projects = defineCollection({
 				others: z.array(stat).max(3).default([]),
 			})
 			.optional(),
+
+		// Names for the two periods being compared. They label chart legends and the change rows.
+		periods: z
+			.object({
+				before: z.string().default("Before"),
+				after: z.string().default("After"),
+			})
+			.default({ before: "Before", after: "After" }),
+
+		// Charts. Each one is optional, and a section only shows when it's filled in.
+		trend: chart.optional(),
+		changes: z
+			.object({
+				heading: z.string(),
+				intro: z.string().optional(),
+				rows: z
+					.array(
+						z.object({
+							title: z.string(),
+							description: z.string().optional(),
+							before: z.number(),
+							after: z.number(),
+							unit: z.string().optional(),
+							scale: z.number().optional(),
+						}),
+					)
+					.default([]),
+			})
+			.optional(),
+		monthly: chart.optional(),
 	}),
 });
 

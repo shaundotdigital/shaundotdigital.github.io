@@ -1,0 +1,52 @@
+---
+// "What I changed" rows: a title and sentence on the left, two bars on the right
+// showing the figure before and after.
+interface Row {
+	title: string;
+	description?: string;
+	before: number;
+	after: number;
+	unit?: string;
+	scale?: number;
+}
+
+interface Props {
+	rows: Row[];
+	periods: { before: string; after: string };
+}
+
+const { rows, periods } = Astro.props;
+
+// Bars share one scale per row. Percentages usually set scale to 100.
+const width = (row: Row, value: number) => {
+	const scale = row.scale ?? Math.max(row.before, row.after, 1);
+	return Math.min(100, Math.max(0, (value / scale) * 100));
+};
+---
+
+<ol class="flex flex-col">
+	{rows.map((row) => (
+		<li class="grid items-center gap-x-10 gap-y-4 border-t border-neutral-200 py-6 md:grid-cols-2">
+			<div>
+				<h3 class="font-display text-xl leading-snug font-bold">{row.title}</h3>
+				{row.description && <p class="mt-1 text-base leading-relaxed text-neutral-700">{row.description}</p>}
+			</div>
+			<div class="flex flex-col gap-2">
+				<div class="flex items-center gap-3 text-sm">
+					<span class="w-28 shrink-0 text-neutral-600">{periods.before}</span>
+					<div class="h-3 flex-1 rounded-full bg-paper">
+						<div class="h-3 rounded-full bg-neutral-400" style={`width:${width(row, row.before)}%`}></div>
+					</div>
+					<span class="w-14 text-right tabular-nums">{row.before}{row.unit ?? ""}</span>
+				</div>
+				<div class="flex items-center gap-3 text-sm">
+					<span class="w-28 shrink-0 text-neutral-600">{periods.after}</span>
+					<div class="h-3 flex-1 rounded-full bg-paper">
+						<div class="h-3 rounded-full bg-brand" style={`width:${width(row, row.after)}%`}></div>
+					</div>
+					<b class="w-14 text-right tabular-nums">{row.after}{row.unit ?? ""}</b>
+				</div>
+			</div>
+		</li>
+	))}
+</ol>

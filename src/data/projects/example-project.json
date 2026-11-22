@@ -8,18 +8,374 @@
   "headlineHighlight": "a pill phrase",
   "headlineEnd": "",
   "facts": [
-    { "label": "Client", "value": "Placeholder client" },
-    { "label": "My role", "value": "Placeholder role" },
-    { "label": "Timeline", "value": "Jan 2020 to Dec 2021" },
-    { "label": "Channel", "value": "Placeholder channel" }
+    {
+      "label": "Client",
+      "value": "Placeholder client"
+    },
+    {
+      "label": "My role",
+      "value": "Placeholder role"
+    },
+    {
+      "label": "Timeline",
+      "value": "Jan 2020 to Dec 2021"
+    },
+    {
+      "label": "Channel",
+      "value": "Placeholder channel"
+    }
   ],
-  "tags": ["Tag one", "Tag two", "Tag three"],
+  "tags": [
+    "Tag one",
+    "Tag two",
+    "Tag three"
+  ],
   "results": {
-    "main": { "value": "+00%", "label": "Placeholder for the main result, in one sentence." },
+    "main": {
+      "value": "+00%",
+      "label": "Placeholder for the main result, in one sentence."
+    },
     "others": [
-      { "value": "0.0x", "label": "Placeholder figure" },
-      { "value": "00", "label": "Placeholder figure" },
-      { "value": "0.0", "label": "Placeholder figure" }
+      {
+        "value": "0.0x",
+        "label": "Placeholder figure"
+      },
+      {
+        "value": "00",
+        "label": "Placeholder figure"
+      },
+      {
+        "value": "0.0",
+        "label": "Placeholder figure"
+      }
+    ]
+  },
+  "periods": {
+    "before": "Before",
+    "after": "After"
+  },
+  "trend": {
+    "heading": "Placeholder heading for the period chart",
+    "intro": "Placeholder sentence explaining what the chart compares.",
+    "title": "Placeholder measure per period",
+    "alt": "Placeholder description of the chart for screen readers.",
+    "bars": [
+      {
+        "label": "Period one",
+        "value": 1.9,
+        "after": false
+      },
+      {
+        "label": "Period two",
+        "value": 2.6,
+        "after": false
+      },
+      {
+        "label": "Period three",
+        "value": 1.4,
+        "after": false
+      },
+      {
+        "label": "Period four",
+        "value": 0.9,
+        "after": false
+      },
+      {
+        "label": "Period five",
+        "value": 2.4,
+        "after": true
+      },
+      {
+        "label": "Period six",
+        "value": 3.5,
+        "after": true
+      },
+      {
+        "label": "Period seven",
+        "value": 3.9,
+        "after": true
+      }
+    ]
+  },
+  "changes": {
+    "heading": "Placeholder heading for the changes",
+    "intro": "Placeholder sentence introducing the rows.",
+    "rows": [
+      {
+        "title": "Placeholder change one",
+        "description": "What this figure measures.",
+        "before": 36,
+        "after": 3,
+        "unit": "%",
+        "scale": 100
+      },
+      {
+        "title": "Placeholder change two",
+        "description": "What this figure measures.",
+        "before": 53,
+        "after": 90,
+        "unit": "%",
+        "scale": 100
+      },
+      {
+        "title": "Placeholder change three",
+        "description": "What this figure measures.",
+        "before": 12.6,
+        "after": 16.5
+      }
+    ]
+  },
+  "monthly": {
+    "heading": "Placeholder heading for the monthly chart",
+    "intro": "Placeholder sentence about the monthly view.",
+    "title": "Placeholder measure per month",
+    "alt": "Placeholder description of the monthly chart for screen readers.",
+    "note": "Placeholder note under the chart.",
+    "bars": [
+      {
+        "label": "Jan 2020",
+        "value": 56,
+        "after": false,
+        "tick": "2020"
+      },
+      {
+        "label": "Feb 2020",
+        "value": 25,
+        "after": false
+      },
+      {
+        "label": "Mar 2020",
+        "value": 27,
+        "after": false
+      },
+      {
+        "label": "Apr 2020",
+        "value": 33,
+        "after": false
+      },
+      {
+        "label": "May 2020",
+        "value": 68,
+        "after": false
+      },
+      {
+        "label": "Jun 2020",
+        "value": 15,
+        "after": false
+      },
+      {
+        "label": "Jul 2020",
+        "value": 54,
+        "after": false
+      },
+      {
+        "label": "Aug 2020",
+        "value": 60,
+        "after": false
+      },
+      {
+        "label": "Sep 2020",
+        "value": 31,
+        "after": false
+      },
+      {
+        "label": "Oct 2020",
+        "value": 36,
+        "after": false
+      },
+      {
+        "label": "Nov 2020",
+        "value": 26,
+        "after": false
+      },
+      {
+        "label": "Dec 2020",
+        "value": 0,
+        "after": false
+      },
+      {
+        "label": "Jan 2021",
+        "value": 22,
+        "after": false,
+        "tick": "2021"
+      },
+      {
+        "label": "Feb 2021",
+        "value": 22,
+        "after": false
+      },
+      {
+        "label": "Mar 2021",
+        "value": 1,
+        "after": false
+      },
+      {
+        "label": "Apr 2021",
+        "value": 0,
+        "after": false
+      },
+      {
+        "label": "May 2021",
+        "value": 4,
+        "after": false
+      },
+      {
+        "label": "Jun 2021",
+        "value": 0,
+        "after": false
+      },
+      {
+        "label": "Jul 2021",
+        "value": 8,
+        "after": false
+      },
+      {
+        "label": "Aug 2021",
+        "value": 3,
+        "after": false
+      },
+      {
+        "label": "Sep 2021",
+        "value": 9,
+        "after": false
+      },
+      {
+        "label": "Oct 2021",
+        "value": 3,
+        "after": false
+      },
+      {
+        "label": "Nov 2021",
+        "value": 3,
+        "after": false
+      },
+      {
+        "label": "Dec 2021",
+        "value": 10,
+        "after": false
+      },
+      {
+        "label": "Jan 2022",
+        "value": 10,
+        "after": false,
+        "tick": "2022"
+      },
+      {
+        "label": "Feb 2022",
+        "value": 9,
+        "after": false
+      },
+      {
+        "label": "Mar 2022",
+        "value": 9,
+        "after": false
+      },
+      {
+        "label": "Apr 2022",
+        "value": 16,
+        "after": false
+      },
+      {
+        "label": "May 2022",
+        "value": 11,
+        "after": false
+      },
+      {
+        "label": "Jun 2022",
+        "value": 17,
+        "after": false
+      },
+      {
+        "label": "Jul 2022",
+        "value": 52,
+        "after": true
+      },
+      {
+        "label": "Aug 2022",
+        "value": 33,
+        "after": true
+      },
+      {
+        "label": "Sep 2022",
+        "value": 13,
+        "after": true
+      },
+      {
+        "label": "Oct 2022",
+        "value": 23,
+        "after": true
+      },
+      {
+        "label": "Nov 2022",
+        "value": 17,
+        "after": true
+      },
+      {
+        "label": "Dec 2022",
+        "value": 29,
+        "after": true
+      },
+      {
+        "label": "Jan 2023",
+        "value": 12,
+        "after": true,
+        "tick": "2023"
+      },
+      {
+        "label": "Feb 2023",
+        "value": 6,
+        "after": true
+      },
+      {
+        "label": "Mar 2023",
+        "value": 9,
+        "after": true
+      },
+      {
+        "label": "Apr 2023",
+        "value": 72,
+        "after": true
+      },
+      {
+        "label": "May 2023",
+        "value": 89,
+        "after": true
+      },
+      {
+        "label": "Jun 2023",
+        "value": 18,
+        "after": true
+      },
+      {
+        "label": "Jul 2023",
+        "value": 49,
+        "after": true
+      },
+      {
+        "label": "Aug 2023",
+        "value": 44,
+        "after": true
+      },
+      {
+        "label": "Sep 2023",
+        "value": 51,
+        "after": true
+      },
+      {
+        "label": "Oct 2023",
+        "value": 31,
+        "after": true
+      },
+      {
+        "label": "Nov 2023",
+        "value": 40,
+        "after": true
+      },
+      {
+        "label": "Dec 2023",
+        "value": 62,
+        "after": true
+      }
     ]
   }
 }

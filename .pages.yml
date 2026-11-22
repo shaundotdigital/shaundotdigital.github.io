@@ -366,6 +366,156 @@ content:
                     label: What it measures
                     type: string
                     required: true
+          - name: periods
+            label: Names of the two periods
+            type: object
+            description: Used in chart legends and the change rows. Keep them short, they sit beside a bar.
+            fields:
+              - name: before
+                label: Before
+                type: string
+              - name: after
+                label: After
+                type: string
+          - name: trend
+            label: "Chart: periods"
+            type: object
+            description: A column chart with a few wide columns, one per period. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: title
+                label: Chart title
+                type: string
+                required: true
+              - name: alt
+                label: Description for screen readers
+                type: text
+                description: One or two sentences saying what the chart shows, for people who can't see it.
+              - name: note
+                label: Note under the chart
+                type: string
+              - name: bars
+                label: Columns
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}: {value}"
+                fields:
+                  - name: label
+                    label: Label
+                    type: string
+                    required: true
+                    description: Shown under the column, e.g. Jan to Jun 2018.
+                  - name: value
+                    label: Value
+                    type: number
+                    required: true
+                  - name: after
+                    label: "In the \"after\" period"
+                    type: boolean
+                    description: Turn on to colour this column in the brand colour. Leave off for grey.
+                  - name: tick
+                    label: Axis label
+                    type: string
+                    description: Not used in this chart.
+          - name: changes
+            label: Changes (before and after rows)
+            type: object
+            description: Rows comparing one figure before and after. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: rows
+                label: Rows
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: What changed
+                    type: string
+                    required: true
+                  - name: description
+                    label: What the figure measures
+                    type: string
+                  - name: before
+                    label: Before (number)
+                    type: number
+                    required: true
+                  - name: after
+                    label: After (number)
+                    type: number
+                    required: true
+                  - name: unit
+                    label: Unit
+                    type: string
+                    description: Added after both numbers, e.g. %. Leave empty for none.
+                  - name: scale
+                    label: Full bar equals
+                    type: number
+                    description: For percentages enter 100. Leave empty and the bigger number fills the bar.
+          - name: monthly
+            label: "Chart: months"
+            type: object
+            description: A chart with many thin columns, one per month. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: title
+                label: Chart title
+                type: string
+                required: true
+              - name: alt
+                label: Description for screen readers
+                type: text
+                description: One or two sentences saying what the chart shows, for people who can't see it.
+              - name: note
+                label: Note under the chart
+                type: string
+              - name: bars
+                label: Columns
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{label}: {value}"
+                fields:
+                  - name: label
+                    label: Label
+                    type: string
+                    required: true
+                    description: Used in the hover text, e.g. Dec 2018.
+                  - name: value
+                    label: Value
+                    type: number
+                    required: true
+                  - name: after
+                    label: "In the \"after\" period"
+                    type: boolean
+                    description: Turn on to colour this column in the brand colour. Leave off for grey.
+                  - name: tick
+                    label: Axis label
+                    type: string
+                    description: Shown under the column. Add it on January only, e.g. 2018, so years read along the bottom.
 
   - name: sitewide
     label: Site-wide

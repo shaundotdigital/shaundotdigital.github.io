@@ -3,6 +3,9 @@ import Layout from "../../layouts/Layout.astro";
 import SiteNav from "../../components/SiteNav.astro";
 import ProjectHero from "../../components/project/ProjectHero.astro";
 import ResultsBand from "../../components/project/ResultsBand.astro";
+import ProjectSection from "../../components/project/ProjectSection.astro";
+import ColumnChart from "../../components/project/ColumnChart.astro";
+import ChangeRows from "../../components/project/ChangeRows.astro";
 import { getProjects } from "../../lib/projects";
 
 // One page per visible project. In the live build, drafts never reach this list,
@@ -16,7 +19,16 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { results } = project.data;
+const { results, periods, trend, changes, monthly } = project.data;
+
+// Sections alternate between white and the page colour, whichever of them are filled in.
+// The chart card inside takes the opposite colour so it stands out.
+const surfaces: Record<string, "raised" | "paper"> = {};
+let position = 0;
+for (const key of ["trend", "changes", "monthly"] as const) {
+	if (project.data[key]) surfaces[key] = position++ % 2 === 0 ? "raised" : "paper";
+}
+const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper" : "raised");
 ---
 
 <Layout title={project.data.title} description={project.data.summary}>
@@ -24,5 +36,36 @@ const { results } = project.data;
 	<main class="font-sans">
 		<ProjectHero project={project} />
 		{results && <ResultsBand main={results.main} others={results.others} />}
+		{trend && (
+			<ProjectSection id="trend" heading={trend.heading} intro={trend.intro} surface={surfaces.trend}>
+				<ColumnChart
+					variant="periods"
+					title={trend.title}
+					alt={trend.alt}
+					note={trend.note}
+					bars={trend.bars}
+					periods={periods}
+					surface={opposite(surfaces.trend)}
+				/>
+			</ProjectSection>
+		)}
+		{changes && (
+			<ProjectSection id="changes" heading={changes.heading} intro={changes.intro} surface={surfaces.changes}>
+				<ChangeRows rows={changes.rows} periods={periods} />
+			</ProjectSection>
+		)}
+		{monthly && (
+			<ProjectSection id="monthly" heading={monthly.heading} intro={monthly.intro} surface={surfaces.monthly}>
+				<ColumnChart
+					variant="months"
+					title={monthly.title}
+					alt={monthly.alt}
+					note={monthly.note}
+					bars={monthly.bars}
+					periods={periods}
+					surface={opposite(surfaces.monthly)}
+				/>
+			</ProjectSection>
+		)}
 	</main>
 </Layout>
