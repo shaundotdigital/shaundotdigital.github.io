@@ -267,6 +267,8 @@ content:
         type: collection
         path: src/data/projects
         format: json
+        # New projects are saved as <title>.json. The page address comes from the Web address field, not the file name.
+        filename: "{primary}.json"
         view:
           primary: title
           fields: [title, status]
