@@ -37,13 +37,15 @@ If the dev server can't find a package after `npm install`, stop it and start it
 data/               Last good copy of the Letterboxd data, used when Letterboxd can't be reached
 public/             Copied as-is: domain (CNAME), favicons, share image, humans.txt
 src/
-  assets/           Images Astro resizes at build time (the hero photo). Pages CMS uploads land here
+  assets/           Images Astro resizes at build time (the hero photo, project pictures). Pages CMS uploads land here
   components/       Site-wide parts: nav, contact, footer, analytics, logo, icons, light/dark switch
   components/home/  Homepage sections: Hero, Domains (Approach), Experience, Films
+  components/project/  Parts of a project page: hero, results band, charts, tweet cards, lessons, previous and next
   data/             The site's words, one file per section. Edited in Pages CMS
+  data/projects/    One JSON file per project case study
   layouts/          Layout.astro: the shared page shell, <head>, meta tags and share image
-  lib/              letterboxd.ts: fetches the films data
-  pages/            index.astro (homepage) and privacy.astro
+  lib/              letterboxd.ts (films data), projects.ts (list, order and hide drafts), projectImages.ts, projectDate.ts
+  pages/            index.astro (homepage), privacy.astro, projects/index.astro (the list) and projects/[slug].astro (one case study)
   styles/           global.css: Tailwind, theme colours, dark mode and shared classes
 ```
 
@@ -63,6 +65,7 @@ The words on the site live in `src/data`, not in the components:
 | `experience.json` | Work history, newest first |
 | `films.json` | Headings and labels in the films section |
 | `contact.json` | Closing heading, email address and social links |
+| `projects/*.json` | One file per project case study. See [Projects](#projects) |
 | `footer.json` | Copyright name, "Built with" links and the analytics notice |
 | `privacy.md` | The privacy page |
 
@@ -99,6 +102,39 @@ Pages CMS reads `.pages.yml` from whichever branch is open, so new fields or sec
 
 Content saved on `dev` while testing goes live with the next release, so use real wording or undo it first.
 
+### Projects
+
+Each case study is one file in `src/data/projects/`, edited in Pages CMS under **Projects**. The page at `/projects/<slug>` and the card on `/projects` are both built from that file.
+
+**Draft or published.** Every project has a status. `published` shows on the live site. `draft` shows in `npm run dev` with a Draft tag, and is left out of the live build entirely: no page, no card, and no link. The Projects link in the menu only appears when there is at least one project to show. So an unfinished case study can sit in Pages CMS without going public. Switch it to `published` when it's ready.
+
+**Adding a project.**
+
+1. In Pages CMS, open **Projects** and add an entry. Leave the status on `draft`.
+2. Fill in the fields. Only the title and slug are required to start; the summary is what shows on the list card. Sections such as the charts, findings, tweets and lessons are all optional, and a section with nothing in it is left off the page.
+3. Preview it with `npm run dev` and open `/projects`.
+4. Set the status to `published` and save.
+
+**Pictures.** Keep each project's pictures in one folder named after its date and web address:
+
+```text
+src/assets/projects/<YYYY-MM>-<web address>/
+  card.jpg           Picture on the /projects list
+  tweet-avatar.jpg   Profile picture on recreated tweets
+```
+
+For example `src/assets/projects/2019-07-twitter-management/`. The date comes first so two projects with a similar name can't clash and the folders sort in order. In Pages CMS, pick the picture from the image field and it stores a path like `/src/assets/projects/2019-07-twitter-management/card.jpg`. If a path points at a file that isn't there, the build stops and names the project.
+
+**Date.** The date field sorts projects and names the picture folder. It's only shown on the site when **Show date on the site** is ticked.
+
+**Order.** Projects sort by their order number (lowest first), then newest date, then title. The previous and next links at the bottom of each project follow the same order.
+
+**Layout.** Section order and the light and dark bands are set in `src/pages/projects/[slug].astro`. The look of each part is in `src/components/project/`. Colours and spacing come from the same tokens as the rest of the site in `src/styles/global.css`.
+
+**If the dev server shows old data** after you change a project file's fields, restart it with `npm run dev -- --force`.
+
+**Placeholder.** `example-project.json` is a draft showing the fields. Delete it once there are real case studies.
+
 ### Films
 
 `src/lib/letterboxd.ts` reads the films data when the site builds:
@@ -121,6 +157,8 @@ As well as page views, it sends:
 | `scroll_depth` | At 25, 50, 75 and 100 per cent down the page |
 | `section_view` | The first time each section reaches the middle of the screen |
 | `page_exit` | On leaving: the last and furthest section reached, and how far down they scrolled |
+
+Project pages use the same layout, so they're tracked the same way. Each band on a project page has an `id` (for example `trend`, `findings`, `tweets`), and that id is what shows up as the section in `ui_click`, `section_view` and `page_exit`. Give any new section an `id` or it's reported as `other`.
 
 The privacy page explains this to visitors. If you change what's tracked, update `src/data/privacy.md` too.
 

@@ -12,6 +12,7 @@ const { id, heading, intro, surface = "paper" } = Astro.props;
 ---
 
 <section
+	id={id}
 	aria-labelledby={`${id}-heading`}
 	class:list={[
 		surface === "ink" && "theme-inverse bg-ink text-paper",
