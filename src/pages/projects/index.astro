@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SiteNav from "../../components/SiteNav.astro";
+import { getProjects } from "../../lib/projects";
+
+const projects = await getProjects();
+---
+
+<Layout title="Projects" description="Case studies from my work, with what changed and the numbers behind it.">
+	<SiteNav />
+	<main class="font-sans">
+		<section class="texture-grid bg-paper text-ink">
+			<div class="container-default pt-32 pb-20 md:pt-40">
+				<h1 class="max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl">Projects</h1>
+				<p class="mt-6 max-w-2xl text-xl leading-relaxed text-neutral-700 text-pretty">
+					Case studies from my work, with what changed and the numbers behind it.
+				</p>
+
+				{projects.length > 0 ? (
+					<ul class="mt-12 grid gap-4 md:grid-cols-2">
+						{projects.map(({ data }) => (
+							<li>
+								<a
+									href={`/projects/${data.slug}`}
+									class="interactive group flex h-full flex-col gap-4 rounded-2xl border border-neutral-200 bg-paper-raised p-6 hover:border-ink active:translate-y-px"
+								>
+									<div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+										{data.category && <span class="label text-neutral-600">{data.category}</span>}
+										{data.status === "draft" && (
+											<span class="label rounded-full bg-ink px-3 py-1 text-paper">Draft</span>
+										)}
+									</div>
+									<h2 class="font-display text-2xl leading-snug font-bold">{data.title}</h2>
+									{data.summary && <p class="text-base leading-relaxed text-neutral-700">{data.summary}</p>}
+									{data.results && (
+										<p class="mt-auto flex items-baseline gap-3 border-t border-neutral-200 pt-4">
+											<span class="font-display text-3xl font-bold tabular-nums">{data.results.main.value}</span>
+											<span class="text-sm text-neutral-600">{data.results.main.label}</span>
+										</p>
+									)}
+								</a>
+							</li>
+						))}
+					</ul>
+				) : (
+					<p class="mt-12 text-lg text-neutral-700">Nothing here yet.</p>
+				)}
+			</div>
+		</section>
+	</main>
+</Layout>

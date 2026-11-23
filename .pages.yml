@@ -297,6 +297,10 @@ content:
             label: Summary
             type: text
             description: The paragraph under the headline. Also used in search results.
+          - name: order
+            label: Order
+            type: number
+            description: Where it sits in the Projects list and the previous and next links. Lowest comes first. Projects without a number go last.
           - name: category
             label: Category
             type: string
@@ -724,7 +728,7 @@ content:
           - name: nav
             label: Menu
             type: object
-            description: Only the labels can change. Each one jumps to a section of the homepage.
+            description: Only the labels can change. Each one jumps to a section of the homepage, or to its own page. Projects only shows once there is a project to see.
             list:
               collapsible:
                 collapsed: true
@@ -736,6 +740,10 @@ content:
                 required: true
               - name: section
                 label: Section
+                type: string
+                readonly: true
+              - name: path
+                label: Page
                 type: string
                 readonly: true
       - name: footer

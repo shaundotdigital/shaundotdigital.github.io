@@ -3,6 +3,7 @@
   "slug": "example-project",
   "status": "draft",
   "summary": "Placeholder summary for testing the projects collection. Replace or delete this project once the real case studies are in.",
+  "order": 2,
   "category": "Placeholder category",
   "headlineStart": "A placeholder headline with",
   "headlineHighlight": "a pill phrase",

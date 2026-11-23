@@ -12,6 +12,10 @@
       "section": "experience"
     },
     {
+      "label": "Projects",
+      "path": "/projects"
+    },
+    {
       "label": "Films",
       "section": "films"
     },

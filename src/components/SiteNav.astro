@@ -2,10 +2,23 @@
 import Logo from "./Logo.astro";
 import site from "../data/site.json";
 import ThemeToggle from "./ThemeToggle.astro";
+import { getProjects } from "../lib/projects";
 
 // One link per section on the homepage, in page order. Links start with "/" so they
 // also work from other pages, such as /privacy. The labels live in src/data/site.json.
-const links = site.nav.map((item) => ({ label: item.label, href: `/#${item.section}` }));
+// An item with a path goes to that page instead. The Projects link only shows once there
+// is a project to see: drafts count on the dev server, only published ones in the live build.
+const hasProjects = (await getProjects()).length > 0;
+const links = site.nav
+  .filter((item) => !("path" in item) || item.path !== "/projects" || hasProjects)
+  .map((item) => {
+    const path = "path" in item ? item.path : undefined;
+    return {
+      label: item.label,
+      href: path ?? `/#${item.section}`,
+      current: path !== undefined && Astro.url.pathname.startsWith(path),
+    };
+  });
 ---
 
 <header class="absolute inset-x-0 top-0 z-10">
@@ -21,7 +34,11 @@ const links = site.nav.map((item) => ({ label: item.label, href: `/#${item.secti
       {links.map((link) => (
         <a
           href={link.href}
-          class="interactive rounded-full px-3 py-1.5 text-neutral-600 hover:bg-ink/5 hover:text-ink active:bg-ink/10"
+          aria-current={link.current ? "page" : undefined}
+          class:list={[
+            "interactive rounded-full px-3 py-1.5 hover:bg-ink/5 hover:text-ink active:bg-ink/10",
+            link.current ? "bg-ink/5 text-ink" : "text-neutral-600",
+          ]}
         >
           {link.label}
         </a>
@@ -52,6 +69,7 @@ const links = site.nav.map((item) => ({ label: item.label, href: `/#${item.secti
       {links.map((link) => (
         <a
           href={link.href}
+          aria-current={link.current ? "page" : undefined}
           class="interactive block rounded-lg px-4 py-3 font-display text-lg font-medium hover:bg-ink/5 active:bg-ink/10"
         >
           {link.label}

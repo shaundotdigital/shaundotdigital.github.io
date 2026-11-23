@@ -66,6 +66,8 @@ const projects = defineCollection({
 		// Drafts show on the dev server only. They're left out of the live build.
 		status: z.enum(["draft", "published"]).default("draft"),
 		summary: z.string().optional(),
+		// Where it sits in the list and in the previous/next links. Lowest first, no number goes last.
+		order: z.number().optional(),
 
 		// Hero. The headline is split like the homepage one: the middle part sits in the black pill.
 		category: z.string().optional(),
