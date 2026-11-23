@@ -133,6 +133,7 @@
   "findings": {
     "heading": "What held the account back before I took over",
     "intro": "I first worked on the account under my manager's plan. These figures cover all 465 tweets from Jul 2014 to Jul 2017.",
+    "equalHeight": true,
     "cards": [
       {
         "figure": "36%",

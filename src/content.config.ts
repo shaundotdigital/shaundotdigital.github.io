@@ -102,6 +102,7 @@ const projects = defineCollection({
 			.object({
 				heading: z.string(),
 				intro: z.string().optional(),
+				equalHeight: z.boolean().default(false),
 				cards: z.array(finding).default([]),
 			})
 			.optional(),
@@ -131,6 +132,7 @@ const projects = defineCollection({
 				author: z.string().default(""),
 				handle: z.string().default(""),
 				avatar: z.string().default(""),
+				equalHeight: z.boolean().default(false),
 				items: z.array(tweet).default([]),
 			})
 			.optional(),

@@ -483,6 +483,10 @@ content:
               - name: intro
                 label: Section intro
                 type: text
+              - name: equalHeight
+                label: Equal height cards
+                type: boolean
+                description: Turn on to make every card in a row as tall as the tallest. Comparison bars drop to the bottom of their card.
               - name: cards
                 label: Cards
                 type: object
@@ -647,6 +651,10 @@ content:
                 label: Avatar letters
                 type: string
                 description: Two or three letters shown in the round badge, e.g. TRI. Leave empty for none.
+              - name: equalHeight
+                label: Equal height cards
+                type: boolean
+                description: Turn on to make every tweet in a row as tall as the tallest. The time and counts line up along the bottom.
               - name: items
                 label: Tweets
                 type: object

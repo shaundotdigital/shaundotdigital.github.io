@@ -34,7 +34,7 @@ const hasPill = Boolean(p.headlineHighlight);
 			</ol>
 		</nav>
 
-		<h1 class="mt-6 max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl">
+		<h1 class="mt-6 text-[2rem] leading-[1.2] text-balance sm:text-5xl">
 			{hasPill ? (
 				<>
 					{p.headlineStart}{" "}
@@ -49,7 +49,7 @@ const hasPill = Boolean(p.headlineHighlight);
 			)}
 		</h1>
 
-		{p.summary && <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-700">{p.summary}</p>}
+		{p.summary && <p class="mt-6 max-w-5xl text-lg leading-relaxed text-neutral-700 text-pretty">{p.summary}</p>}
 
 		<div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
 			<a href="#contact" class="button-primary">
@@ -60,7 +60,7 @@ const hasPill = Boolean(p.headlineHighlight);
 		</div>
 
 		{facts.length > 0 && (
-			<dl class="mt-12 grid max-w-4xl gap-3 sm:grid-cols-2 lg:grid-cols-4">
+			<dl class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
 				{facts.map((fact) => (
 					<div class="rounded-2xl bg-paper-raised px-6 py-4">
 						<dt class="label text-neutral-600">{fact.label}</dt>

@@ -62,7 +62,7 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 		)}
 		{findings && (
 			<ProjectSection id="findings" heading={findings.heading} intro={findings.intro} surface={surfaces.findings}>
-				<FindingCards cards={findings.cards} surface={opposite(surfaces.findings)} />
+				<FindingCards cards={findings.cards} surface={opposite(surfaces.findings)} equalHeight={findings.equalHeight} />
 			</ProjectSection>
 		)}
 		{changes && (
@@ -85,7 +85,7 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 		)}
 		{tweets && tweets.items.length > 0 && (
 			<ProjectSection id="tweets" heading={tweets.heading} intro={tweets.intro} surface="ink">
-				<div class="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
+				<div class:list={["grid gap-4 md:grid-cols-2 lg:grid-cols-3", tweets.equalHeight ? "items-stretch" : "items-start"]}>
 					{tweets.items.map((item) => (
 						<TweetCard author={tweets.author} handle={tweets.handle} avatar={tweets.avatar} {...item} />
 					))}

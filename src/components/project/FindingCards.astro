@@ -18,12 +18,14 @@ interface Card {
 interface Props {
 	cards: Card[];
 	surface: "raised" | "paper";
+	// Stretch every card to the height of the tallest one in its row.
+	equalHeight?: boolean;
 }
 
-const { cards, surface } = Astro.props;
+const { cards, surface, equalHeight = false } = Astro.props;
 ---
 
-<div class="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
+<div class:list={["grid gap-4 md:grid-cols-2 lg:grid-cols-3", equalHeight ? "items-stretch" : "items-start"]}>
 	{cards.map((card) => {
 		const max = Math.max(...card.bars.map((bar) => bar.value), 1);
 		return (
@@ -32,7 +34,7 @@ const { cards, surface } = Astro.props;
 				<h3 class="font-display text-lg leading-snug font-bold">{card.title}</h3>
 				{card.text && <p class="text-base leading-relaxed text-neutral-700">{card.text}</p>}
 				{card.bars.length > 0 && (
-					<div class="mt-2 flex flex-col gap-2">
+					<div class="mt-auto flex flex-col gap-2 pt-2">
 						{card.bars.map((bar) => (
 							<div class="grid grid-cols-[8rem_1fr_2.5rem] items-center gap-3 text-sm">
 								<span class="text-neutral-600">{bar.label}</span>
