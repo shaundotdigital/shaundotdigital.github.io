@@ -1,7 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import SiteNav from "../../components/SiteNav.astro";
+import { Image } from "astro:assets";
 import { getProjects } from "../../lib/projects";
+import { getProjectImage } from "../../lib/projectImages";
 
 const projects = await getProjects();
 ---
@@ -18,29 +20,43 @@ const projects = await getProjects();
 
 				{projects.length > 0 ? (
 					<ul class="mt-12 grid gap-4 md:grid-cols-2">
-						{projects.map(({ data }) => (
-							<li>
-								<a
-									href={`/projects/${data.slug}`}
-									class="interactive group flex h-full flex-col gap-4 rounded-2xl border border-neutral-200 bg-paper-raised p-6 hover:border-ink active:translate-y-px"
-								>
-									<div class="flex flex-wrap items-center gap-x-3 gap-y-2">
-										{data.category && <span class="label text-neutral-600">{data.category}</span>}
-										{data.status === "draft" && (
-											<span class="label rounded-full bg-ink px-3 py-1 text-paper">Draft</span>
+						{projects.map(({ data }) => {
+							const image = getProjectImage(data.image, data.title);
+							return (
+								<li>
+									<a
+										href={`/projects/${data.slug}`}
+										class="interactive flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-paper-raised hover:border-ink active:translate-y-px"
+									>
+										{image && (
+											<Image
+												src={image}
+												alt={data.imageAlt ?? ""}
+												widths={[480, 720, 960]}
+												sizes="(min-width: 768px) 560px, 100vw"
+												class="aspect-[16/10] w-full object-cover"
+											/>
 										)}
-									</div>
-									<h2 class="font-display text-2xl leading-snug font-bold">{data.title}</h2>
-									{data.summary && <p class="text-base leading-relaxed text-neutral-700">{data.summary}</p>}
-									{data.results && (
-										<p class="mt-auto flex items-baseline gap-3 border-t border-neutral-200 pt-4">
-											<span class="font-display text-3xl font-bold tabular-nums">{data.results.main.value}</span>
-											<span class="text-sm text-neutral-600">{data.results.main.label}</span>
-										</p>
-									)}
-								</a>
-							</li>
-						))}
+										<div class="flex flex-1 flex-col gap-4 p-6">
+											<div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+												{data.category && <span class="label text-neutral-600">{data.category}</span>}
+												{data.status === "draft" && (
+													<span class="label rounded-full bg-ink px-3 py-1 text-paper">Draft</span>
+												)}
+											</div>
+											<h2 class="font-display text-2xl leading-snug font-bold">{data.title}</h2>
+											{data.summary && <p class="text-base leading-relaxed text-neutral-700">{data.summary}</p>}
+											{data.results && (
+												<p class="mt-auto flex items-baseline gap-3 border-t border-neutral-200 pt-4">
+													<span class="font-display text-3xl font-bold tabular-nums">{data.results.main.value}</span>
+													<span class="text-sm text-neutral-600">{data.results.main.label}</span>
+												</p>
+											)}
+										</div>
+									</a>
+								</li>
+							);
+						})}
 					</ul>
 				) : (
 					<p class="mt-12 text-lg text-neutral-700">Nothing here yet.</p>

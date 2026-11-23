@@ -301,6 +301,16 @@ content:
             label: Order
             type: number
             description: Where it sits in the Projects list and the previous and next links. Lowest comes first. Projects without a number go last.
+          - name: image
+            label: Card picture
+            type: image
+            description: Shown at the top of the project's card on the Projects page. Wide pictures work best, about 16 by 10. Leave empty for a card without one.
+            options:
+              media: images
+          - name: imageAlt
+            label: Card picture description
+            type: string
+            description: What the picture shows, for people who can't see it. Leave empty if it's only decoration.
           - name: category
             label: Category
             type: string

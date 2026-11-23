@@ -68,6 +68,9 @@ const projects = defineCollection({
 		summary: z.string().optional(),
 		// Where it sits in the list and in the previous/next links. Lowest first, no number goes last.
 		order: z.number().optional(),
+		// The picture on the project's card on the Projects page. Chosen in Pages CMS from src/assets.
+		image: z.string().optional(),
+		imageAlt: z.string().optional(),
 
 		// Hero. The headline is split like the homepage one: the middle part sits in the black pill.
 		category: z.string().optional(),

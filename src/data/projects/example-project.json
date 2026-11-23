@@ -4,6 +4,8 @@
   "status": "draft",
   "summary": "Placeholder summary for testing the projects collection. Replace or delete this project once the real case studies are in.",
   "order": 2,
+  "image": "/src/assets/placeholder-project.png",
+  "imageAlt": "",
   "category": "Placeholder category",
   "headlineStart": "A placeholder headline with",
   "headlineHighlight": "a pill phrase",
