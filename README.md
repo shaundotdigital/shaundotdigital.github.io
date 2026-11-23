@@ -104,18 +104,22 @@ Content saved on `dev` while testing goes live with the next release, so use rea
 
 ### Projects
 
-Each case study is one file in `src/data/projects/`, edited in Pages CMS under **Projects**. The page at `/projects/<slug>` and the card on `/projects` are both built from that file.
+Each case study is one file in `src/data/projects/`, edited in Pages CMS under Projects. The page at `/projects/<slug>` and the card on `/projects` are both built from that file.
 
-**Draft or published.** Every project has a status. `published` shows on the live site. `draft` shows in `npm run dev` with a Draft tag, and is left out of the live build entirely: no page, no card, and no link. The Projects link in the menu only appears when there is at least one project to show, and until then `/projects` sends visitors to the homepage. So an unfinished case study can sit in Pages CMS without going public. Switch it to `published` when it's ready.
+#### Draft or published
 
-**Adding a project.**
+Every project has a status. `published` shows on the live site. `draft` shows in `npm run dev` with a Draft tag and is left out of the live build entirely: no page, no card and no link. The Projects link in the menu only appears when at least one project is showing, and until then `/projects` sends visitors to the homepage. An unfinished case study can sit in Pages CMS without going public. Switch it to `published` when it's ready.
 
-1. In Pages CMS, open **Projects** and add an entry. Leave the status on `draft`.
-2. Fill in the fields. Only the title and slug are required to start; the summary is what shows on the list card. Sections such as the charts, findings, tweets and lessons are all optional, and a section with nothing in it is left off the page.
+#### Adding a project
+
+1. In Pages CMS, open Projects and add an entry. Leave the status on `draft`.
+2. Fill in the fields. Only the title and slug are required to start. The summary appears on the list card. The charts, findings, tweets and lessons are all optional, and a section with nothing in it is left off the page.
 3. Preview it with `npm run dev` and open `/projects`.
 4. Set the status to `published` and save.
 
-**Pictures.** Keep each project's pictures in one folder named after its date and web address:
+#### Pictures
+
+Each project keeps its pictures in one folder named after its date and web address:
 
 ```text
 src/assets/projects/<YYYY-MM>-<web address>/
@@ -123,17 +127,23 @@ src/assets/projects/<YYYY-MM>-<web address>/
   tweet-avatar.jpg   Profile picture on recreated tweets
 ```
 
-For example `src/assets/projects/2019-07-twitter-management/`. The date comes first so two projects with a similar name can't clash and the folders sort in order. In Pages CMS, pick the picture from the image field and it stores a path like `/src/assets/projects/2019-07-twitter-management/card.jpg`. If a path points at a file that isn't there, the build stops and names the project.
+For example, `src/assets/projects/2019-07-twitter-management/`. The date comes first so projects with similar names can't clash and the folders sort in order. In Pages CMS, pick the picture from the image field and it stores a path like `/src/assets/projects/2019-07-twitter-management/card.jpg`. If a path points at a file that isn't there, the build stops and names the project.
 
-**Date.** The date field sorts projects and names the picture folder. It's only shown on the site when **Show date on the site** is ticked.
+#### Date and order
 
-**Order.** Projects sort by their order number (lowest first), then newest date, then title. The previous and next links at the bottom of each project follow the same order.
+The date sorts projects and names the picture folder. It only shows on the site when "Show date on the site" is ticked. Projects sort by order number (lowest first), then newest date, then title. The previous and next links at the bottom of each project follow the same order.
 
-**Layout.** Section order and the light and dark bands are set in `src/pages/projects/[slug].astro`. The look of each part is in `src/components/project/`. Colours and spacing come from the same tokens as the rest of the site in `src/styles/global.css`.
+#### Layout
 
-**If the dev server shows old data** after you change a project file's fields, restart it with `npm run dev -- --force`.
+Section order and the light and dark bands are set in `src/pages/projects/[slug].astro`. The look of each part is in `src/components/project/`. Colours and spacing use the same tokens as the rest of the site, in `src/styles/global.css`.
 
-**Placeholder.** `example-project.json` is a draft showing the fields. Delete it once there are real case studies.
+#### Old data in the dev server
+
+After you change the fields in a project file, the dev server can keep showing the old data. Restart it with `npm run dev -- --force`.
+
+#### Placeholder project
+
+`example-project.json` is a draft that shows the fields. Delete it once there are real case studies.
 
 ### Films
 

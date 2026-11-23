@@ -79,7 +79,7 @@
       }
     ],
     "title": "Average engagement per tweet, year by year",
-    "alt": "Average engagement per tweet for five years, each running August to July. Under the previous approach: 2.13, 1.26 and 1.18 from August 2014 to July 2017. Under my approach: 2.22 and 3.47 from August 2017 to July 2019.",
+    "alt": "Average engagement per tweet for five years, each running August to July. Before I took over: 2.13, 1.26 and 1.18 from August 2014 to July 2017. After: 2.22 and 3.47 from August 2017 to July 2019.",
     "bars": [
       {
         "label": "August 2014 to July 2015",
@@ -107,7 +107,7 @@
         "after": true
       }
     ],
-    "note": "Each column is twelve months, August to July, counted from when I took over in August 2017, so every column covers the same time of year. July 2014 is in the averages above but not in a column. The last column includes April to July 2019, when social media was shelved. Those four months averaged 1.41 on their own, and leaving them out would put the 2.74 at about 2.8."
+    "note": "Each column runs August to July, starting from August 2017, the month I took over, so every column covers the same twelve months of the year. July 2014 is in the averages above but not charted. The last column includes April to July 2019, when social media was shelved. Those four months averaged 1.41, and without them the 2.74 would be about 2.8."
   },
   "findings": {
     "heading": "What I found when I took over the account",
@@ -193,7 +193,7 @@
     "intro": "In the three years before I took over, no month passed 68 engagements.",
     "title": "Engagement per month, July 2014 to July 2019",
     "alt": "Monthly engagement for @triuk from July 2014 to July 2019. In the three years before I took over, no month passed 68. Under my management it peaked at 142 in December 2018 and 137 in January 2019. From April to July 2019, when social media was shelved, it was between 5 and 10 a month.",
-    "note": "The peak came in December 2018, when the first Cervélo S5 Ultegra and 2019 Focus bikes arrived. The hatched columns, April to July 2019, are when social media was shelved.",
+    "note": "The peak came in December 2018, when the first Cervélo S5 Ultegra and 2019 Focus bikes arrived. The hatched columns are April to July 2019, when social media was shelved.",
     "bars": [
       {
         "label": "July 2014",
@@ -595,6 +595,6 @@
         "text": "The two biggest months, December 2018 and January 2019, came when the 2019 Cervélo and Focus ranges arrived."
       }
     ],
-    "note": "About the data: I looked at every public tweet from @triuk between July 2014 and July 2019, 1,150 in all. The figures use the 860 that were TRI UK's own posts, leaving out replies and retweets. Engagement means likes, retweets and replies on those posts, so treat the figures as a guide rather than exact."
+    "note": "The data is every public tweet from @triuk between July 2014 and July 2019, 1,150 in all. The figures use the 860 that were TRI UK's own posts, leaving out replies and retweets. Engagement means likes, retweets and replies on those posts. Treat the figures as a guide."
   }
 }
