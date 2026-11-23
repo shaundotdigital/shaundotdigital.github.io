@@ -536,6 +536,7 @@
     "intro": "I've recreated each tweet here with its original text, date and counts.",
     "author": "TRI UK",
     "handle": "@triuk",
+    "avatarImage": "/src/assets/projects/2019-07-twitter-management/tweet-avatar.jpg",
     "avatar": "TRI",
     "items": [
       {

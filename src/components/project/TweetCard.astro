@@ -42,7 +42,7 @@ const counts = [
 <article class="flex h-full flex-col gap-3 rounded-2xl bg-white p-4 text-[#101010]">
 	<header class="flex items-center gap-3">
 		{avatarImage ? (
-			<Image src={avatarImage} alt="" width={40} height={40} densities={[2]} class="size-10 flex-none rounded-full object-cover" />
+			<Image src={avatarImage} alt="" width={40} height={40} densities={[2]} class="size-10 flex-none rounded-full object-cover ring-1 ring-[#e2e2e2]" />
 		) : avatar && (
 			<span aria-hidden="true" class="flex size-10 flex-none items-center justify-center rounded-full bg-[#101010] text-xs font-bold text-[#f5f4f0]">
 				{avatar}
