@@ -132,6 +132,7 @@ const projects = defineCollection({
 				author: z.string().default(""),
 				handle: z.string().default(""),
 				avatar: z.string().default(""),
+				avatarImage: z.string().optional(),
 				equalHeight: z.boolean().default(false),
 				items: z.array(tweet).default([]),
 			})

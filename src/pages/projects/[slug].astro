@@ -12,6 +12,7 @@ import TweetCard from "../../components/project/TweetCard.astro";
 import LessonList from "../../components/project/LessonList.astro";
 import ProjectNav from "../../components/project/ProjectNav.astro";
 import { getProjects } from "../../lib/projects";
+import { getProjectImage } from "../../lib/projectImages";
 
 // One page per visible project. In the live build, drafts never reach this list,
 // so no page is made for them.
@@ -29,6 +30,7 @@ export async function getStaticPaths() {
 
 const { project, previous, next } = Astro.props;
 const { results, periods, trend, findings, changes, monthly, tweets, lessons } = project.data;
+const avatarImage = getProjectImage(tweets?.avatarImage, project.data.title);
 
 // Sections alternate between white and the page colour, whichever of them are filled in.
 // The tweets band is always black, so it sits outside that pattern.
@@ -87,7 +89,7 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 			<ProjectSection id="tweets" heading={tweets.heading} intro={tweets.intro} surface="ink">
 				<div class:list={["grid gap-4 md:grid-cols-2 lg:grid-cols-3", tweets.equalHeight ? "items-stretch" : "items-start"]}>
 					{tweets.items.map((item) => (
-						<TweetCard author={tweets.author} handle={tweets.handle} avatar={tweets.avatar} {...item} />
+						<TweetCard author={tweets.author} handle={tweets.handle} avatar={tweets.avatar} avatarImage={avatarImage} {...item} />
 					))}
 				</div>
 			</ProjectSection>

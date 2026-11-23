@@ -1,9 +1,14 @@
 ---
 // A recreated tweet: the original text, time and counts. It looks the same in light and
 // dark mode, like a screenshot would, so its colours are fixed instead of using the site's.
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 interface Props {
 	author: string;
 	handle: string;
+	// The account's profile picture. Without one, the avatar letters are shown instead.
+	avatarImage?: ImageMetadata;
 	avatar: string;
 	rank?: number;
 	text: string;
@@ -14,7 +19,7 @@ interface Props {
 	url?: string;
 }
 
-const { author, handle, avatar, rank, text, time, replies, reposts, likes, url } = Astro.props;
+const { author, handle, avatarImage, avatar, rank, text, time, replies, reposts, likes, url } = Astro.props;
 
 // Hashtags and @mentions are picked out in blue, like on Twitter.
 const parts = text
@@ -36,7 +41,9 @@ const counts = [
 
 <article class="flex h-full flex-col gap-3 rounded-2xl bg-white p-4 text-[#101010]">
 	<header class="flex items-center gap-3">
-		{avatar && (
+		{avatarImage ? (
+			<Image src={avatarImage} alt="" width={40} height={40} densities={[2]} class="size-10 flex-none rounded-full object-cover" />
+		) : avatar && (
 			<span aria-hidden="true" class="flex size-10 flex-none items-center justify-center rounded-full bg-[#101010] text-xs font-bold text-[#f5f4f0]">
 				{avatar}
 			</span>

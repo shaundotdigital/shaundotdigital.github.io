@@ -304,7 +304,7 @@ content:
           - name: image
             label: Card picture
             type: image
-            description: Shown at the top of the project's card on the Projects page. Wide pictures work best, about 16 by 10. Leave empty for a card without one.
+            description: Shown at the top of the project's card on the Projects page. Wide pictures work best, about 16 by 10. Leave empty for a card without one. Keep each project's pictures in its own folder, src/assets/projects/ then its web address, e.g. src/assets/projects/twitter-management/card.jpg.
             options:
               media: images
           - name: imageAlt
@@ -647,10 +647,16 @@ content:
                 label: Handle
                 type: string
                 description: For example @triuk.
+              - name: avatarImage
+                label: Profile picture
+                type: image
+                description: The account's profile picture, shown in the round badge on every tweet. Square works best. Keep it in the project's own folder, e.g. src/assets/projects/twitter-management/tweet-avatar.jpg.
+                options:
+                  media: images
               - name: avatar
                 label: Avatar letters
                 type: string
-                description: Two or three letters shown in the round badge, e.g. TRI. Leave empty for none.
+                description: Used only when there is no profile picture. Two or three letters shown in the round badge, e.g. TRI.
               - name: equalHeight
                 label: Equal height cards
                 type: boolean
