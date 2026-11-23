@@ -271,7 +271,7 @@ content:
         filename: "{primary}.json"
         view:
           primary: title
-          fields: [title, status]
+          fields: [title, status, date]
         fields:
           - name: title
             label: Title
@@ -301,10 +301,20 @@ content:
             label: Order
             type: number
             description: Where it sits in the Projects list and the previous and next links. Lowest comes first. Projects without a number go last.
+          - name: date
+            label: Date
+            type: date
+            description: When the project finished. Sorts the list, newest first, after the Order number. It also starts the name of the project's picture folder, e.g. 2019-07-twitter-management.
+            options:
+              format: "yyyy-MM-dd"
+          - name: showDate
+            label: Show the date on the page
+            type: boolean
+            description: Turn on to show the month and year on the project's card and page. Leave off to keep the date to yourself.
           - name: image
             label: Card picture
             type: image
-            description: Shown at the top of the project's card on the Projects page. Wide pictures work best, about 16 by 10. Leave empty for a card without one. Keep each project's pictures in its own folder, src/assets/projects/ then its web address, e.g. src/assets/projects/twitter-management/card.jpg.
+            description: Shown at the top of the project's card on the Projects page. Wide pictures work best, about 16 by 10. Leave empty for a card without one. Keep each project's pictures in its own folder, src/assets/projects/ then the year and month, then its web address, e.g. src/assets/projects/2019-07-twitter-management/card.jpg.
             options:
               media: images
           - name: imageAlt
@@ -650,7 +660,7 @@ content:
               - name: avatarImage
                 label: Profile picture
                 type: image
-                description: The account's profile picture, shown in the round badge on every tweet. Square works best. Keep it in the project's own folder, e.g. src/assets/projects/twitter-management/tweet-avatar.jpg.
+                description: The account's profile picture, shown in the round badge on every tweet. Square works best. Keep it in the project's own folder, e.g. src/assets/projects/2019-07-twitter-management/tweet-avatar.jpg.
                 options:
                   media: images
               - name: avatar

@@ -1,9 +1,10 @@
 import type { ImageMetadata } from "astro";
 
 // Project pictures are picked in Pages CMS from src/assets, so Astro can still resize them.
-// Each project keeps its pictures in its own folder, named after its web address:
-//   src/assets/projects/<web address>/card.jpg
-// The stored value looks like /src/assets/projects/twitter-management/card.jpg.
+// Each project keeps its pictures in its own folder. The name starts with the year and month
+// from the project's date, then its web address, so two projects can never share a folder:
+//   src/assets/projects/2019-07-twitter-management/card.jpg
+// The stored value looks like /src/assets/projects/2019-07-twitter-management/card.jpg.
 const images = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*.{jpeg,jpg,png,webp,avif}", { eager: true });
 
 export function getProjectImage(path: string | undefined, project: string) {

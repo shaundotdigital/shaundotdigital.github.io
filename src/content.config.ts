@@ -68,6 +68,10 @@ const projects = defineCollection({
 		summary: z.string().optional(),
 		// Where it sits in the list and in the previous/next links. Lowest first, no number goes last.
 		order: z.number().optional(),
+		// When the project finished. Used for sorting (newest first after "order") and, if showDate is on, shown on the page.
+		// Also the start of the project's picture folder: src/assets/projects/2019-07-<web address>.
+		date: z.coerce.date().optional(),
+		showDate: z.boolean().default(false),
 		// The picture on the project's card on the Projects page. Chosen in Pages CMS from src/assets.
 		image: z.string().optional(),
 		imageAlt: z.string().optional(),

@@ -3,6 +3,7 @@
 // Built from the same pieces as the homepage hero (texture-grid, pill-reveal, button-primary).
 import type { CollectionEntry } from "astro:content";
 import Icon from "../Icon.astro";
+import { formatProjectDate } from "../../lib/projectDate";
 
 interface Props {
 	project: CollectionEntry<"projects">;
@@ -26,6 +27,7 @@ const hasPill = Boolean(p.headlineHighlight);
 			</p>
 		)}
 
+		<div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
 		<nav aria-label="Breadcrumb">
 			<ol class="label flex flex-wrap items-center gap-x-3 gap-y-1 text-neutral-600">
 				<li><a href="/projects" class="link">Projects</a></li>
@@ -33,6 +35,10 @@ const hasPill = Boolean(p.headlineHighlight);
 				<li aria-current="page" class="text-ink before:mr-3 before:text-neutral-400 before:content-['/']">{p.title}</li>
 			</ol>
 		</nav>
+		{p.showDate && p.date && (
+			<time datetime={p.date.toISOString().slice(0, 10)} class="label text-neutral-600">{formatProjectDate(p.date)}</time>
+		)}
+		</div>
 
 		<h1 class="mt-6 text-[2rem] leading-[1.2] text-balance sm:text-5xl">
 			{hasPill ? (

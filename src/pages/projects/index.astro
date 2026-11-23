@@ -4,6 +4,7 @@ import SiteNav from "../../components/SiteNav.astro";
 import { Image } from "astro:assets";
 import { getProjects } from "../../lib/projects";
 import { getProjectImage } from "../../lib/projectImages";
+import { formatProjectDate } from "../../lib/projectDate";
 
 const projects = await getProjects();
 ---
@@ -40,6 +41,11 @@ const projects = await getProjects();
 										<div class="flex flex-1 flex-col gap-4 p-6">
 											<div class="flex flex-wrap items-center gap-x-3 gap-y-2">
 												{data.category && <span class="label text-neutral-600">{data.category}</span>}
+												{data.showDate && data.date && (
+													<time datetime={data.date.toISOString().slice(0, 10)} class="label text-neutral-600">
+														{formatProjectDate(data.date)}
+													</time>
+												)}
 												{data.status === "draft" && (
 													<span class="label rounded-full bg-ink px-3 py-1 text-paper">Draft</span>
 												)}
