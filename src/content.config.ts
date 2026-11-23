@@ -9,10 +9,13 @@ const stat = z.object({
 });
 
 // One bar in a chart. "after" colours it in the brand colour instead of grey.
+// "paused" hatches it, for months where something got in the way (explained by the chart's pausedLabel).
+// In the month chart the label must be a full month and year, like "December 2018".
 const bar = z.object({
 	label: z.string(),
 	value: z.number(),
 	after: z.boolean().default(false),
+	paused: z.boolean().default(false),
 	tick: z.string().optional(),
 });
 
@@ -54,6 +57,8 @@ const chart = z.object({
 	title: z.string(),
 	alt: z.string().optional(),
 	note: z.string().optional(),
+	// Legend text for hatched columns, e.g. "Social media shelved".
+	pausedLabel: z.string().optional(),
 	bars: z.array(bar).default([]),
 });
 

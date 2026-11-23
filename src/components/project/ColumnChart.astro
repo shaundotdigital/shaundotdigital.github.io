@@ -1,12 +1,14 @@
 ---
 // A column chart in a card. Two shapes:
 //   periods: a few wide columns, each with its value on top and its label underneath.
-//   months: many thin columns, with only the ticks (e.g. a year) labelled.
+//   months: one thin column per month on a single timeline, with the year labelled under each January.
 // Grey columns are the "before" period, brand colour is "after".
+// A "paused" column is hatched, and the legend says why.
 interface Bar {
 	label: string;
 	value: number;
 	after: boolean;
+	paused?: boolean;
 	tick?: string;
 }
 
@@ -14,6 +16,7 @@ interface Props {
 	title: string;
 	alt?: string;
 	note?: string;
+	pausedLabel?: string;
 	bars: Bar[];
 	periods: { before: string; after: string };
 	variant: "periods" | "months";
@@ -21,13 +24,34 @@ interface Props {
 	surface: "raised" | "paper";
 }
 
-const { title, alt, note, bars, periods, variant, surface } = Astro.props;
+const { title, alt, note, pausedLabel, bars, periods, variant, surface } = Astro.props;
 
 const isPeriods = variant === "periods";
-const plotHeight = isPeriods ? 200 : 230;
+const plotHeight = isPeriods ? 200 : 260;
 const max = Math.max(...bars.map((b) => b.value), 1);
 const heightOf = (value: number) => Math.max(2, Math.round((value / max) * plotHeight));
 const description = alt ?? `${title}. ${bars.map((b) => `${b.label}: ${b.value}`).join(", ")}.`;
+const hasPaused = bars.some((b) => b.paused);
+// If any value has decimals, show them all with two so the numbers line up.
+const showDecimals = bars.some((b) => !Number.isInteger(b.value));
+// Many columns: tighter gaps, and the labels turn on their side so full month names fit.
+const dense = isPeriods && bars.length > 10;
+
+// Hatching for paused columns: brand-coloured stripes inside a brand outline.
+const hatch = "background-image:repeating-linear-gradient(135deg,var(--color-brand) 0 2px,transparent 2px 5px)";
+
+// Month chart: the year goes under the first column and under every January. A tick set by hand wins.
+const yearOf = (label: string) => label.match(/\b(\d{4})$/)?.[1] ?? "";
+const ticks = bars.map((b, i) => b.tick ?? (i === 0 || /^January\b/.test(b.label) ? yearOf(b.label) : ""));
+
+// Gridlines at round numbers, e.g. 50 and 100.
+const gridlines: number[] = [];
+if (!isPeriods) {
+	const raw = max / 3;
+	const pow = 10 ** Math.floor(Math.log10(raw));
+	const step = [1, 2, 5, 10].map((m) => m * pow).find((s) => s >= raw) ?? pow * 10;
+	for (let v = step; v < max; v += step) gridlines.push(v);
+}
 ---
 
 <figure class:list={["flex flex-col gap-6 rounded-2xl p-6 sm:p-8", surface === "raised" ? "bg-paper-raised" : "bg-paper"]}>
@@ -40,41 +64,63 @@ const description = alt ?? `${title}. ${bars.map((b) => `${b.label}: ${b.value}`
 			<span class="inline-flex items-center gap-2">
 				<span aria-hidden="true" class="size-2.5 rounded-full bg-brand"></span>{periods.after}
 			</span>
+			{hasPaused && pausedLabel && (
+				<span class="inline-flex items-center gap-2">
+					<span aria-hidden="true" class="size-2.5 rounded-full ring-1 ring-brand ring-inset" style={hatch}></span>{pausedLabel}
+				</span>
+			)}
 		</span>
 	</figcaption>
 
-	<div class:list={[isPeriods && "overflow-x-auto"]}>
-		<div class:list={[isPeriods && "min-w-170"]}>
-			<div
-				role="img"
-				aria-label={description}
-				class:list={["flex items-end border-b border-ink", isPeriods ? "gap-3" : "gap-0.5"]}
-				style={`height:${isPeriods ? plotHeight + 60 : plotHeight}px`}
-			>
+	{isPeriods ? (
+		<div class="overflow-x-auto">
+			<div style={`min-width:${bars.length * (dense ? 46 : 84)}px`}>
+				<div role="img" aria-label={description} class:list={["flex items-end border-b border-ink", dense ? "gap-1.5" : "gap-3"]} style={`height:${plotHeight + 60}px`}>
+					{bars.map((bar) => (
+						<div class="flex flex-1 flex-col items-center justify-end gap-2">
+							<span class="font-display text-base font-bold tabular-nums">{showDecimals ? bar.value.toFixed(2) : bar.value}</span>
+							<div
+								class:list={["w-full rounded-t-lg", bar.paused ? "ring-1 ring-brand ring-inset" : bar.after ? "bg-brand" : "bg-neutral-400"]}
+								style={`height:${heightOf(bar.value)}px;${bar.paused ? hatch : ""}`}
+							>
+							</div>
+						</div>
+					))}
+				</div>
+				<div aria-hidden="true" class:list={["mt-2 flex text-xs leading-snug text-neutral-600", dense ? "gap-1.5" : "gap-3 text-center"]}>
+					{bars.map((bar) => dense ? (
+						<div class="flex min-w-0 flex-1 justify-center">
+							<span class="whitespace-nowrap [writing-mode:vertical-rl]">{bar.label}</span>
+						</div>
+					) : (
+						<div class="min-w-0 flex-1 text-balance">{bar.label}</div>
+					))}
+				</div>
+			</div>
+		</div>
+	) : (
+		<div class="pl-9">
+			<div role="img" aria-label={description} class="relative flex items-end gap-0.5 border-b border-ink" style={`height:${plotHeight}px`}>
+				{gridlines.map((v) => (
+					<div aria-hidden="true" class="absolute inset-x-0 border-t border-dashed border-neutral-300" style={`bottom:${heightOf(v)}px`}>
+						<span class="absolute right-full mr-2 -translate-y-1/2 text-xs tabular-nums text-neutral-600">{v}</span>
+					</div>
+				))}
 				{bars.map((bar) => (
-					<div
-						title={isPeriods ? undefined : `${bar.label}: ${bar.value}`}
-						class:list={["flex flex-1 flex-col items-center justify-end", isPeriods && "gap-2"]}
-					>
-						{isPeriods && <span class="font-display text-base font-bold tabular-nums">{bar.value}</span>}
+					<div title={`${bar.label}: ${bar.value}`} class="relative flex flex-1 flex-col items-center justify-end">
 						<div
-							class:list={["w-full", isPeriods ? "rounded-t-lg" : "rounded-t-xs", bar.after ? "bg-brand" : "bg-neutral-400"]}
-							style={`height:${heightOf(bar.value)}px`}
+							class:list={["w-full rounded-t-xs", bar.paused ? "ring-1 ring-brand ring-inset" : bar.after ? "bg-brand" : "bg-neutral-400"]}
+							style={`height:${heightOf(bar.value)}px;${bar.paused ? hatch : ""}`}
 						>
 						</div>
 					</div>
 				))}
 			</div>
-
-			<div aria-hidden="true" class:list={["mt-2 flex text-xs leading-snug text-neutral-600", isPeriods ? "gap-3 text-center" : "gap-0.5"]}>
-				{bars.map((bar) => (
-					<div class:list={["min-w-0 flex-1", isPeriods ? "text-balance" : "whitespace-nowrap"]}>
-						{isPeriods ? bar.label : (bar.tick ?? "")}
-					</div>
-				))}
+			<div aria-hidden="true" class="mt-2 flex gap-0.5 text-xs leading-snug text-neutral-600">
+				{ticks.map((tick, i) => <div class:list={["min-w-0 flex-1 whitespace-nowrap", i === 0 && "max-sm:invisible"]}>{tick}</div>)}
 			</div>
 		</div>
-	</div>
+	)}
 
 	{note && <p class="text-sm text-neutral-600">{note}</p>}
 </figure>

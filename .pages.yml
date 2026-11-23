@@ -456,6 +456,10 @@ content:
               - name: note
                 label: Note under the chart
                 type: string
+              - name: pausedLabel
+                label: Legend text for hatched columns
+                type: string
+                description: Shown in the legend when any column is hatched, e.g. Social media shelved.
               - name: bars
                 label: Columns
                 type: object
@@ -477,6 +481,10 @@ content:
                     label: "In the \"after\" period"
                     type: boolean
                     description: Turn on to colour this column in the brand colour. Leave off for grey.
+                  - name: paused
+                    label: Hatched (explained in the note)
+                    type: boolean
+                    description: Turn on to hatch this column, for a month the note explains, e.g. when the work was shelved.
                   - name: tick
                     label: Axis label
                     type: string
@@ -592,7 +600,7 @@ content:
           - name: monthly
             label: "Chart: months"
             type: object
-            description: A chart with many thin columns, one per month. Hidden until filled in.
+            description: A chart with many thin columns, one per month, on a single timeline. Hidden until filled in.
             fields:
               - name: heading
                 label: Section heading
@@ -612,6 +620,10 @@ content:
               - name: note
                 label: Note under the chart
                 type: string
+              - name: pausedLabel
+                label: Legend text for hatched columns
+                type: string
+                description: Shown in the legend when any column is hatched, e.g. Social media shelved.
               - name: bars
                 label: Columns
                 type: object
@@ -624,7 +636,7 @@ content:
                     label: Label
                     type: string
                     required: true
-                    description: Used in the hover text, e.g. Dec 2018.
+                    description: Full month and year, e.g. December 2018. Shown in the hover text.
                   - name: value
                     label: Value
                     type: number
@@ -633,10 +645,10 @@ content:
                     label: "In the \"after\" period"
                     type: boolean
                     description: Turn on to colour this column in the brand colour. Leave off for grey.
-                  - name: tick
-                    label: Axis label
-                    type: string
-                    description: Shown under the column. Add it on January only, e.g. 2018, so years read along the bottom.
+                  - name: paused
+                    label: Hatched (explained in the note)
+                    type: boolean
+                    description: Turn on to hatch this column, for a month the note explains, e.g. when the work was shelved.
           - name: tweets
             label: Tweets
             type: object
