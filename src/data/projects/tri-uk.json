@@ -1,12 +1,12 @@
 {
-  "title": "TRI UK on Twitter",
-  "slug": "tri-uk",
+  "title": "Twitter strategy and content",
+  "slug": "twitter-management",
   "status": "draft",
-  "summary": "I first worked on TRI UK's Twitter account following my manager's plan. When I took over social, I changed how we tweeted, and the account had the best two years in its history.",
+  "summary": "I managed TRI UK's Twitter account and created its content for two years, from Aug 2017 to Jul 2019. I changed what we posted and how often, and engagement per tweet reached its highest level of the five years I measured.",
   "order": 1,
   "category": "Social media",
-  "headlineStart": "Growing TRI UK's Twitter engagement",
-  "headlineHighlight": "once I took the lead",
+  "headlineStart": "Setting the strategy and creating the content for a retailer's",
+  "headlineHighlight": "Twitter",
   "headlineEnd": "",
   "facts": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "label": "My role",
-      "value": "Social media lead"
+      "value": "Social media manager and content creator"
     },
     {
       "label": "Timeline",
@@ -27,7 +27,8 @@
     }
   ],
   "tags": [
-    "Social media",
+    "Social media management",
+    "Content creation",
     "Content strategy",
     "Analytics",
     "Brand partnerships"
@@ -35,7 +36,7 @@
   "results": {
     "main": {
       "value": "+66%",
-      "label": "more engagement per tweet in my two years leading social than in the three years before."
+      "label": "more engagement per tweet in my two years managing the account than in the three years before."
     },
     "others": [
       {
@@ -53,12 +54,12 @@
     ]
   },
   "periods": {
-    "before": "Before I led social",
-    "after": "My time leading social"
+    "before": "Previous approach",
+    "after": "My approach"
   },
   "trend": {
-    "heading": "My two years leading social were the account's best",
-    "intro": "I looked at every tweet from 2014 to 2019 and split them into before and after I led social.",
+    "heading": "Engagement per tweet was highest in the two years I managed the account",
+    "intro": "I looked at every tweet from 2014 to 2019 and compared the three years before I took over with the two years I ran the account.",
     "cards": [
       {
         "after": false,
@@ -71,12 +72,12 @@
         "after": true,
         "dates": "Aug 2017 to Jul 2019",
         "value": "2.74",
-        "measure": "engagements per tweet, the account's highest",
+        "measure": "engagements per tweet, the highest of any period",
         "text": "16.5 tweets a month, almost all with native images."
       }
     ],
     "title": "Average engagement per tweet over time",
-    "alt": "Average engagement per tweet over time. Before I led social: 1.96, 2.65, 1.44, 0.86 and 1.42 from Jul 2014 to Jul 2017. My time: 1.96, 2.41, 3.45 and 3.94 from Aug 2017 to Mar 2019, then 1.41 in Apr to Jul 2019.",
+    "alt": "Average engagement per tweet by half year. Under the previous approach: 1.96, 2.65, 1.44, 0.86 and 1.42 from Jul 2014 to Jul 2017. Under my approach: 1.96, 2.41, 3.45 and 3.94 from Aug 2017 to Mar 2019, then 1.41 in Apr to Jul 2019.",
     "bars": [
       {
         "label": "Jul to Dec 2014",
@@ -131,8 +132,8 @@
     ]
   },
   "findings": {
-    "heading": "What held the account back before I took over",
-    "intro": "I first worked on the account under my manager's plan. These figures cover all 465 tweets from Jul 2014 to Jul 2017.",
+    "heading": "What I found when I took over the account",
+    "intro": "These are all 465 tweets from Jul 2014 to Jul 2017. For part of that time I worked on the account under my manager's plan.",
     "equalHeight": true,
     "cards": [
       {
@@ -168,8 +169,8 @@
     ]
   },
   "changes": {
-    "heading": "What I changed when I took over social",
-    "intro": "Each row compares the 465 tweets before I led social with the 395 in my time leading it.",
+    "heading": "What I changed when I took over",
+    "intro": "Each row compares the 465 tweets from Jul 2014 to Jul 2017 with the 395 from my two years managing the account.",
     "rows": [
       {
         "title": "Stopped Instagram auto-sharing",
@@ -180,7 +181,7 @@
         "scale": 100
       },
       {
-        "title": "Native images and video",
+        "title": "Posted images and video natively",
         "description": "Share of tweets with their own image or video.",
         "before": 53,
         "after": 90,
@@ -211,9 +212,9 @@
   },
   "monthly": {
     "heading": "Engagement reached 142 a month, more than double any month before",
-    "intro": "Before I led social, no month passed 68 engagements.",
+    "intro": "In the three years before I took over, no month passed 68 engagements.",
     "title": "Engagement per month, Jul 2014 to Jul 2019",
-    "alt": "Monthly engagement for @triuk. Before I led social, no month passed 68. In my time it peaked at 142 in Dec 2018 and 137 in Jan 2019.",
+    "alt": "Monthly engagement for @triuk. In the three years before I took over, no month passed 68. Under my management it peaked at 142 in Dec 2018 and 137 in Jan 2019.",
     "note": "The peak came in Dec 2018, when the first Cervélo S5 Ultegra and 2019 Focus bikes arrived.",
     "bars": [
       {
@@ -592,7 +593,7 @@
     ]
   },
   "lessons": {
-    "heading": "What TRI UK taught me about social",
+    "heading": "What I learned from running the account",
     "items": [
       {
         "title": "Post natively",
