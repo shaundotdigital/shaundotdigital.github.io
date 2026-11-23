@@ -2,7 +2,7 @@
   "title": "Twitter strategy and content",
   "slug": "twitter-management",
   "status": "draft",
-  "summary": "I managed TRI UK's Twitter account and created its content for two years, from August 2017 to July 2019. I changed what we posted and how often, and engagement per tweet reached its highest level of the five years I measured.",
+  "summary": "I managed TRI UK's Twitter account and created its content for two years, from August 2017 to July 2019. I changed what we posted and how often, and engagement per tweet rose 66% on the three years before.",
   "order": 1,
   "date": "2019-07-31",
   "showDate": false,
@@ -189,7 +189,7 @@
     ]
   },
   "monthly": {
-    "heading": "Engagement reached 142 a month, more than double any month before",
+    "heading": "Engagement reached 142 a month, more than double any month before I took over",
     "intro": "In the three years before I took over, no month passed 68 engagements.",
     "title": "Engagement per month, July 2014 to July 2019",
     "alt": "Monthly engagement for @triuk from July 2014 to July 2019. In the three years before I took over, no month passed 68. Under my management it peaked at 142 in December 2018 and 137 in January 2019. From April to July 2019, when social media was shelved, it was between 5 and 10 a month.",
@@ -576,7 +576,7 @@
     "items": [
       {
         "title": "Post natively",
-        "text": "Cross-posted links earned about 70% less than images uploaded straight to Twitter."
+        "text": "Cross-posted links earned about two thirds less than images uploaded straight to Twitter."
       },
       {
         "title": "Tag the brand",
@@ -584,7 +584,7 @@
       },
       {
         "title": "Show the store and workshop",
-        "text": "Store and workshop tweets earned nearly twice what discount tweets did."
+        "text": "Store and workshop tweets averaged 3.23 engagements under my approach. The discount tweets before it averaged 1.21."
       },
       {
         "title": "Keep a steady rhythm",
@@ -592,9 +592,9 @@
       },
       {
         "title": "Plan around launches",
-        "text": "New-range deliveries and race weekends produced every peak in five years."
+        "text": "The two biggest months, December 2018 and January 2019, came when the 2019 Cervélo and Focus ranges arrived."
       }
     ],
-    "note": "About the data: every public tweet from @triuk between July 2014 and July 2019, 1,150 in all. Engagement means likes, retweets and replies on TRI UK's own tweets, so treat the figures as a guide rather than exact."
+    "note": "About the data: I looked at every public tweet from @triuk between July 2014 and July 2019, 1,150 in all. The figures use the 860 that were TRI UK's own posts, leaving out replies and retweets. Engagement means likes, retweets and replies on those posts, so treat the figures as a guide rather than exact."
   }
 }

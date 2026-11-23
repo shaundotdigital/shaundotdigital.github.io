@@ -7,6 +7,9 @@ import { getProjectImage } from "../../lib/projectImages";
 import { formatProjectDate } from "../../lib/projectDate";
 
 const projects = await getProjects();
+
+// On the live site, with nothing published yet, send visitors home instead of showing an empty page.
+if (import.meta.env.PROD && projects.length === 0) return Astro.redirect("/");
 ---
 
 <Layout title="Projects" description="Case studies from my work, with what changed and the numbers behind it.">

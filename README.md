@@ -106,7 +106,7 @@ Content saved on `dev` while testing goes live with the next release, so use rea
 
 Each case study is one file in `src/data/projects/`, edited in Pages CMS under **Projects**. The page at `/projects/<slug>` and the card on `/projects` are both built from that file.
 
-**Draft or published.** Every project has a status. `published` shows on the live site. `draft` shows in `npm run dev` with a Draft tag, and is left out of the live build entirely: no page, no card, and no link. The Projects link in the menu only appears when there is at least one project to show. So an unfinished case study can sit in Pages CMS without going public. Switch it to `published` when it's ready.
+**Draft or published.** Every project has a status. `published` shows on the live site. `draft` shows in `npm run dev` with a Draft tag, and is left out of the live build entirely: no page, no card, and no link. The Projects link in the menu only appears when there is at least one project to show, and until then `/projects` sends visitors to the homepage. So an unfinished case study can sit in Pages CMS without going public. Switch it to `published` when it's ready.
 
 **Adding a project.**
 
