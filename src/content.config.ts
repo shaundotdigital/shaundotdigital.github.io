@@ -144,6 +144,9 @@ const projects = defineCollection({
 			.optional(),
 		monthly: chart.optional(),
 
+		// Optional picture shown in the top section, for an early look at the work.
+		heroImage: z.object({ image: z.string().optional(), alt: z.string().optional() }).optional(),
+
 		// Written sections: where things started, what was built, and the build and launch.
 		brief: written.optional(),
 		built: written.optional(),

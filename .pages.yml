@@ -745,6 +745,21 @@ content:
                 label: Paragraphs
                 type: text
                 description: Optional. Leave a blank line between paragraphs.
+          - name: heroImage
+            label: Top picture
+            type: object
+            description: Optional picture shown near the top of the project page.
+            fields:
+              - name: image
+                label: Picture
+                type: image
+                description: Keep it in the project's own folder in src/assets/projects.
+                options:
+                  media: images
+              - name: alt
+                label: Picture description
+                type: string
+                description: What the picture shows, for people who can't see it.
           - name: screenshots
             label: Screenshots
             type: object
