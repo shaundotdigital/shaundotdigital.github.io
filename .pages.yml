@@ -51,7 +51,7 @@ content:
             type: string
             description: Jumps to the experience section.
           - name: card
-            label: ID card (wide screens only)
+            label: ID card (wide screens, the photo shows on all)
             type: object
             fields:
               - name: photo

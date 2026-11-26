@@ -27,14 +27,25 @@ const shortDate = (iso: string) => {
 <section id="top" class="texture-grid bg-paper text-ink">
   <div class="container-default grid items-center gap-12 pt-32 pb-20 md:pt-40 lg:grid-cols-[3fr_2fr] lg:gap-16">
     <div>
-      <!-- What I do, led by the brand dot. Slashes only from tablet up, so a wrapped line never starts with one. -->
-      <div class="flex items-center gap-3">
-        <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
-        <ul class="label flex flex-wrap gap-x-3 gap-y-1 text-neutral-600">
-          {roles.map((role, i) => (
-            <li class:list={[i > 0 && "sm:before:mr-3 sm:before:text-neutral-400 sm:before:content-['/']"]}>{role}</li>
-          ))}
-        </ul>
+      <div class="flex flex-col items-start gap-4 min-[360px]:flex-row min-[360px]:items-center">
+        <!-- Below wide screens the ID card is hidden, so the photo sits here instead -->
+        <Image
+          src={photo}
+          alt={card.photoAlt}
+          width={160}
+          height={160}
+          loading="eager"
+          class="size-18 shrink-0 rounded-lg object-cover lg:hidden"
+        />
+        <!-- What I do, led by the brand dot. Slashes only from tablet up, so a wrapped line never starts with one. -->
+        <div class="flex items-center gap-3">
+          <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
+          <ul class="label flex flex-wrap gap-x-3 gap-y-1 text-neutral-600">
+            {roles.map((role, i) => (
+              <li class:list={[i > 0 && "sm:before:mr-3 sm:before:text-neutral-400 sm:before:content-['/']"]}>{role}</li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <!-- The key phrase gets a black pill, like the logo, that sweeps in once the page loads.
@@ -66,7 +77,7 @@ const shortDate = (iso: string) => {
 
     <!-- ID card: a tilted badge with a terracotta card behind it for depth. It straightens on hover.
          Only shown on wide screens, where it sits beside the headline; on smaller screens it
-         would push everything else down. -->
+         would push everything else down, so only the photo shows, above the headline. -->
     <div class="group relative hidden w-full max-w-sm justify-self-end lg:block">
       <div aria-hidden="true" class="absolute inset-0 translate-x-3 translate-y-2 rotate-3 rounded-2xl bg-brand"></div>
 
