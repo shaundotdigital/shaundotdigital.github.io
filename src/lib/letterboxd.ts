@@ -107,7 +107,8 @@ async function fetchFeed(): Promise<Feed> {
     const title = tag(item, "letterboxd:filmTitle");
     const watched = tag(item, "letterboxd:watchedDate");
     const link = tag(item, "link");
-    if (!title || !watched || !link) continue;
+    // The link goes straight into the page, so only Letterboxd's own addresses are accepted.
+    if (!title || !watched || !link?.startsWith("https://letterboxd.com/")) continue;
 
     const rewatch = tag(item, "letterboxd:rewatch") === "Yes";
     const published = new Date(tag(item, "pubDate") ?? "");
