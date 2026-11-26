@@ -1,11 +1,11 @@
 {
   "title": "Dan PT website",
-  "slug": "dan-pt",
+  "slug": "personal-trainer-website",
   "status": "draft",
   "summary": "I designed Dan PT's logo and website while at hellooodesign, then built and launched the site. Dan was just starting out and had no website.",
   "order": 2,
   "showDate": false,
-  "image": "/src/assets/projects/2023-dan-pt/card.jpg",
+  "image": "/src/assets/projects/2023-personal-trainer-website/card.jpg",
   "imageAlt": "The Dan PT logo, the homepage on a laptop and a view of the full page",
   "category": "Web design",
   "headlineStart": "Designing and building a website for a Kent",
@@ -97,12 +97,12 @@
     "heading": "The finished design",
     "items": [
       {
-        "image": "/src/assets/projects/2023-dan-pt/laptop.png",
+        "image": "/src/assets/projects/2023-personal-trainer-website/laptop.png",
         "alt": "A laptop showing the Dan PT homepage, with the headline \"1-to-1 Personal Training in Kent\" beside a photo of Dan",
         "caption": "The homepage on a laptop"
       },
       {
-        "image": "/src/assets/projects/2023-dan-pt/homepage.jpg",
+        "image": "/src/assets/projects/2023-personal-trainer-website/homepage.jpg",
         "alt": "The whole homepage, from the headline to the footer",
         "caption": "The full homepage"
       }
