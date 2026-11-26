@@ -40,7 +40,7 @@ const { cards, surface, equalHeight = false } = Astro.props;
 								<span class="text-neutral-600">{bar.label}</span>
 								<div class:list={["h-3 rounded-full", surface === "raised" ? "bg-paper" : "bg-paper-raised"]}>
 									<div
-										class:list={["h-3 rounded-full", bar.strong ? "bg-ink" : "bg-neutral-400"]}
+										class:list={["h-3 rounded-full", bar.strong ? "bg-ink" : "bg-neutral-500"]}
 										style={`width:${Math.round((bar.value / max) * 100)}%`}
 									>
 									</div>

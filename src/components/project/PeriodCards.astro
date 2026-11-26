@@ -27,7 +27,7 @@ const { cards, periods, surface } = Astro.props;
 			]}
 		>
 			<div class="flex items-center gap-2">
-				<span aria-hidden="true" class:list={["size-2.5 rounded-full", card.after ? "bg-brand" : "bg-neutral-400"]}></span>
+				<span aria-hidden="true" class:list={["size-2.5 rounded-full", card.after ? "bg-brand" : "bg-neutral-500"]}></span>
 				<h3 class="font-display text-lg leading-snug font-bold">{card.after ? periods.after : periods.before}</h3>
 			</div>
 			<p class:list={["text-sm", card.after ? "text-paper/70" : "text-neutral-600"]}>{card.dates}</p>
