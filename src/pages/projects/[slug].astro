@@ -39,8 +39,12 @@ const avatarImage = getProjectImage(tweets?.avatarImage, project.data.title);
 // The chart card inside takes the opposite colour so it stands out.
 const surfaces: Record<string, "raised" | "paper"> = {};
 let position = 0;
+// A written or screenshot section saved with only a heading counts as empty.
+const hasContent = (section?: { items?: unknown[]; text?: string }) => Boolean(section?.items?.length || section?.text?.trim());
+const optional = { brief, built, launch, screenshots };
 for (const key of ["trend", "brief", "findings", "changes", "monthly", "built", "launch", "screenshots", "lessons"] as const) {
-	if (project.data[key]) surfaces[key] = position++ % 2 === 0 ? "raised" : "paper";
+	const filled = key in optional ? hasContent(optional[key as keyof typeof optional]) : Boolean(project.data[key]);
+	if (filled) surfaces[key] = position++ % 2 === 0 ? "raised" : "paper";
 }
 const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper" : "raised");
 ---
@@ -65,7 +69,7 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 				/>
 			</ProjectSection>
 		)}
-		{brief && (
+		{brief && hasContent(brief) && (
 			<ProjectSection id="brief" heading={brief.heading} intro={brief.intro} surface={surfaces.brief}>
 				<WrittenContent items={brief.items} text={brief.text} />
 			</ProjectSection>
@@ -94,17 +98,17 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 				/>
 			</ProjectSection>
 		)}
-		{built && (
+		{built && hasContent(built) && (
 			<ProjectSection id="built" heading={built.heading} intro={built.intro} surface={surfaces.built}>
 				<WrittenContent items={built.items} text={built.text} />
 			</ProjectSection>
 		)}
-		{launch && (
+		{launch && hasContent(launch) && (
 			<ProjectSection id="launch" heading={launch.heading} intro={launch.intro} surface={surfaces.launch}>
 				<WrittenContent items={launch.items} text={launch.text} />
 			</ProjectSection>
 		)}
-		{screenshots && screenshots.items.length > 0 && (
+		{screenshots && hasContent(screenshots) && (
 			<ProjectSection id="screenshots" heading={screenshots.heading} intro={screenshots.intro} surface={surfaces.screenshots}>
 				<Screenshots items={screenshots.items} project={project.data.title} />
 			</ProjectSection>
