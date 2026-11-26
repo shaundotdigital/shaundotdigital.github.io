@@ -41,8 +41,9 @@ const shortDate = (iso: string) => {
           class="size-18 shrink-0 rounded-lg object-cover lg:hidden"
         />
         <!-- What I do, led by the brand dot. Slashes only from tablet up, so a wrapped line never starts with one. -->
-        <div class="flex items-center gap-3">
-          <span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-brand"></span>
+        <!-- On phones the roles stack, so the dot lines up with the first one -->
+        <div class="flex items-start gap-3 sm:items-center">
+          <span aria-hidden="true" class="mt-1 size-3 shrink-0 rounded-full bg-brand sm:mt-0"></span>
           <ul class="label flex flex-wrap gap-x-3 gap-y-1 text-neutral-600">
             {roles.map((role, i) => (
               <li class:list={[i > 0 && "sm:before:mr-3 sm:before:text-neutral-400 sm:before:content-['/']"]}>{role}</li>
