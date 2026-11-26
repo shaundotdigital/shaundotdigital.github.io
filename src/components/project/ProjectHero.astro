@@ -1,6 +1,6 @@
 ---
 // Top of a project page: breadcrumb, pill headline, summary, buttons, fact tiles and tags.
-// Built from the same pieces as the homepage hero (texture-grid, pill-reveal, button-primary).
+// Built from the same pieces as the homepage hero (texture-grid, headline pill, button-primary).
 import type { CollectionEntry } from "astro:content";
 import Icon from "../Icon.astro";
 import { formatProjectDate } from "../../lib/projectDate";
@@ -44,10 +44,7 @@ const hasPill = Boolean(p.headlineHighlight);
 			{hasPill ? (
 				<>
 					{p.headlineStart}{" "}
-					<span class="relative inline-block rounded-full px-[0.4em] pt-[0.02em] pb-[0.1em] whitespace-nowrap">
-						{p.headlineHighlight}
-						<span aria-hidden="true" data-label={p.headlineHighlight} class="pill-reveal absolute inset-0 rounded-full bg-ink px-[0.4em] pt-[0.02em] pb-[0.1em] text-paper"></span>
-					</span>{" "}
+					<span class="inline-block rounded-full bg-ink px-[0.4em] pt-[0.02em] pb-[0.1em] whitespace-nowrap text-paper">{p.headlineHighlight}</span>{" "}
 					{p.headlineEnd}
 				</>
 			) : (

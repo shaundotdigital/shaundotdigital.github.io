@@ -52,16 +52,10 @@ const shortDate = (iso: string) => {
         </div>
       </div>
 
-      <!-- The key phrase gets a black pill, like the logo, that sweeps in once the page loads.
-           See .pill-reveal in global.css. It never wraps, so keep the phrase short. -->
+      <!-- The key phrase sits in a black pill, like the logo. It never wraps, so keep the phrase short. -->
       <h1 class="mt-6 max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl xl:text-5xl">
         {headlineStart}{" "}
-        <span class="relative inline-block rounded-full px-[0.4em] pt-[0.02em] pb-[0.1em] whitespace-nowrap">
-          {hero.headlineHighlight}
-          <!-- The same words on the black pill, revealed over the plain ones. The words come from
-               data-label via CSS, so search engines and copy and paste only see them once. -->
-          <span aria-hidden="true" data-label={hero.headlineHighlight} class="pill-reveal absolute inset-0 rounded-full bg-ink px-[0.4em] pt-[0.02em] pb-[0.1em] text-paper"></span>
-        </span>{" "}
+        <span class="inline-block rounded-full bg-ink px-[0.4em] pt-[0.02em] pb-[0.1em] whitespace-nowrap text-paper">{hero.headlineHighlight}</span>{" "}
         {hero.headlineEnd}
       </h1>
 
