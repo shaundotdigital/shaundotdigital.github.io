@@ -1,0 +1,23 @@
+---
+// The picture beside a written section, in the "aside" slot of ProjectSection.
+import { Image } from "astro:assets";
+import { getProjectImage } from "../../lib/projectImages";
+
+interface Props {
+	picture: { image?: string; alt?: string };
+	project: string;
+}
+
+const { picture, project } = Astro.props;
+const source = getProjectImage(picture.image, project);
+---
+
+{source && (
+	<Image
+		src={source}
+		alt={picture.alt ?? ""}
+		widths={[480, 800, source.width].filter((w, i, all) => w <= source.width && all.indexOf(w) === i)}
+		sizes="(min-width: 1024px) 50vw, 100vw"
+		class="h-auto w-full"
+	/>
+)}

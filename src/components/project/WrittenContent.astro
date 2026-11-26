@@ -6,13 +6,14 @@ import LessonList from "./LessonList.astro";
 interface Props {
 	items: { title: string; text: string }[];
 	text?: string;
+	stacked?: boolean;
 }
 
-const { items, text } = Astro.props;
+const { items, text, stacked } = Astro.props;
 const paragraphs = text?.split(/\n\s*\n/).filter((p) => p.trim()) ?? [];
 ---
 
-{items.length > 0 && <LessonList items={items} />}
+{items.length > 0 && <LessonList items={items} stacked={stacked} />}
 {paragraphs.length > 0 && (
 	<div class="max-w-3xl space-y-4 text-lg leading-relaxed text-neutral-700">
 		{paragraphs.map((paragraph) => <p>{paragraph}</p>)}

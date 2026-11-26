@@ -1,14 +1,16 @@
 ---
 // One band of a project page: a heading and intro, then whatever goes inside.
 // "raised" is white in light mode, "paper" is the page colour, "ink" is the black band.
+// "split" makes two columns on wide screens: words left, the "aside" slot right.
 interface Props {
 	id: string;
 	heading: string;
 	intro?: string;
 	surface?: "raised" | "paper" | "ink";
+	split?: boolean;
 }
 
-const { id, heading, intro, surface = "paper" } = Astro.props;
+const { id, heading, intro, surface = "paper", split = false } = Astro.props;
 ---
 
 <section
@@ -20,17 +22,20 @@ const { id, heading, intro, surface = "paper" } = Astro.props;
 		surface === "paper" && "bg-paper text-ink",
 	]}
 >
-	<div class="container-default flex flex-col gap-10 py-20">
-		<div class="flex flex-col gap-4">
-			<h2 id={`${id}-heading`} class="max-w-3xl font-display text-2xl leading-tight font-bold tracking-tight text-balance max-sm:text-pretty sm:text-3xl">
-				{heading}
-			</h2>
-			{intro && (
-				<p class:list={["max-w-2xl text-lg leading-relaxed text-pretty", surface === "ink" ? "text-paper/70" : "text-neutral-700"]}>
-					{intro}
-				</p>
-			)}
+	<div class:list={["container-default py-20", split && "grid items-center gap-12 lg:grid-cols-2"]}>
+		<div class="flex flex-col gap-10">
+			<div class="flex flex-col gap-4">
+				<h2 id={`${id}-heading`} class="max-w-3xl font-display text-2xl leading-tight font-bold tracking-tight text-balance max-sm:text-pretty sm:text-3xl">
+					{heading}
+				</h2>
+				{intro && (
+					<p class:list={["max-w-2xl text-lg leading-relaxed text-pretty", surface === "ink" ? "text-paper/70" : "text-neutral-700"]}>
+						{intro}
+					</p>
+				)}
+			</div>
+			<slot />
 		</div>
-		<slot />
+		<slot name="aside" />
 	</div>
 </section>

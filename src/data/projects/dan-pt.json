@@ -8,10 +8,6 @@
   "image": "/src/assets/projects/2023-personal-trainer-website/card.jpg",
   "imageAlt": "The Dan PT logo, the homepage on a laptop and a view of the full page",
   "category": "Web design",
-  "heroImage": {
-    "image": "/src/assets/projects/2023-personal-trainer-website/laptop.png",
-    "alt": "A laptop showing the Dan PT homepage, with the headline \"1-to-1 Personal Training in Kent\" beside a photo of Dan"
-  },
   "headlineStart": "Designing and building a website for a Kent",
   "headlineHighlight": "personal trainer",
   "headlineEnd": "",
@@ -58,7 +54,11 @@
         "title": "Ease of use",
         "text": "The site had to be simple for his clients."
       }
-    ]
+    ],
+    "picture": {
+      "image": "/src/assets/projects/2023-personal-trainer-website/laptop.png",
+      "alt": "A laptop showing the Dan PT homepage, with the headline \"1-to-1 Personal Training in Kent\" beside a photo of Dan"
+    }
   },
   "built": {
     "heading": "What I designed and built",

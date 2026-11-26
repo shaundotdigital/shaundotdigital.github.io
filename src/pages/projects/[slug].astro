@@ -11,6 +11,7 @@ import FindingCards from "../../components/project/FindingCards.astro";
 import TweetCard from "../../components/project/TweetCard.astro";
 import LessonList from "../../components/project/LessonList.astro";
 import Screenshots from "../../components/project/Screenshots.astro";
+import SidePicture from "../../components/project/SidePicture.astro";
 import WrittenContent from "../../components/project/WrittenContent.astro";
 import ProjectNav from "../../components/project/ProjectNav.astro";
 import { getProjects } from "../../lib/projects";
@@ -70,8 +71,9 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 			</ProjectSection>
 		)}
 		{brief && hasContent(brief) && (
-			<ProjectSection id="brief" heading={brief.heading} intro={brief.intro} surface={surfaces.brief}>
-				<WrittenContent items={brief.items} text={brief.text} />
+			<ProjectSection id="brief" heading={brief.heading} intro={brief.intro} surface={surfaces.brief} split={Boolean(brief.picture?.image)}>
+				<WrittenContent items={brief.items} text={brief.text} stacked={Boolean(brief.picture?.image)} />
+				{brief.picture?.image && <SidePicture slot="aside" picture={brief.picture} project={project.data.title} />}
 			</ProjectSection>
 		)}
 		{findings && (
@@ -99,13 +101,15 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 			</ProjectSection>
 		)}
 		{built && hasContent(built) && (
-			<ProjectSection id="built" heading={built.heading} intro={built.intro} surface={surfaces.built}>
-				<WrittenContent items={built.items} text={built.text} />
+			<ProjectSection id="built" heading={built.heading} intro={built.intro} surface={surfaces.built} split={Boolean(built.picture?.image)}>
+				<WrittenContent items={built.items} text={built.text} stacked={Boolean(built.picture?.image)} />
+				{built.picture?.image && <SidePicture slot="aside" picture={built.picture} project={project.data.title} />}
 			</ProjectSection>
 		)}
 		{launch && hasContent(launch) && (
-			<ProjectSection id="launch" heading={launch.heading} intro={launch.intro} surface={surfaces.launch}>
-				<WrittenContent items={launch.items} text={launch.text} />
+			<ProjectSection id="launch" heading={launch.heading} intro={launch.intro} surface={surfaces.launch} split={Boolean(launch.picture?.image)}>
+				<WrittenContent items={launch.items} text={launch.text} stacked={Boolean(launch.picture?.image)} />
+				{launch.picture?.image && <SidePicture slot="aside" picture={launch.picture} project={project.data.title} />}
 			</ProjectSection>
 		)}
 		{screenshots && hasContent(screenshots) && (

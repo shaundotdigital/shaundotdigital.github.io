@@ -2,10 +2,8 @@
 // Top of a project page: breadcrumb, pill headline, summary, buttons, fact tiles and tags.
 // Built from the same pieces as the homepage hero (texture-grid, headline pill, button-primary).
 import type { CollectionEntry } from "astro:content";
-import { Image } from "astro:assets";
 import Icon from "../Icon.astro";
 import { formatProjectDate } from "../../lib/projectDate";
-import { getProjectImage } from "../../lib/projectImages";
 
 interface Props {
 	project: CollectionEntry<"projects">;
@@ -16,7 +14,6 @@ const p = project.data;
 // Fall back to empty lists so a project saved without these fields still renders.
 const facts = p.facts ?? [];
 const tags = p.tags ?? [];
-const picture = getProjectImage(p.heroImage?.image, p.title);
 const isDraft = p.status === "draft";
 // Projects without a split headline fall back to the title, with no pill.
 const hasPill = Boolean(p.headlineHighlight);
@@ -64,18 +61,6 @@ const hasPill = Boolean(p.headlineHighlight);
 			</a>
 			{p.results && <a href="#results" class="link tap-target active:text-neutral-600">See the results</a>}
 		</div>
-
-		{picture && (
-			<Image
-				src={picture}
-				alt={p.heroImage?.alt ?? ""}
-				widths={[480, 800, picture.width].filter((w, i, all) => w <= picture.width && all.indexOf(w) === i)}
-				sizes="(min-width: 960px) 896px, 100vw"
-				loading="eager"
-				fetchpriority="high"
-				class="mx-auto mt-12 h-auto w-full max-w-4xl"
-			/>
-		)}
 
 		{facts.length > 0 && (
 			<dl class="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
