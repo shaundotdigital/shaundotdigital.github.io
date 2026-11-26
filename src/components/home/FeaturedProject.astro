@@ -1,0 +1,35 @@
+---
+// A card for the first case study with a results figure (in Projects page order), so the
+// work is on the homepage. Everything in it comes from the project's own file.
+// Shows nothing until a project with a results figure is visible.
+import Icon from "../Icon.astro";
+import { getProjects } from "../../lib/projects";
+
+const project = (await getProjects()).find((p) => p.data.results)?.data;
+---
+
+{project?.results && (
+  <section id="featured" aria-labelledby="featured-heading" class="bg-paper-raised text-ink">
+    <div class="container-default pb-20">
+      <a
+        href={`/projects/${project.slug}`}
+        data-track-label={`Case study: ${project.title}`}
+        class="interactive group grid gap-8 rounded-2xl border border-neutral-200 bg-paper p-6 hover:border-ink active:translate-y-px md:grid-cols-[3fr_2fr] md:items-center md:gap-12 md:p-10"
+      >
+        <div>
+          <p class="label text-neutral-600">Case study{project.category && `, ${project.category.toLowerCase()}`}</p>
+          <h2 id="featured-heading" class="mt-2 text-2xl leading-[1.2] md:text-3xl">{project.title}</h2>
+          {project.summary && <p class="mt-4 text-neutral-700">{project.summary}</p>}
+          <p class="mt-6 inline-flex items-center gap-2 font-medium">
+            <span class="link group-hover:decoration-brand">Read the case study</span>
+            <Icon name="arrow-right" class="size-4" />
+          </p>
+        </div>
+        <p>
+          <span class="block font-display text-7xl font-bold tabular-nums md:text-8xl">{project.results.main.value}</span>
+          <span class="mt-2 block max-w-xs text-neutral-700">{project.results.main.label}</span>
+        </p>
+      </a>
+    </div>
+  </section>
+)}

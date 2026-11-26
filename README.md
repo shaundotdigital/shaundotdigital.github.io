@@ -39,7 +39,7 @@ public/             Copied as-is: domain (CNAME), favicons, share image, humans.
 src/
   assets/           Images Astro resizes at build time (the hero photo, project pictures). Pages CMS uploads land here
   components/       Site-wide parts: nav, contact, footer, analytics, logo, icons, light/dark switch
-  components/home/  Homepage sections: Hero, Domains (Approach), Experience, Films
+  components/home/  Homepage sections: Hero, Domains (Approach), FeaturedProject (case study card), Experience, Films
   components/project/  Parts of a project page: hero, results band, charts, tweet cards, lessons, previous and next
   data/             The site's words, one file per section. Edited in Pages CMS
   data/projects/    One JSON file per project case study
