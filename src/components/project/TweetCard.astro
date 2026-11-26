@@ -76,10 +76,7 @@ const counts = [
 		))}
 	</ul>
 
-	<div class="flex flex-wrap justify-between gap-x-3 gap-y-1 text-xs text-[#666666]">
-		<span>Recreated from Twitter</span>
-		{url && (
-			<a href={url} rel="noopener" class="text-[#101010] underline underline-offset-4">View on Twitter</a>
-		)}
-	</div>
+	{url && (
+		<a href={url} rel="noopener" class="self-end text-xs text-[#101010] underline underline-offset-4">View on Twitter</a>
+	)}
 </article>
