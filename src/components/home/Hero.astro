@@ -75,12 +75,10 @@ const shortDate = (iso: string) => {
       </div>
     </div>
 
-    <!-- ID card: a tilted badge with a terracotta card behind it for depth. It straightens on hover.
+    <!-- ID card: a tilted badge. It straightens on hover.
          Only shown on wide screens, where it sits beside the headline; on smaller screens it
          would push everything else down, so only the photo shows, above the headline. -->
     <div class="group relative hidden w-full max-w-sm justify-self-end lg:block">
-      <div aria-hidden="true" class="absolute inset-0 translate-x-3 translate-y-2 rotate-3 rounded-2xl bg-brand"></div>
-
       <aside class="relative -rotate-2 overflow-hidden rounded-2xl bg-paper-raised shadow-xl shadow-ink/10 transition-transform duration-200 ease-out group-hover:rotate-0">
         <!-- Header band with the lanyard slot -->
         <div aria-hidden="true" class="flex justify-center bg-ink pt-3 pb-4">
