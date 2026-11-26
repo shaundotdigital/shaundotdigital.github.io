@@ -1,0 +1,20 @@
+---
+// The inside of a written section: titled points, laid out like the lessons list, and/or
+// paragraphs of text. A blank line in the text starts a new paragraph.
+import LessonList from "./LessonList.astro";
+
+interface Props {
+	items: { title: string; text: string }[];
+	text?: string;
+}
+
+const { items, text } = Astro.props;
+const paragraphs = text?.split(/\n\s*\n/).filter((p) => p.trim()) ?? [];
+---
+
+{items.length > 0 && <LessonList items={items} />}
+{paragraphs.length > 0 && (
+	<div class="max-w-3xl space-y-4 text-lg leading-relaxed text-neutral-700">
+		{paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+	</div>
+)}

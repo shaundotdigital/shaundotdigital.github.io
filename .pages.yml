@@ -489,6 +489,38 @@ content:
                     label: Axis label
                     type: string
                     description: Not used in this chart.
+          - name: brief
+            label: The starting point
+            type: object
+            description: Where things stood before the work. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: items
+                label: Points
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: text
+                    label: Text
+                    type: text
+                    required: true
+              - name: text
+                label: Paragraphs
+                type: text
+                description: Optional. Leave a blank line between paragraphs.
           - name: findings
             label: Findings (figure cards)
             type: object
@@ -649,6 +681,70 @@ content:
                     label: Hatched (explained in the note)
                     type: boolean
                     description: Turn on to hatch this column, for a month the note explains, e.g. when the work was shelved.
+          - name: built
+            label: What I built
+            type: object
+            description: The parts of the work, as short points. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: items
+                label: Points
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: text
+                    label: Text
+                    type: text
+                    required: true
+              - name: text
+                label: Paragraphs
+                type: text
+                description: Optional. Leave a blank line between paragraphs.
+          - name: launch
+            label: Build and launch
+            type: object
+            description: How it was built and put live. Hidden until filled in.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: items
+                label: Points
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{title}"
+                fields:
+                  - name: title
+                    label: Title
+                    type: string
+                    required: true
+                  - name: text
+                    label: Text
+                    type: text
+                    required: true
+              - name: text
+                label: Paragraphs
+                type: text
+                description: Optional. Leave a blank line between paragraphs.
           - name: tweets
             label: Tweets
             type: object

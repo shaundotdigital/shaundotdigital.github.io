@@ -50,6 +50,15 @@ const tweet = z.object({
 	url: z.string().optional(),
 });
 
+// A written section for work without figures: heading and intro, then short titled points
+// or a paragraph or more of text.
+const written = z.object({
+	heading: z.string(),
+	intro: z.string().optional(),
+	items: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+	text: z.string().optional(),
+});
+
 // A chart section: heading and intro above, the chart below.
 const chart = z.object({
 	heading: z.string(),
@@ -134,6 +143,11 @@ const projects = defineCollection({
 			})
 			.optional(),
 		monthly: chart.optional(),
+
+		// Written sections: where things started, what was built, and the build and launch.
+		brief: written.optional(),
+		built: written.optional(),
+		launch: written.optional(),
 		tweets: z
 			.object({
 				heading: z.string(),
