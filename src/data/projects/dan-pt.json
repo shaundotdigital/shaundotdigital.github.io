@@ -1,0 +1,111 @@
+{
+  "title": "Dan PT website",
+  "slug": "dan-pt",
+  "status": "draft",
+  "summary": "I designed Dan PT's logo and website while at hellooodesign, then built and launched the site. Dan was just starting out and had no website.",
+  "order": 2,
+  "showDate": false,
+  "image": "/src/assets/projects/2023-dan-pt/card.jpg",
+  "imageAlt": "The Dan PT logo, the homepage on a laptop and a view of the full page",
+  "category": "Web design",
+  "headlineStart": "Designing and building a website for a Kent",
+  "headlineHighlight": "personal trainer",
+  "headlineEnd": "",
+  "facts": [
+    {
+      "label": "Client",
+      "value": "Dan PT Personal Training, Kent"
+    },
+    {
+      "label": "My role",
+      "value": "Logo, design, build and launch"
+    },
+    {
+      "label": "Timeline",
+      "value": "2023"
+    },
+    {
+      "label": "Platform",
+      "value": "WordPress with Elementor"
+    }
+  ],
+  "tags": [
+    "Logo design",
+    "Web design",
+    "WordPress",
+    "Elementor",
+    "Custom templates",
+    "Local SEO",
+    "Hosting and domains"
+  ],
+  "brief": {
+    "heading": "Dan needed his first website",
+    "intro": "He was just getting started, and these were the aims.",
+    "items": [
+      {
+        "title": "A place online",
+        "text": "Somewhere to show his services, packages and reviews."
+      },
+      {
+        "title": "Local search",
+        "text": "He wanted to rank well with clients nearby."
+      },
+      {
+        "title": "Ease of use",
+        "text": "The site had to be simple for his clients."
+      }
+    ]
+  },
+  "built": {
+    "heading": "What I designed and built",
+    "items": [
+      {
+        "title": "Logo",
+        "text": "A kettlebell mark beside the Dan PT name. The site uses the same orange."
+      },
+      {
+        "title": "Top of the homepage",
+        "text": "It says what Dan offers and where, with buttons for pricing and his background."
+      },
+      {
+        "title": "Services",
+        "text": "Cards for 1-to-1 training, running coaching and online training, each with a link to more detail."
+      },
+      {
+        "title": "Contact",
+        "text": "A contact page, a WhatsApp button and a newsletter sign-up."
+      },
+      {
+        "title": "Local areas",
+        "text": "Kent appears in the headings, and the footer lists places such as Ashford, Canterbury, Folkestone and Maidstone."
+      },
+      {
+        "title": "About Dan",
+        "text": "Google reviews, his mission statement and photos of him."
+      },
+      {
+        "title": "Blog",
+        "text": "Posts about health and fitness."
+      }
+    ]
+  },
+  "launch": {
+    "heading": "Dan can maintain it himself",
+    "text": "I built the site on WordPress with Elementor and made custom templates to work with it, so Dan can look after the site without a developer. I also set up the hosting, connected the domain and launched it."
+  },
+  "screenshots": {
+    "heading": "The finished design",
+    "items": [
+      {
+        "image": "/src/assets/projects/2023-dan-pt/laptop.png",
+        "alt": "A laptop showing the Dan PT homepage, with the headline \"1-to-1 Personal Training in Kent\" beside a photo of Dan",
+        "caption": "The homepage on a laptop"
+      },
+      {
+        "image": "/src/assets/projects/2023-dan-pt/homepage.jpg",
+        "alt": "The whole homepage, from the headline to the footer",
+        "caption": "The full homepage"
+      }
+    ]
+  }
+}
