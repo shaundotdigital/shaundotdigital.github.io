@@ -16,7 +16,8 @@ const {
 	description = site.description,
 } = Astro.props;
 
-const pageTitle = title === siteName ? siteName : `${title} | ${siteName}`;
+// The homepage passes no title, so it gets its own, with my name and field for search results.
+const pageTitle = title === siteName ? site.homeTitle || siteName : `${title} | ${siteName}`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 // Preview image for links shared on LinkedIn, Bluesky, messaging apps and so on.
 // Social sites need a full URL. Source design: 1200 x 630, paper, logo, headline and photo.

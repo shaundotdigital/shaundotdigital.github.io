@@ -59,7 +59,7 @@ The words on the site live in `src/data`, not in the components:
 
 | File | Section |
 | :--- | :--- |
-| `site.json` | Site name, search description, share image description, menu labels |
+| `site.json` | Site name, homepage title, search description, share image description, menu labels |
 | `hero.json` | Top of the homepage and the ID card, including which photo to show |
 | `approach.json` | The Approach heading, intro and cards |
 | `experience.json` | Work history, newest first |

@@ -762,6 +762,10 @@ content:
             type: string
             description: Shown in browser tabs and when the site is shared.
             required: true
+          - name: homeTitle
+            label: Homepage title
+            type: string
+            description: The homepage's browser tab and search result title. Leave empty to use the site name.
           - name: description
             label: Description
             type: text
