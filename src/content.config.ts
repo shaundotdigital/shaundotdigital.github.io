@@ -148,6 +148,14 @@ const projects = defineCollection({
 		brief: written.optional(),
 		built: written.optional(),
 		launch: written.optional(),
+		// Pictures of the work, such as page screenshots. A very tall one scrolls inside a frame.
+		screenshots: z
+			.object({
+				heading: z.string(),
+				intro: z.string().optional(),
+				items: z.array(z.object({ image: z.string(), alt: z.string(), caption: z.string().optional() })).default([]),
+			})
+			.optional(),
 		tweets: z
 			.object({
 				heading: z.string(),

@@ -745,6 +745,41 @@ content:
                 label: Paragraphs
                 type: text
                 description: Optional. Leave a blank line between paragraphs.
+          - name: screenshots
+            label: Screenshots
+            type: object
+            description: Pictures of the work. Hidden until it has at least one picture.
+            fields:
+              - name: heading
+                label: Section heading
+                type: string
+                required: true
+              - name: intro
+                label: Section intro
+                type: text
+              - name: items
+                label: Pictures
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{caption}"
+                fields:
+                  - name: image
+                    label: Picture
+                    type: image
+                    required: true
+                    description: Keep it in the project's own folder in src/assets/projects. A very tall picture, such as a full page, scrolls inside a frame.
+                    options:
+                      media: images
+                  - name: alt
+                    label: Picture description
+                    type: string
+                    required: true
+                    description: What the picture shows, for people who can't see it.
+                  - name: caption
+                    label: Caption
+                    type: string
           - name: tweets
             label: Tweets
             type: object

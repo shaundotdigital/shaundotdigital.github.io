@@ -40,7 +40,7 @@ src/
   assets/           Images Astro resizes at build time (the hero photo, project pictures). Pages CMS uploads land here
   components/       Site-wide parts: nav, contact, footer, analytics, logo, icons, light/dark switch
   components/home/  Homepage sections: Hero, Domains (Approach), FeaturedProject (case study card), Experience, Films
-  components/project/  Parts of a project page: hero, results band, charts, written sections, tweet cards, lessons, previous and next
+  components/project/  Parts of a project page: hero, results band, charts, written sections, screenshots, tweet cards, lessons, previous and next
   data/             The site's words, one file per section. Edited in Pages CMS
   data/projects/    One JSON file per project case study
   layouts/          Layout.astro: the shared page shell, <head>, meta tags and share image

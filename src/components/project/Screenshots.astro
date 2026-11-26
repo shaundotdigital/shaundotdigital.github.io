@@ -1,0 +1,39 @@
+---
+// Pictures of the work, one under the other. A very tall one (a full page) sits in a
+// narrower frame that scrolls, so it doesn't stretch the project page.
+import { Image } from "astro:assets";
+import { getProjectImage } from "../../lib/projectImages";
+
+interface Props {
+	items: { image: string; alt: string; caption?: string }[];
+	project: string;
+}
+
+const { items, project } = Astro.props;
+const pictures = items.flatMap((item) => {
+	const source = getProjectImage(item.image, project);
+	return source ? [{ ...item, source, tall: source.height > source.width * 2 }] : [];
+});
+---
+
+<div class="flex flex-col gap-12">
+	{pictures.map(({ source, alt, caption, tall }) => (
+		<figure class:list={["mx-auto w-full", tall ? "max-w-2xl" : "max-w-5xl"]}>
+			<div
+				class:list={[tall && "max-h-[36rem] overflow-y-auto rounded-2xl border border-neutral-300"]}
+				tabindex={tall ? 0 : undefined}
+				role={tall ? "region" : undefined}
+				aria-label={tall ? `${caption ?? alt}, scrollable` : undefined}
+			>
+				<Image
+					src={source}
+					alt={alt}
+					widths={[480, 800, 1200, source.width].filter((w, i, all) => w <= source.width && all.indexOf(w) === i)}
+					sizes={tall ? "(min-width: 768px) 672px, 100vw" : "(min-width: 1100px) 1024px, 100vw"}
+					class="h-auto w-full"
+				/>
+			</div>
+			{caption && <figcaption class="mt-3 text-center text-sm text-neutral-600">{caption}</figcaption>}
+		</figure>
+	))}
+</div>

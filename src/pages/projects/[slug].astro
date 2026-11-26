@@ -10,6 +10,7 @@ import PeriodCards from "../../components/project/PeriodCards.astro";
 import FindingCards from "../../components/project/FindingCards.astro";
 import TweetCard from "../../components/project/TweetCard.astro";
 import LessonList from "../../components/project/LessonList.astro";
+import Screenshots from "../../components/project/Screenshots.astro";
 import WrittenContent from "../../components/project/WrittenContent.astro";
 import ProjectNav from "../../components/project/ProjectNav.astro";
 import { getProjects } from "../../lib/projects";
@@ -30,7 +31,7 @@ export async function getStaticPaths() {
 }
 
 const { project, previous, next } = Astro.props;
-const { results, periods, trend, findings, changes, monthly, brief, built, launch, tweets, lessons } = project.data;
+const { results, periods, trend, findings, changes, monthly, brief, built, launch, screenshots, tweets, lessons } = project.data;
 const avatarImage = getProjectImage(tweets?.avatarImage, project.data.title);
 
 // Sections alternate between white and the page colour, whichever of them are filled in.
@@ -38,7 +39,7 @@ const avatarImage = getProjectImage(tweets?.avatarImage, project.data.title);
 // The chart card inside takes the opposite colour so it stands out.
 const surfaces: Record<string, "raised" | "paper"> = {};
 let position = 0;
-for (const key of ["trend", "brief", "findings", "changes", "monthly", "built", "launch", "lessons"] as const) {
+for (const key of ["trend", "brief", "findings", "changes", "monthly", "built", "launch", "screenshots", "lessons"] as const) {
 	if (project.data[key]) surfaces[key] = position++ % 2 === 0 ? "raised" : "paper";
 }
 const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper" : "raised");
@@ -101,6 +102,11 @@ const opposite = (surface: "raised" | "paper") => (surface === "raised" ? "paper
 		{launch && (
 			<ProjectSection id="launch" heading={launch.heading} intro={launch.intro} surface={surfaces.launch}>
 				<WrittenContent items={launch.items} text={launch.text} />
+			</ProjectSection>
+		)}
+		{screenshots && screenshots.items.length > 0 && (
+			<ProjectSection id="screenshots" heading={screenshots.heading} intro={screenshots.intro} surface={surfaces.screenshots}>
+				<Screenshots items={screenshots.items} project={project.data.title} />
 			</ProjectSection>
 		)}
 		{tweets && tweets.items.length > 0 && (
