@@ -13,6 +13,7 @@ const project = (await getProjects()).find((p) => p.data.results)?.data;
     <div class="container-default pb-20">
       <a
         href={`/projects/${project.slug}`}
+        data-astro-prefetch="viewport"
         data-track-label={`Case study: ${project.title}`}
         class="interactive group grid gap-8 rounded-2xl border border-neutral-200 bg-paper p-6 hover:border-ink active:translate-y-px md:grid-cols-[3fr_2fr] md:items-center md:gap-12 md:p-10"
       >

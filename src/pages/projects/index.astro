@@ -30,6 +30,7 @@ if (import.meta.env.PROD && projects.length === 0) return Astro.redirect("/");
 								<li>
 									<a
 										href={`/projects/${data.slug}`}
+										data-astro-prefetch="hover"
 										class="interactive flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-paper-raised hover:border-ink active:translate-y-px"
 									>
 										{image && (

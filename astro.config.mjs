@@ -7,5 +7,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'https://byshaun.xyz'
+  site: 'https://byshaun.xyz',
+  // Links marked data-astro-prefetch are fetched early, so the next page opens faster.
+  prefetch: true,
 });
