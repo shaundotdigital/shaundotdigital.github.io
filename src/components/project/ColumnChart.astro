@@ -2,6 +2,7 @@
 // A column chart in a card. Two shapes:
 //   periods: a few wide columns, each with its value on top and its label underneath.
 //   months: one thin column per month on a single timeline, with the year labelled under each January.
+//           On phones it becomes rows grouped by quarter.
 // Grey columns are the "before" period, brand colour is "after".
 // A "paused" column is hatched, and the legend says why.
 interface Bar {
@@ -43,6 +44,31 @@ const hatch = "background-image:repeating-linear-gradient(135deg,var(--color-bra
 // Month chart: the year goes under the first column and under every January. A tick set by hand wins.
 const yearOf = (label: string) => label.match(/\b(\d{4})$/)?.[1] ?? "";
 const ticks = bars.map((b, i) => b.tick ?? (i === 0 || /^January\b/.test(b.label) ? yearOf(b.label) : ""));
+
+// Phones: one thin column per month is unreadable, so the months are grouped into calendar
+// quarters and drawn as rows with the figure written out. A group also ends where the colour
+// or hatching changes, and shows the average per month so short groups compare fairly.
+const quarters: { months: string[]; year: string; total: number; after: boolean; paused: boolean; key: string }[] = [];
+if (!isPeriods) {
+	const quarterOf: Record<string, number> = { January: 1, February: 1, March: 1, April: 2, May: 2, June: 2, July: 3, August: 3, September: 3, October: 4, November: 4, December: 4 };
+	for (const bar of bars) {
+		const month = bar.label.split(" ")[0];
+		const key = `${yearOf(bar.label)}-${quarterOf[month]}-${bar.after}-${Boolean(bar.paused)}`;
+		let group = quarters.at(-1);
+		if (group?.key !== key) {
+			group = { months: [], year: yearOf(bar.label), total: 0, after: bar.after, paused: Boolean(bar.paused), key };
+			quarters.push(group);
+		}
+		group.months.push(month.slice(0, 3));
+		group.total += bar.value;
+	}
+}
+const rows = quarters.map((q) => ({
+	...q,
+	label: q.months.length > 1 ? `${q.months[0]} to ${q.months.at(-1)} ${q.year}` : `${q.months[0]} ${q.year}`,
+	average: Math.round(q.total / q.months.length),
+}));
+const rowMax = Math.max(...rows.map((r) => r.average), 1);
 
 // Gridlines at round numbers, e.g. 50 and 100.
 const gridlines: number[] = [];
@@ -99,7 +125,25 @@ if (!isPeriods) {
 			</div>
 		</div>
 	) : (
-		<div class="pl-9">
+		<>
+		<div class="sm:hidden">
+			<p class="mb-3 text-sm text-neutral-600">Average per month, grouped by quarter</p>
+			<ul class="space-y-1.5 text-xs text-neutral-600 tabular-nums">
+				{rows.map((row) => (
+					<li class="grid grid-cols-[7.5rem_1fr_1.75rem] items-center gap-2">
+						<span>{row.label}{row.paused && pausedLabel && <span class="sr-only">, {pausedLabel}</span>}</span>
+						<span aria-hidden="true">
+							<span
+								class:list={["block h-3 min-w-0.5 rounded-r-xs", row.paused ? "ring-1 ring-brand ring-inset" : row.after ? "bg-brand" : "bg-neutral-400"]}
+								style={`width:${(row.average / rowMax) * 100}%;${row.paused ? hatch : ""}`}
+							></span>
+						</span>
+						<span class="text-right text-ink">{row.average}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+		<div class="pl-9 max-sm:hidden">
 			<div role="img" aria-label={description} class="relative flex items-end gap-0.5 border-b border-ink" style={`height:${plotHeight}px`}>
 				{gridlines.map((v) => (
 					<div aria-hidden="true" class="absolute inset-x-0 border-t border-dashed border-neutral-300" style={`bottom:${heightOf(v)}px`}>
@@ -117,9 +161,10 @@ if (!isPeriods) {
 				))}
 			</div>
 			<div aria-hidden="true" class="mt-2 flex gap-0.5 text-xs leading-snug text-neutral-600">
-				{ticks.map((tick, i) => <div class:list={["min-w-0 flex-1 whitespace-nowrap", i === 0 && "max-sm:invisible"]}>{tick}</div>)}
+				{ticks.map((tick) => <div class="min-w-0 flex-1 whitespace-nowrap">{tick}</div>)}
 			</div>
 		</div>
+		</>
 	)}
 
 	{note && <p class="text-sm text-neutral-600">{note}</p>}
