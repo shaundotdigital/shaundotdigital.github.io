@@ -4,43 +4,43 @@ import footer from "../data/footer.json";
 
 // The words and links live in src/data/footer.json, which Pages CMS edits.
 const stack = footer.builtWith;
+const footerLink = "link inline-flex min-h-11 min-w-11 items-center active:text-paper/60";
 ---
 
 <footer class="theme-inverse bg-ink font-sans text-paper/80">
   <div class="container-default flex flex-col gap-4 border-t py-8 border-paper/15 text-sm md:flex-row md:items-start md:justify-between">
-    <!-- Taller lines and a little padding give the links a bigger tap area without overlapping -->
-    <div class="space-y-2 leading-7">
+    <!-- Each link stands on its own, at least 44px tall and wide, so it is easy to tap -->
+    <div>
       <p>&copy; {new Date().getFullYear()} {footer.copyright}</p>
-      <p>
-        Built with{" "}
-        {stack.map((item, i) => (
-          <>
-            <a href={item.url} target="_blank" rel="noopener" class="link py-1 active:text-paper/60">{item.label}</a>
-            {i < stack.length - 2 ? ", " : i === stack.length - 2 ? " and " : "."}
-          </>
+      <ul class="flex flex-wrap items-center gap-x-4">
+        <li>Built with</li>
+        {stack.map((item) => (
+          <li>
+            <a href={item.url} target="_blank" rel="noopener" class={footerLink}>{item.label}</a>
+          </li>
         ))}
-        {" "}Film data from{" "}
-        <a href="https://letterboxd.com" target="_blank" rel="noopener" class="link py-1 active:text-paper/60">Letterboxd</a>.
+      </ul>
+      <p class="flex flex-wrap items-center gap-x-4">
+        Film data from
+        <a href="https://letterboxd.com" target="_blank" rel="noopener" class={footerLink}>Letterboxd</a>
       </p>
     </div>
 
-    <div class="max-w-full leading-7">
-      <p>
-        {footer.analyticsNotice}{" "}
-        <a href="/privacy" class="link py-1 active:text-paper/60">{footer.privacyLink}</a>
-      </p>
-      <p class="mt-2">
+    <div class="max-w-md">
+      <p>{footer.analyticsNotice}</p>
+      <div class="flex flex-wrap items-center gap-x-4">
+        <a href="/privacy" class={footerLink}>{footer.privacyLink}</a>
         <button
           type="button"
           data-analytics-toggle
           data-track-ignore
           data-key={OPT_OUT_KEY}
-          class="link tap-target cursor-pointer active:text-paper/60"
+          class:list={[footerLink, "cursor-pointer"]}
         >
           Opt out of analytics
         </button>
-        <span data-analytics-status role="status" class="ml-2"></span>
-      </p>
+        <span data-analytics-status role="status"></span>
+      </div>
     </div>
   </div>
 </footer>
