@@ -138,6 +138,19 @@
   }
 }
 
+/* View transitions: pages cross-fade, and a project's title moves from its card into the
+   page. Browsers without support just load the next page as normal. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 200ms;
+  animation-timing-function: ease-out;
+}
+
 @layer components {
   /* Horizontal frame only. Sections set their own vertical padding (py-20). */
   .container-default {

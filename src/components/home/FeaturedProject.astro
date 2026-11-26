@@ -19,7 +19,7 @@ const project = (await getProjects()).find((p) => p.data.results)?.data;
       >
         <div>
           <p class="label text-neutral-600">Case study{project.category && `, ${project.category.toLowerCase()}`}</p>
-          <h2 id="featured-heading" class="mt-2 text-2xl leading-[1.2] md:text-3xl">{project.title}</h2>
+          <h2 id="featured-heading" class="mt-2 text-2xl leading-[1.2] md:text-3xl" style={`view-transition-name:project-${project.slug}`}>{project.title}</h2>
           {project.summary && <p class="mt-4 text-neutral-700">{project.summary}</p>}
           <p class="mt-6 inline-flex items-center gap-2 font-medium">
             <span class="link group-hover:decoration-brand">Read the case study</span>
