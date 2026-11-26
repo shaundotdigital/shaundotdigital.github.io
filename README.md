@@ -45,7 +45,7 @@ src/
   data/projects/    One JSON file per project case study
   layouts/          Layout.astro: the shared page shell, <head>, meta tags and share image
   lib/              letterboxd.ts (films data), projects.ts (list, order and hide drafts), projectImages.ts, projectDate.ts
-  pages/            index.astro (homepage), privacy.astro, projects/index.astro (the list) and projects/[slug].astro (one case study)
+  pages/            index.astro (homepage), 404.astro, privacy.astro, projects/index.astro (the list) and projects/[slug].astro (one case study)
   styles/           global.css: Tailwind, theme colours, dark mode and shared classes
 ```
 

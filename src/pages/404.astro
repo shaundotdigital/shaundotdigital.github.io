@@ -1,0 +1,29 @@
+---
+// Shown for any address that doesn't exist. GitHub Pages serves the built 404.html.
+import Layout from "../layouts/Layout.astro";
+import SiteNav from "../components/SiteNav.astro";
+import Icon from "../components/Icon.astro";
+import { getProjects } from "../lib/projects";
+
+const hasProjects = (await getProjects()).length > 0;
+---
+
+<Layout title="Page not found" description="There is no page at this address.">
+	<meta slot="head" name="robots" content="noindex" />
+	<SiteNav />
+	<main class="font-sans">
+		<section id="not-found" class="texture-grid bg-paper text-ink">
+			<div class="container-default pt-32 pb-20 md:pt-40">
+				<h1 class="max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl">There's no page at this address</h1>
+				<p class="mt-6 max-w-2xl text-lg text-neutral-700">The link may be old, or there may be a typo in it.</p>
+				<div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">
+					<a href="/" class="button-primary">
+						Go to the homepage
+						<span class="button-dot"><Icon name="arrow-right" class="size-5" /></span>
+					</a>
+					{hasProjects && <a href="/projects" class="link tap-target active:text-neutral-600">See my projects</a>}
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
