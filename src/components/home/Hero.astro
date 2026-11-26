@@ -8,6 +8,9 @@ import hero from "../../data/hero.json";
 // The words live in src/data/hero.json, which Pages CMS edits.
 const { roles, card } = hero;
 
+// Keep "I" on the same line as the word after it, so it is never left at the end of a line.
+const headlineStart = hero.headlineStart.replace(/\bI /g, "I\u00a0");
+
 // The ID card photo is picked in Pages CMS from src/assets, so Astro can still resize it.
 const photos = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,jpg,png,webp,avif}", { eager: true });
 const photo = photos[card.photo]?.default;
@@ -51,7 +54,7 @@ const shortDate = (iso: string) => {
       <!-- The key phrase gets a black pill, like the logo, that sweeps in once the page loads.
            See .pill-reveal in global.css. It never wraps, so keep the phrase short. -->
       <h1 class="mt-6 max-w-3xl text-[2rem] leading-[1.2] sm:text-5xl xl:text-5xl">
-        {hero.headlineStart}{" "}
+        {headlineStart}{" "}
         <span class="relative inline-block rounded-full px-[0.4em] pt-[0.02em] pb-[0.1em] whitespace-nowrap">
           {hero.headlineHighlight}
           <!-- The same words on the black pill, revealed over the plain ones. The words come from

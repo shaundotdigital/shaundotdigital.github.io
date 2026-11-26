@@ -22,7 +22,7 @@ const { id, heading, intro, surface = "paper" } = Astro.props;
 >
 	<div class="container-default flex flex-col gap-10 py-20">
 		<div class="flex flex-col gap-4">
-			<h2 id={`${id}-heading`} class="max-w-3xl font-display text-3xl leading-tight font-bold tracking-tight text-balance">
+			<h2 id={`${id}-heading`} class="max-w-3xl font-display text-2xl leading-tight font-bold tracking-tight text-balance max-sm:text-pretty sm:text-3xl">
 				{heading}
 			</h2>
 			{intro && (
